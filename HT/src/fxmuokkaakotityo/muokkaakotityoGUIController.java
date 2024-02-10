@@ -1,9 +1,116 @@
 package fxmuokkaakotityo;
 
+
+import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ListChooser;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+
 /**
  * @author jyrihuhtala
- * @version 28.1.2024
+ * @version 10.2.2024
  */
 public class muokkaakotityoGUIController {
-    // TODO
+    @FXML
+    private Button buttonPoistaKotityo;
+
+    @FXML
+    private Button buttonTallenna;
+
+    @FXML
+    private Button buttonUusiKotityo;
+
+    @FXML
+    private TextField hakuKentta;
+
+    @FXML
+    private ListChooser<?> kotityoValikko;
+
+    @FXML
+    private ChoiceBox<?> vetoValikkoVanhenee;
+
+    @FXML
+    private ChoiceBox<?> vetovalikkoKesto;
+
+    @FXML
+    private ChoiceBox<?> vetovalikkoTekija;
+
+
+    /**
+     * Kirjoittamalla hakukenttään voidaan kotitöiden joukosta hakea syötettä vastaavia kotitöitä.
+     * @param event
+     */
+    @FXML void haeKotityo(KeyEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata hakea kotitöitä");
+    }
+
+    /**
+     * Avaa vetovalikon, josta voidaan valita kotityön arvioitu kestoaika.
+     * @param event
+     */
+    @FXML void klikkaaKesto(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata muokata kestoa");
+    }
+
+
+    /**
+     * Tallentaa valittuun kotityöhön tehdyt muutokset
+     * @param event
+     */
+    @FXML void klikkaaTallenna(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata tallentaa kotityötä");
+    }
+
+    /**
+     * Avaa vetovalikon, josta voidaan valita kotityölle tekijä.
+     * @param event
+     */
+    @FXML void klikkaaTekija(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata muokata tekijää");
+
+    }
+
+    /**
+     * Avaa lisää kotityö ikkunan.
+     * @param event
+     */
+    @FXML void klikkaaUusiKotityo(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata avata lisää kotityö ikkunaa");
+
+    }
+
+    /**
+     * Valitsee taulukosta muokattavaksi halutun kotityön.
+     * @param event
+     */
+    @FXML
+    void klikkaaValitseKotityo(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata valita kotityötä muokattavaksi");
+
+    }
+
+    /**
+     * Poistaa valitun kotityön listalta ja tiedostosta.
+     * @param event
+     */
+    @FXML
+    void klikkaapoistaKotityo(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata poistaa kotityötä");
+
+    }
+
+    /**
+     * Avaa vetovalikon, josta voidaa valita kotityölle haluttu vanhenemisaika.
+     * @param event
+     */
+    @FXML
+    void klikkaavetovalikkoVanhenee(MouseEvent event) {
+        Dialogs.showMessageDialog("Vielä ei osata muokata vanhenemisaikaa");
+
+    }
+
 }

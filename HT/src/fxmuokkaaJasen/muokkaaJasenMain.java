@@ -1,4 +1,4 @@
-package fxlisaaaSuoritus;
+package fxmuokkaaJasen;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -9,19 +9,19 @@ import javafx.fxml.FXMLLoader;
 
 /**
  * @author jyrihuhtala
- * @version 28.1.2024
+ * @version 27.1.2024
  */
-public class lisaaaSuoritusMain extends Application {
+public class muokkaaJasenMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader ldr = new FXMLLoader(getClass().getResource("lisaaaSuoritusGUIView.fxml"));
+            FXMLLoader ldr = new FXMLLoader(getClass().getResource("muokkaaJasenGUIView.fxml"));
             final Pane root = ldr.load();
-            //final lisaaaSuoritusGUIController lisaaasuoritusCtrl = (lisaaaSuoritusGUIController)ldr.getController();
+            //final muokkausikkunaGUIController muokkausikkunaCtrl = (muokkausikkunaGUIController)ldr.getController();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("lisaaasuoritus.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("muokkaaJasen.css").toExternalForm());
             primaryStage.setScene(scene);
-            primaryStage.setTitle("lisaaaSuoritus");
+            primaryStage.setTitle("muokkausikkuna");
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

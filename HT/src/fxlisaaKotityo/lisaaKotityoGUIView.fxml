@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxlisaaKotityo.lisaaKotityoGUIController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -32,7 +31,10 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.halignment="LEFT" />
+            <TextField GridPane.columnIndex="1" GridPane.halignment="LEFT">
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></TextField>
             <Label text="Vanhenemisaika:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -48,19 +50,19 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" text="OK" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Button fx:id="buttonOK" mnemonicParsing="false" onMouseClicked="#klikkaaOK" text="OK" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button fx:id="buttonCancel" mnemonicParsing="false" onMouseClicked="#klikkaaCancel" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Button>
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="vetovalikkoVanhenemisaika" onMouseClicked="#klikkaaVanhenemisaika" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="vetovalikkoKesto" onMouseClicked="#klikkaaKesto" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="vetovalikkoVastuuhenkilo" onMouseClicked="#klikkaaVastuuhenkilo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>
