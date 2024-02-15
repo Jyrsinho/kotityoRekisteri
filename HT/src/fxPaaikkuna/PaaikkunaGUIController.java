@@ -1,9 +1,17 @@
 package fxPaaikkuna;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
+import fxAloitusnakyma.AloitusnakymaGUIController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 /**
  * @author jyrihuhtala
  * @version 26.1.2024
@@ -26,7 +34,8 @@ public class PaaikkunaGUIController {
      * @param event
      */
     @FXML void lisaaJasenKlikkaus(MouseEvent event) {
-        Dialogs.showMessageDialog("Ei osata vielä avata lisää jäsen ikkunaa.");
+      //  Dialogs.showMessageDialog("Ei osata vielä avata lisää jäsen ikkunaa.");
+
     }
 
     /**
@@ -73,6 +82,17 @@ public class PaaikkunaGUIController {
     void klikkaaValitseJasen(MouseEvent event) {
         Dialogs.showMessageDialog("Ei osata vielä valita jäsentä");
 
+    }
+
+    /**
+     * @return false jos painetaan cancel.
+     */
+    public boolean avaa() {
+
+        String uusinimi = AloitusnakymaGUIController.kysyNimi(null, "siivousperhe");
+        if (uusinimi == null) return false;
+       // lueTiedosto(uusinimi); EI OSATA VIELÄ
+        return true;
     }
 }
 

@@ -1,6 +1,7 @@
 package fxPaaikkuna;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -17,12 +18,15 @@ public class PaaikkunaMain extends Application {
         try {
             FXMLLoader ldr = new FXMLLoader(getClass().getResource("PaaikkunaGUIView.fxml"));
             final Pane root = ldr.load();
-            //final PaaikkunaGUIController paaikkunaCtrl = (PaaikkunaGUIController)ldr.getController();
+            final PaaikkunaGUIController paaikkunaCtrl = (PaaikkunaGUIController)ldr.getController();
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("paaikkuna.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("Paaikkuna");
             primaryStage.show();
+            if ( !paaikkunaCtrl.avaa() ) Platform.exit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
