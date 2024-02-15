@@ -34,7 +34,7 @@ public class PaaikkunaGUIController {
      * @param event
      */
     @FXML void lisaaJasenKlikkaus(MouseEvent event) {
-      //  Dialogs.showMessageDialog("Ei osata vielä avata lisää jäsen ikkunaa.");
+      Dialogs.showMessageDialog("Ei osata vielä avata lisää jäsen ikkunaa.");
 
     }
 

@@ -2,6 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -44,5 +47,32 @@
       <BorderPane>
     <!-- TODO Add Nodes -->
 </BorderPane>
+      <MenuBar prefHeight="28.0" prefWidth="480.0" GridPane.columnSpan="3" GridPane.valignment="TOP">
+         <menus>
+            <Menu mnemonicParsing="false" text="TIEDOSTO">
+               <items>
+                  <MenuItem fx:id="menuTallenna" mnemonicParsing="false" onAction="#menuklikkaaTAllenna" text="Tallenna" />
+                  <MenuItem fx:id="menuAvaa" mnemonicParsing="false" onAction="#menuKlikkaaAvaa" text="Avaa" />
+                  <MenuItem fx:id="menuTulosta" mnemonicParsing="false" onAction="#menuKlikkaaTulosta" text="Tulosta" />
+                  <MenuItem fx:id="menuLopeta" mnemonicParsing="false" onAction="#menuKlikkaaLopeta" text="Lopeta " />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="MUOKKAA">
+               <items>
+                  <MenuItem fx:id="menuLisaaJasen" mnemonicParsing="false" onAction="#menuKlikkaaLisaaJasen" text="Lisää uusi jäsen" />
+                  <MenuItem fx:id="menuPoistaJasen" mnemonicParsing="false" onAction="#menuKlikkaaPoistaJasen" text="Poista jäsen" />
+                  <MenuItem fx:id="menuMuokkaaJasen" mnemonicParsing="false" onAction="#menuKlikkaaMuokkaaJasen" text="Muokkaa jäsen" />
+                  <MenuItem fx:id="menuLisaaKotityo" mnemonicParsing="false" onAction="#menuKlikkaaLisaaKotityo" text="Lisää kotityö" />
+                  <MenuItem fx:id="menuPoistaKotityo" mnemonicParsing="false" onAction="#menuKlikkaaPoistaKotityo" text="Poista kotityö" />
+                  <MenuItem fx:id="menuMuokkaaKotityo" mnemonicParsing="false" onAction="#menuKlikkaaMuokkaaKotityo" text="Muokkaa kotityö" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="APUA">
+               <items>
+                  <MenuItem fx:id="menuApua" mnemonicParsing="false" onAction="#avaaApua" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </GridPane>

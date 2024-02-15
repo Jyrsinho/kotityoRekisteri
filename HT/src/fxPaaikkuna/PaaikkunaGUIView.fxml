@@ -46,15 +46,6 @@
                   <MenuItem mnemonicParsing="false" text="Muokkaa kotityö" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="NÄYTÄ">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Jäsenet" />
-                  <MenuItem mnemonicParsing="false" text="Tekemättä" />
-                  <MenuItem mnemonicParsing="false" text="Tehty" />
-                  <MenuItem mnemonicParsing="false" text="Tehdyt kotityöt" />
-                  <MenuItem mnemonicParsing="false" text="Kaikki kotityöt" />
-              </items>
-            </Menu>
           <Menu mnemonicParsing="false" text="APUA">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
