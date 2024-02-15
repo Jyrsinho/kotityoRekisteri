@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 

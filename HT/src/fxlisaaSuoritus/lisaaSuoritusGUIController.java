@@ -2,6 +2,9 @@ package fxlisaaSuoritus;
 
 
 import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ModalController;
+import fi.jyu.mit.fxgui.ModalControllerInterface;
+import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -12,7 +15,7 @@ import javafx.scene.input.MouseEvent;
  * @author jyrihuhtala
  * @version 28.1.2024
  */
-public class lisaaaSuoritusGUIController {
+public class lisaaSuoritusGUIController implements ModalControllerInterface<String> {
 
     @FXML private Button buttonCancel;
 
@@ -30,7 +33,8 @@ public class lisaaaSuoritusGUIController {
      */
     @FXML
     void clickedCancel(MouseEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata peruuttaa.");
+        // Dialogs.showMessageDialog("Vielä ei osata peruuttaa.");
+        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
 
     }
 
@@ -51,6 +55,8 @@ public class lisaaaSuoritusGUIController {
     @FXML
     void clickedOK(MouseEvent event) {
         Dialogs.showMessageDialog("Vielä ei osata tallentaa.");
+        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+
 
     }
 
@@ -75,4 +81,18 @@ public class lisaaaSuoritusGUIController {
 
     }
 
+    @Override
+    public String getResult() {
+        return null;
+    }
+
+    @Override
+    public void setDefault(String s) {
+
+    }
+
+    @Override
+    public void handleShown() {
+
+    }
 }

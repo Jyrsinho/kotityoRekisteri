@@ -1,11 +1,14 @@
 package fxlisaaJasen;
 
 import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ModalController;
+import fi.jyu.mit.fxgui.ModalControllerInterface;
+import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class lisaaJasenGUIController {
+public class lisaaJasenGUIController implements ModalControllerInterface<String> {
 
     @FXML private Button ButtonOK;
 
@@ -17,7 +20,7 @@ public class lisaaJasenGUIController {
      */
     @FXML
     void klikkaaCancel(MouseEvent event) {
-         Dialogs.showMessageDialog("Ei osata vielä peruuttaa.");
+        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
     }
 
     /**
@@ -27,6 +30,22 @@ public class lisaaJasenGUIController {
     @FXML
     void klikkaaOK(MouseEvent event) {
         Dialogs.showMessageDialog("Ei osata vielä tallentaa.");
+        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+
     }
 
+    @Override
+    public String getResult() {
+        return null;
+    }
+
+    @Override
+    public void setDefault(String s) {
+
+    }
+
+    @Override
+    public void handleShown() {
+
+    }
 }
