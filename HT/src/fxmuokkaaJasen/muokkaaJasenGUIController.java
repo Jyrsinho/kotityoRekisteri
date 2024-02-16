@@ -1,6 +1,9 @@
 package fxmuokkaaJasen;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
+import fi.jyu.mit.fxgui.ModalController;
+import fi.jyu.mit.fxgui.ModalControllerInterface;
+import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,9 +17,11 @@ import javafx.scene.input.MouseEvent;
 /**
  * Ikkunassa voidaan muokata jäsenten tietoja.
  */
-    public class muokkaaJasenGUIController {
+    public class muokkaaJasenGUIController implements ModalControllerInterface<String> {
 
         @FXML private Button buttonMuokkaaKotityö;
+
+        @FXML private Button buttonCancel;
 
         @FXML private Button buttonPoistaJasen;
 
@@ -69,8 +74,15 @@ import javafx.scene.input.MouseEvent;
     @FXML void klikkaaTallenna(MouseEvent event) {
 
         Dialogs.showMessageDialog("Vielä ei osata tallentaa");
+        ModalController.closeStage(buttonCancel);
 
-        }
+    }
+
+    @FXML
+    void klikkaaCancel(MouseEvent event) {
+        ModalController.closeStage(buttonCancel);
+
+    }
 
     /**
      * Avaa Lisää jäsen ikkunan
@@ -102,5 +114,19 @@ import javafx.scene.input.MouseEvent;
 
         }
 
+    @Override
+    public String getResult() {
+        return null;
     }
+
+    @Override
+    public void setDefault(String s) {
+
+    }
+
+    @Override
+    public void handleShown() {
+
+    }
+}
 

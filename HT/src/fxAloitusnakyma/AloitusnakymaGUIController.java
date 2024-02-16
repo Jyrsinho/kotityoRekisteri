@@ -20,43 +20,8 @@ public class AloitusnakymaGUIController implements ModalControllerInterface<Stri
 
     @FXML private Button buttonOK;
 
-    @FXML private MenuItem menuApua;
-
-    @FXML private MenuItem menuAvaa;
-
-    @FXML private MenuItem menuLisaaJasen;
-
-    @FXML private MenuItem menuLisaaKotityo;
-
-    @FXML private MenuItem menuLopeta;
-
-    @FXML private MenuItem menuMuokkaaJasen;
-
-    @FXML private MenuItem menuMuokkaaKotityo;
-
-    @FXML private MenuItem menuPoistaJasen;
-
-    @FXML private MenuItem menuPoistaKotityo;
-
-
-    @FXML private MenuItem menuTallenna;
-
-    @FXML private MenuItem menuTulosta;
-
-
     @FXML private TextField textTiiminNimi;
     private String vastaus = null;
-
-
-    @FXML void avaaApua(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata apuikkunaa.");
-    }
-
-    @FXML void avaaJasenet(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata näyttää jäseniä.");
-    }
-
-
 
     /**
      * Peruuttaa aloitusikkunan avaamisen ja sulkee ohjelman.
@@ -67,44 +32,7 @@ public class AloitusnakymaGUIController implements ModalControllerInterface<Stri
         ModalController.closeStage(textTiiminNimi);
 
     }
-    @FXML void menuKlikkaaAvaa(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata tiedostoa.");
-    }
 
-    @FXML void menuKlikkaaLisaaJasen(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata lisätä jäsentä");
-    }
-    @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata Lisaa Kotityo-ikkunaa");
-    }
-
-    @FXML void menuKlikkaaMuokkaaJasen(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata Muokkaa Jasen-ikkunaa");
-    }
-
-    @FXML void menuKlikkaaPoistaJasen(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata poistaa jäsentä.");
-    }
-
-    @FXML void menuKlikkaaMuokkaaKotityo(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata Muokkaa Kotityö-ikkunaa");
-    }
-
-    @FXML void menuKlikkaaPoistaKotityo(ActionEvent event) {
-            Dialogs.showMessageDialog("Vielä ei osata poistaa kotitöitä.");
-    }
-
-    @FXML void menuKlikkaaTulosta(ActionEvent event) {
-            Dialogs.showMessageDialog("Vielä ei osata tulostaa");
-    }
-    @FXML void menuKlikkaaLopeta(ActionEvent event) {
-        ModalController.closeStage(textTiiminNimi);
-    }
-
-    @FXML void menuklikkaaTAllenna(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata tallentaa tiedostoa");
-
-    }
     /**
      * Avaa käyttäjän valitseman siivoustiimi tiedoston ja ohjelma siirtyy päävalikkoon.
      * @param event

@@ -5,9 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
@@ -30,30 +27,6 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MenuBar prefHeight="28.0" prefWidth="403.0" GridPane.columnSpan="2" GridPane.valignment="TOP">
-         <menus>
-            <Menu mnemonicParsing="false" text="Tiedosto">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Muokkaa">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Näytä">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Apua">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <Label text="17:35 20.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
       <Label text="Hakuehto:" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
@@ -168,6 +141,11 @@
       <Button fx:id="buttonTallenna" mnemonicParsing="false" onMouseClicked="#klikkaaTallenna" text="Tallenna" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="buttonCancel" mnemonicParsing="false" onMouseClicked="#klikkaaCancel" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="10.0" />
          </GridPane.margin>
       </Button>
    </children>

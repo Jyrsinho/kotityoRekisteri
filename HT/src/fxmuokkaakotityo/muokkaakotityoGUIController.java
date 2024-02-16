@@ -3,6 +3,9 @@ package fxmuokkaakotityo;
 
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
+import fi.jyu.mit.fxgui.ModalController;
+import fi.jyu.mit.fxgui.ModalControllerInterface;
+import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -14,12 +17,14 @@ import javafx.scene.input.MouseEvent;
  * @author jyrihuhtala
  * @version 10.2.2024
  */
-public class muokkaakotityoGUIController {
+public class muokkaakotityoGUIController implements ModalControllerInterface<String> {
     @FXML
     private Button buttonPoistaKotityo;
 
     @FXML
     private Button buttonTallenna;
+
+    @FXML private Button buttonCancel;
 
     @FXML
     private Button buttonUusiKotityo;
@@ -57,14 +62,20 @@ public class muokkaakotityoGUIController {
     }
 
 
+    @FXML void klikkaaCancel(MouseEvent event) {
+
+        ModalController.closeStage(buttonCancel);
+
+    }
     /**
      * Tallentaa valittuun kotityöhön tehdyt muutokset
      * @param event
      */
     @FXML void klikkaaTallenna(MouseEvent event) {
         Dialogs.showMessageDialog("Vielä ei osata tallentaa kotityötä");
-    }
 
+        ModalController.closeStage(buttonCancel);
+    }
     /**
      * Avaa vetovalikon, josta voidaan valita kotityölle tekijä.
      * @param event
@@ -113,4 +124,18 @@ public class muokkaakotityoGUIController {
 
     }
 
+    @Override
+    public String getResult() {
+        return null;
+    }
+
+    @Override
+    public void setDefault(String s) {
+
+    }
+
+    @Override
+    public void handleShown() {
+
+    }
 }

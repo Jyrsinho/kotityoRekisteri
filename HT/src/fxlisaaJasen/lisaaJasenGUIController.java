@@ -7,6 +7,7 @@ import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class lisaaJasenGUIController implements ModalControllerInterface<String> {
 
@@ -20,7 +21,7 @@ public class lisaaJasenGUIController implements ModalControllerInterface<String>
      */
     @FXML
     void klikkaaCancel(MouseEvent event) {
-        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+    ModalController.closeStage(buttonCancel);
     }
 
     /**
@@ -30,7 +31,7 @@ public class lisaaJasenGUIController implements ModalControllerInterface<String>
     @FXML
     void klikkaaOK(MouseEvent event) {
         Dialogs.showMessageDialog("Ei osata vielä tallentaa.");
-        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+        ModalController.closeStage(buttonCancel);        //  ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
 
     }
 

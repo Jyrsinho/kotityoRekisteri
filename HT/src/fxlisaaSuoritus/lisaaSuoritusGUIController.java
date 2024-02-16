@@ -34,7 +34,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Stri
     @FXML
     void clickedCancel(MouseEvent event) {
         // Dialogs.showMessageDialog("Vielä ei osata peruuttaa.");
-        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+        ModalController.closeStage(buttonCancel);
 
     }
 
@@ -55,7 +55,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Stri
     @FXML
     void clickedOK(MouseEvent event) {
         Dialogs.showMessageDialog("Vielä ei osata tallentaa.");
-        ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+        ModalController.closeStage(buttonCancel);
 
 
     }

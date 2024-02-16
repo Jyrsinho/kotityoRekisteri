@@ -48,7 +48,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="APUA">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuApua" mnemonicParsing="false" onAction="#klikkaaApua" text="About" />
             </items>
           </Menu>
         </menus>

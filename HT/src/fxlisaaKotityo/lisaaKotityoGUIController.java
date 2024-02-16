@@ -34,7 +34,7 @@ public class lisaaKotityoGUIController implements ModalControllerInterface<Strin
      */
     @FXML void klikkaaCancel(MouseEvent event) {
 
-            ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+        ModalController.closeStage(buttonCancel);
 
 
     }
@@ -44,8 +44,8 @@ public class lisaaKotityoGUIController implements ModalControllerInterface<Strin
      */
     @FXML void klikkaaOK(MouseEvent event) {
 
-            Dialogs.showMessageDialog("Ei osata vielä tallentaa.");
-            ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
+        Dialogs.showMessageDialog("Ei osata vielä tallentaa.");
+        ModalController.closeStage(buttonCancel);
 
     }
 

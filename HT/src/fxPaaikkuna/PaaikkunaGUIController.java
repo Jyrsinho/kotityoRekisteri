@@ -8,12 +8,20 @@ import fxAloitusnakyma.AloitusnakymaGUIController;
 import fxlisaaJasen.lisaaJasenGUIController;
 import fxlisaaKotityo.lisaaKotityoGUIController;
 import fxlisaaSuoritus.lisaaSuoritusGUIController;
+import fxmuokkaaJasen.muokkaaJasenGUIController;
+import fxmuokkaakotityo.muokkaakotityoGUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * @author jyrihuhtala
@@ -50,7 +58,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
     @FXML private MenuItem menuPoistaJasen;
 
     @FXML private MenuItem menuPoistaKotityo;
-
 
     @FXML private MenuItem menuTallenna;
 
@@ -113,18 +120,25 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
 
     }
     @FXML void menuKlikkaaAvaa(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata tiedostoa.");
+
+        ModalController.showModal(AloitusnakymaGUIController.class.getResource("Aloitusnakyma.fxml"), "Aloita", null, "");
+
+    }
+    @FXML void klikkaaApua(ActionEvent event) {
+        avustus();
     }
 
     @FXML void menuKlikkaaLisaaJasen(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata lisätä jäsentä");
+
+        ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
     }
     @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata Lisaa Kotityo-ikkunaa");
+        ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"),"Lisää Kotityö",null,"");
     }
 
     @FXML void menuKlikkaaMuokkaaJasen(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata Muokkaa Jasen-ikkunaa");
+
+        ModalController.showModal(muokkaaJasenGUIController.class.getResource("muokkaaJasenGuiView.fxml"),"Muokkaa Jäsen", null,"");
     }
 
     @FXML void menuKlikkaaPoistaJasen(ActionEvent event) {
@@ -132,7 +146,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
     }
 
     @FXML void menuKlikkaaMuokkaaKotityo(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata avata Muokkaa Kotityö-ikkunaa");
+
+        ModalController.showModal(muokkaakotityoGUIController.class.getResource("muokkaakotityoGUIView.fxml"),"Muokkaa kotityö", null, "");
     }
 
     @FXML void menuKlikkaaPoistaKotityo(ActionEvent event) {
@@ -176,5 +191,22 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
     public void handleShown() {
 
     }
+
+    /**
+     * Näytetään ohjelman suunnitelma erillisessä selaimessa.
+     */
+    private void avustus() {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            URI uri = new URI("https://tim.jyu.fi/view/kurssit/tie/ohj2/2024k/ht/huhtjyil");
+            desktop.browse(uri);
+        } catch (URISyntaxException e) {
+            return;
+        } catch (IOException e) {
+            return;
+        }
+    }
+
+
 }
 
