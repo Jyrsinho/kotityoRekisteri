@@ -8,6 +8,7 @@ import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 
@@ -21,11 +22,11 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Stri
 
     @FXML private Button buttonOK;
 
-    @FXML private ChoiceBox<?> choiceboxKotityo;
+    @FXML private ComboBox<?> choiceboxKotityo;
 
     @FXML private DatePicker kalenteriValinta;
 
-    @FXML private ChoiceBox<?> tekijaValinta;
+    @FXML private ComboBox<?> tekijaValinta;
 
     /**
      * peruuttuu suorituksen lisäämisen ja ohjelma palaa päävalikkoon.
@@ -67,7 +68,6 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Stri
      */
     @FXML
     void clickedTekijaValinta(MouseEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata valita tekijää.");
 
     }
 
@@ -77,7 +77,6 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Stri
      */
     @FXML
     void kotityoVetoValikkoKlikkaus(MouseEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata valita suoritettavaa kotityötä.");
 
     }
 

@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ChoiceBox;
 
@@ -22,11 +23,11 @@ public class lisaaKotityoGUIController implements ModalControllerInterface<Strin
 
     @FXML private Button buttonOK;
 
-    @FXML private ChoiceBox<?> vetovalikkoKesto;
+    @FXML private ComboBox<?> vetovalikkoKesto;
 
-    @FXML private ChoiceBox<?> vetovalikkoVanhenemisaika;
+    @FXML private ComboBox<?> vetovalikkoVanhenemisaika;
 
-    @FXML private ChoiceBox<?> vetovalikkoVastuuhenkilo;
+    @FXML private ComboBox<?> vetovalikkoVastuuhenkilo;
 
     /**
      * Peruuttaa kotityön lisäämisen ja ohjelma palaa päävalikkoon.
