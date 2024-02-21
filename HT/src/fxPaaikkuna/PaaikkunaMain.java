@@ -1,5 +1,6 @@
 package fxPaaikkuna;
 
+import Siivoustiimi.Siivoustiimi;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -24,6 +25,10 @@ public class PaaikkunaMain extends Application {
             scene.getStylesheets().add(getClass().getResource("paaikkuna.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("Paaikkuna");
+
+            Siivoustiimi siivoustiimi = new Siivoustiimi();
+            paaikkunaCtrl.setSiivoustiimi(siivoustiimi);
+
             primaryStage.show();
             if ( !paaikkunaCtrl.avaa() ) Platform.exit();
 

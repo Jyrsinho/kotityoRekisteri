@@ -1,5 +1,6 @@
 package fxPaaikkuna;
 
+import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
@@ -166,6 +167,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
 
     }
 
+    //----------------------------------------------------------------------
+
+    private Siivoustiimi siivoustiimi;
+
     /**
      * @return false jos painetaan cancel.
      */
@@ -205,6 +210,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
         } catch (IOException e) {
             return;
         }
+    }
+
+    public void setSiivoustiimi(Siivoustiimi siivoustiimi) {
+        this.siivoustiimi=siivoustiimi;
     }
 
 
