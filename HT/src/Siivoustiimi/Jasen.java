@@ -2,7 +2,11 @@ package Siivoustiimi;
 
 
 import java.io.OutputStream;
-import java.io.PrintStream; /**
+import java.io.PrintStream;
+import static kanta.RandomNumero.arvoNumero;
+import static kanta.RandomIka.arvoIka;
+
+/**
  * Siivoustiimin jäsen.
  * Tietää jäsenen kentät (sukunimi, etunimi, osoite)
  * Osaa tarkistaa tietyn kentän oikeellisuuden.
@@ -26,14 +30,61 @@ public class Jasen {
 
    private static int seuraavaNro    = 1;
 
+
+    /**
+     * @return jäsenen nimi
+     */
+   public String getNimi() {
+       return etunimi +" "+ sukunimi;
+   }
+
+   public int getId() {
+       return id;
+   }
+
+   // TODO kirjoita testit
     /**
      * Antaa jäsenelle seuraavan tunnusnumeron.
      * @return jäsenen uusi tunnusnumero
+     * @example <pre name="test">
+     * Jasen timo1 = new Jasen();
+     * timo1.getId() === 0;
+     * timo1.rekisteroi();
+     * Jasen timo2 = new Jasen();
+     * timo2.rekisteroi();
+     * int n1 = timo1.getId();
+     * int n2 = timo2.getId();
+     * n1 === n2-1;
+     * </pre>
      */
    public int  rekisteroi() {
        this.id= seuraavaNro;
        seuraavaNro ++;
        return this.id;
+   }
+
+
+    /**
+     * Apumetodi, jolla saadaan täytettyä testiarvot jäsenelle.
+     * Ikä ja puhelinnumero arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
+     */
+   public void taytaJasen(String randomNumero, int randomIka) {
+
+       sukunimi = "Kekkila";
+       etunimi= "Timo";
+       katuosoite = "Talvitie 4";
+       postinumero = "11600";
+       kaupunki = "Vantaa";
+       puhelinNumero = randomNumero;
+       ika = randomIka;
+   }
+
+
+   public void taytaJasen() {
+       int randomIka = arvoIka(15,99);
+       String ramdomNumero = arvoNumero();
+
+       taytaJasen(arvoNumero(), randomIka);
    }
 
     /**
@@ -49,7 +100,7 @@ public class Jasen {
        out.println(kaupunki);
        out.println(puhelinNumero);
        out.println(ika);
-       
+
     }
 
 
@@ -60,6 +111,8 @@ public class Jasen {
    public void tulosta(OutputStream os) {
        tulosta(new PrintStream(os));
    }
+
+
     /**
      * Testiohjelma jäsenelle.
      * @param args ei käytössä.
@@ -67,20 +120,20 @@ public class Jasen {
     public static void main (String args[]) {
 
     Jasen timo = new Jasen();
-    Jasen jaana = new Jasen();
+    Jasen timo2 = new Jasen();
     timo.rekisteroi();
-    jaana.rekisteroi();
+    timo2.rekisteroi();
     timo.tulosta(System.out);
-    jaana.tulosta(System.out);
+    timo2.tulosta(System.out);
 
-/*
+
     timo.taytaJasen();
     timo.tulosta(System.out);
 
-    jaana.taytaJasen();
-    jaana.tulosta(System.out);
+    timo2.taytaJasen();
+    timo2.tulosta(System.out);
 
- */
+
 }
 
 }
