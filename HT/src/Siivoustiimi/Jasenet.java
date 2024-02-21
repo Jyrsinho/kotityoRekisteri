@@ -72,6 +72,7 @@ public class Jasenet {
      */
     public static void main (String []args) {
     Jasenet jasenet = new Jasenet();
+
     Jasen timo1 = new Jasen();
     Jasen timo2 = new Jasen();
 
@@ -83,10 +84,12 @@ public class Jasenet {
     try {
         jasenet.lisaa(timo1);
         jasenet.lisaa(timo2);
-        jasenet.lisaa(timo2);
-        jasenet.lisaa(timo2);
-        jasenet.lisaa(timo2);
-        jasenet.lisaa(timo2);
+
+        for (int i = 0; i < jasenet.getLkm(); i++) {
+            Jasen jasen = jasenet.anna(i);
+            System.out.println("Jäsen indeksi: " + i);
+            jasen.tulosta(System.out);
+        }
     }
    catch (SailoException e) {
         System.err.println(e.getMessage());
