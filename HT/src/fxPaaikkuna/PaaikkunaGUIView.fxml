@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -79,5 +81,10 @@
       <Button fx:id="buttonLisaaJasen" mnemonicParsing="false" onMouseClicked="#lisaaJasenKlikkaus" text="Lisää jäsen" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Button fx:id="buttonLisaaKotityo" mnemonicParsing="false" onMouseClicked="#lisaaKotityklikkaus" text="Lisää kotityö" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Button fx:id="buttonLisaaSuoritus" mnemonicParsing="false" onMouseClicked="#lisaaSuoritusKlikkaus" text="Lisää suoritus" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <ScrollPane fx:id="panelJasen" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
    </children>
 </GridPane>
