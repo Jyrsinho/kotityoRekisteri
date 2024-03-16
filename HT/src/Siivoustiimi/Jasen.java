@@ -32,17 +32,21 @@ public class Jasen {
 
 
     /**
-     * @return jäsenen nimi
+     * @return jasenen nimi
      */
    public String getNimi() {
        return etunimi +" "+ sukunimi;
    }
 
+    /**
+     *
+     * @return jasenen ID
+     */
    public int getId() {
        return id;
    }
 
-   // TODO kirjoita testit
+
     /**
      * Antaa jäsenelle seuraavan tunnusnumeron.
      * @return jäsenen uusi tunnusnumero
@@ -68,24 +72,17 @@ public class Jasen {
      * Apumetodi, jolla saadaan täytettyä testiarvot jäsenelle.
      * Ikä ja puhelinnumero arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
      */
-   public void taytaJasen(String randomNumero, int randomIka) {
+   public void taytaJasen() {
 
        sukunimi = "Kekkila";
        etunimi= "Timo";
        katuosoite = "Talvitie 4";
        postinumero = "11600";
        kaupunki = "Vantaa";
-       puhelinNumero = randomNumero;
-       ika = randomIka;
+       puhelinNumero = arvoNumero();
+       ika = arvoIka(15,99);
    }
 
-
-   public void taytaJasen() {
-       int randomIka = arvoIka(15,99);
-       String ramdomNumero = arvoNumero();
-
-       taytaJasen(arvoNumero(), randomIka);
-   }
 
     /**
      * Tulostetaan henkilön tiedot
@@ -123,12 +120,16 @@ public class Jasen {
     Jasen timo2 = new Jasen();
     timo.rekisteroi();
     timo2.rekisteroi();
-    timo.tulosta(System.out);
-    timo2.tulosta(System.out);
 
+    timo.tulosta(System.out);
+    System.out.println();
+
+    timo2.tulosta(System.out);
+    System.out.println();
 
     timo.taytaJasen();
     timo.tulosta(System.out);
+    System.out.println();
 
     timo2.taytaJasen();
     timo2.tulosta(System.out);

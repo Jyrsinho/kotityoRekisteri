@@ -10,6 +10,9 @@ public class Siivoustiimi {
 
     Jasenet jasenet = new Jasenet();
 
+    //Kotityot kotityot = new Kotityot();
+    //Suoritukset suoritukset = new Suoritukset();
+
     /**
      * palauttaa siivoustiimin jäsenmäärän
      *
@@ -20,6 +23,12 @@ public class Siivoustiimi {
     }
 
 
+    /**
+     * Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
+     * @param i
+     * @return Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
+     * @throws IndexOutOfBoundsException jos indeksi on liian iso.
+     */
     public Jasen annaJasen(int i) throws IndexOutOfBoundsException {
         return jasenet.anna(i);
     }
@@ -52,6 +61,26 @@ public class Siivoustiimi {
     }
 
     /**
+     * Lukee siivoustiimin tiedot tiedostosta
+     * @param nimi jota käyteään lukemisessa
+     * @throws SailoException jos lukeminen epäonnistuu
+     */
+    public void lueTiedostosta(String nimi) throws SailoException {
+        jasenet.lueTiedostosta(nimi);
+    }
+
+    /**
+     * Tallettaa siivoustiimin tiedot tiedostoon
+     * @throws SailoException jos tallettamisessa ongelmia
+     */
+    public void talleta() throws SailoException {
+        jasenet.talleta();
+        // TODO: yritä tallettaa toinen vaikka toinen epäonnistuisi
+    }
+
+
+
+    /**
      * testiohjelma
      * @param args ei käytössä
      */
@@ -76,6 +105,7 @@ public class Siivoustiimi {
                 Jasen jasen = siivoustiimi.annaJasen(i);
                 System.out.println("Jäsen paikassa: " + i);
                 jasen.tulosta(System.out);
+                System.out.println();
             }
 
         } catch (SailoException e) {

@@ -15,6 +15,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
@@ -23,14 +24,20 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import Siivoustiimi.Jasen;
+import Siivoustiimi.SailoException;
 
 /**
+ * Luokka siivoustiimin käyttöliittymän tapahtumien hoitamiseksi
  * @author jyrihuhtala
  * @version 15.2.2024
  */
-public class PaaikkunaGUIController implements ModalControllerInterface<String>  {
+public class PaaikkunaGUIController implements ModalControllerInterface<String>, Initializable {
 
-    @FXML private ListChooser<?> listaJasenet;
+    @FXML private ListChooser<Jasen> listaJasenet;
 
     @FXML private ListChooser<?> listaTehty;
 
@@ -64,13 +71,16 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
 
     @FXML private MenuItem menuTulosta;
 
+
+
     /**
      * Avaa jäsenen lisäys ikkunan.
      * @param event
      */
     @FXML void lisaaJasenKlikkaus(MouseEvent event) {
 
-      ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
+      // ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
+      uusiJasen();
 
     }
 
@@ -131,7 +141,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
 
     @FXML void menuKlikkaaLisaaJasen(ActionEvent event) {
 
-        ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
+       ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
+
     }
     @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) {
         ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"),"Lisää Kotityö",null,"");
@@ -167,9 +178,23 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
 
     }
 
+
+    public void initialize(URL url, ResourceBundle bundle) {
+        //
+        alusta();
+    }
+
+
     //----------------------------------------------------------------------
 
     private Siivoustiimi siivoustiimi;
+
+    protected void alusta() {
+
+        listaJasenet.clear();
+    }
+
+
 
     /**
      * @return false jos painetaan cancel.
@@ -217,5 +242,37 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String> 
     }
 
 
+    /**
+     * Hakee jäsenten tiedot listaan
+     * @param jnro jäsenen numero, joka aktivoidaan haun jälkeen
+     */
+    protected void hae(int jnro) {
+        listaJasenet.clear();
+
+        int index = 0;
+        for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
+            Jasen jasen = siivoustiimi.annaJasen(i);
+            if (jasen.getId() == jnro) index = i;
+            listaJasenet.add(jasen.getNimi(), jasen);
+        }
+        listaJasenet.setSelectedIndex(index); // tästä tulee muutosviesti joka näyttää jäsenen
+    }
+
+
+    /**
+     * Luo uuden jäsenen
+     */
+    private void uusiJasen() {
+        Jasen uusi = new Jasen();
+        uusi.rekisteroi();
+        uusi.taytaJasen();
+        try {
+            siivoustiimi.lisaa(uusi);
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }
+    }
 }
+
+
 

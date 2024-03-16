@@ -12,14 +12,32 @@ public class Jasenet {
     private static final int MAX_JASENIA = 5;
     int lkm = 0;
     private String tiedostonNimi = "";
-    private Jasen[] alkiot;
+    private Jasen[] alkiot= new Jasen[MAX_JASENIA];
 
 
     /**
      * Luodaan taulukko jäsenistä
      */
     public Jasenet () {
-        this.alkiot = new Jasen[MAX_JASENIA];
+
+    }
+
+    /**
+     * Lukee jäsenistön tiedostosta.  Kesken.
+     * @param hakemisto tiedoston hakemisto
+     * @throws SailoException jos lukeminen epäonnistuu
+     */
+    public void lueTiedostosta(String hakemisto) throws SailoException {
+        tiedostonNimi = hakemisto + "/nimet.dat";
+        throw new SailoException("Ei osata vielä lukea tiedostoa " + tiedostonNimi);
+    }
+
+    /**
+     * Tallentaa jäsenistön tiedostoon.  Kesken.
+     * @throws SailoException jos talletus epäonnistuu
+     */
+    public void talleta() throws SailoException {
+        throw new SailoException("Ei osata vielä tallettaa tiedostoa " + tiedostonNimi);
     }
 
 
