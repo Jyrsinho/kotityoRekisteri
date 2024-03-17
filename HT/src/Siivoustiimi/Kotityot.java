@@ -33,6 +33,7 @@ public class Kotityot implements Iterable<Kotityo> {
         alkiot.add(kotityo);
     }
 
+
     /**
      * Lukee jäsenistön tiedostosta.
      * TODO Kesken.
@@ -125,8 +126,8 @@ public class Kotityot implements Iterable<Kotityo> {
      *
      */
 
-    public List<Kotityo> annaKotityot (int id) {
-        List<Kotityo> loydetyt = new ArrayList<Kotityo>();
+    public ArrayList<Kotityo> annaKotityot (int id) {
+        ArrayList<Kotityo> loydetyt = new ArrayList<Kotityo>();
         for (Kotityo kottyo : alkiot)
             if (kottyo.getVastuuhenkilonID() == id) loydetyt.add(kottyo);
         return loydetyt;

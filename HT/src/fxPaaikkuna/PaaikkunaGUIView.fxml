@@ -82,7 +82,17 @@
       <Button fx:id="buttonLisaaJasen" mnemonicParsing="false" onMouseClicked="#lisaaJasenKlikkaus" text="Lisää jäsen" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Button fx:id="buttonLisaaKotityo" mnemonicParsing="false" onMouseClicked="#lisaaKotityklikkaus" text="Lisää kotityö" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Button fx:id="buttonLisaaSuoritus" mnemonicParsing="false" onMouseClicked="#lisaaSuoritusKlikkaus" text="Lisää suoritus" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-      <ScrollPane fx:id="panelJasen" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <ScrollPane fx:id="panelJasen" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <ScrollPane fx:id="panelKotityo" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <ScrollPane fx:id="panelSuoritus" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>

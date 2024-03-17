@@ -1,5 +1,9 @@
 package Siivoustiimi;
 
+import java.net.IDN;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * huolehtii Jäsenet ja Kotityöt - luokkien välisestä yhteistyöstä ja välittää näitä tietoja pyydettäessä.
  * lukee ja kirjoittaa kerhon tiedostoon pyytämällä apua avustajiltaan.
@@ -9,6 +13,7 @@ package Siivoustiimi;
 public class Siivoustiimi {
 
     Jasenet jasenet = new Jasenet();
+    Kotityot kotityot = new Kotityot();
 
     //Kotityot kotityot = new Kotityot();
     //Suoritukset suoritukset = new Suoritukset();
@@ -24,6 +29,16 @@ public class Siivoustiimi {
 
 
     /**
+     * palauttaa listan yhden jäsenen kotitöistä
+     * @param jasenId
+     * @return
+     */
+    public List<Kotityo> getKotityot(int jasenId) {
+        return kotityot.annaKotityot(jasenId);
+    }
+
+
+    /**
      * Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
      * @param i
      * @return Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
@@ -31,6 +46,10 @@ public class Siivoustiimi {
      */
     public Jasen annaJasen(int i) throws IndexOutOfBoundsException {
         return jasenet.anna(i);
+    }
+
+    public ArrayList<Kotityo> annaKotityot(int jasenId) {
+        return kotityot.annaKotityot(jasenId);
     }
 
     /**
@@ -58,6 +77,10 @@ public class Siivoustiimi {
      */
     public void lisaa(Jasen jasen) throws SailoException {
         jasenet.lisaa(jasen);
+    }
+
+    public void lisaa (Kotityo kotityo) {
+        kotityot.lisaa(kotityo);
     }
 
     /**

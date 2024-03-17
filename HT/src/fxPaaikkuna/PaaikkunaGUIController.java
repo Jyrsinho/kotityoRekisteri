@@ -10,7 +10,6 @@ import fxmuokkaaJasen.muokkaaJasenGUIController;
 import fxmuokkaakotityo.muokkaakotityoGUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,10 +24,13 @@ import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import Siivoustiimi.Jasen;
 import Siivoustiimi.SailoException;
+import Siivoustiimi.Kotityo;
 
 /**
  * Luokka siivoustiimin käyttöliittymän tapahtumien hoitamiseksi
@@ -38,11 +40,14 @@ import Siivoustiimi.SailoException;
 public class PaaikkunaGUIController implements ModalControllerInterface<String>, Initializable {
 
     @FXML public ScrollPane panelJasen;
+    public ScrollPane panelKotityo;
+    public ScrollPane panelSuoritus;
+
     @FXML private ListChooser<Jasen> listaJasenet;
 
     @FXML private ListChooser<?> listaTehty;
 
-    @FXML private ListChooser<?> listaTekematta;
+    @FXML private ListChooser<Kotityo> listaTekematta;
 
     @FXML private Button buttonLisaaJasen;
 
@@ -90,7 +95,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @param event
      */
     @FXML void lisaaKotityklikkaus(MouseEvent event) {
-        ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"),"Lisää Kotityö",null,"");
+      //  ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"),"Lisää Kotityö",null,"");
+        uusiKotityo();
     }
 
     /**
@@ -108,7 +114,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @param event
      */
     @FXML void klikkaaTehty(MouseEvent event) {
-        Dialogs.showMessageDialog("Ei osata vielä avata valita kotityötä.");
+      //  Dialogs.showMessageDialog("Ei osata vielä avata valita kotityötä.");
 
     }
 
@@ -118,7 +124,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     @FXML
     void klikkaaTekematta(MouseEvent event) {
-        Dialogs.showMessageDialog("Ei osata vielä avata valita kotityötä.");
+     //   Dialogs.showMessageDialog("Ei osata vielä avata valita kotityötä.");
 
     }
 
@@ -191,17 +197,24 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     private Siivoustiimi siivoustiimi;
     private Jasen jasenKohdalla;
+    private Kotityo kotityoKohdalla;
 
     private TextArea areaJasen = new TextArea();
+    private TextArea areaKotityo = new TextArea();
 
     protected void alusta() {
 
         panelJasen.setContent(areaJasen);
         panelJasen.setFitToHeight(true);
 
+        panelKotityo.setContent(areaKotityo);
+        panelKotityo.setFitToHeight(true);
+
         listaJasenet.clear();
         listaJasenet.addSelectionListener(e -> naytaJasen());
 
+        listaTekematta.clear();
+        listaTekematta.addSelectionListener(e -> naytaKotityo());
     }
 
 
@@ -254,6 +267,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     public void setSiivoustiimi(Siivoustiimi siivoustiimi) {
         this.siivoustiimi=siivoustiimi;
         naytaJasen();
+        naytaKotityo();
     }
 
 
@@ -271,6 +285,21 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         }
     }
 
+    /**
+     * Näyttää listasta valitun kotityön tiedot, tilapäisesti yhteen isoon edit-kenttään
+     */
+    protected void naytaKotityo() {
+        kotityoKohdalla = listaTekematta.getSelectedObject();
+
+        if (kotityoKohdalla == null) return;
+
+        areaKotityo.setText("");
+        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKotityo)) {
+            kotityoKohdalla.tulosta(os);
+        }
+    }
+
+
 
     /**
      * Hakee jäsenten tiedot listaan
@@ -279,13 +308,26 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     protected void hae(int jnro) {
         listaJasenet.clear();
 
-        int index = 0;
         for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
             Jasen jasen = siivoustiimi.annaJasen(i);
-            if (jasen.getId() == jnro) index = i;
             listaJasenet.add(jasen.getNimi(), jasen);
         }
-        listaJasenet.setSelectedIndex(index); // tästä tulee muutosviesti joka näyttää jäsenen
+      //  listaJasenet.setSelectedIndex(index); // tästä tulee muutosviesti joka näyttää jäsenen
+    }
+
+    /**
+     * Hakee yhden jäsenen kotityöt listaan
+     */
+    protected void haeJasenenKotityot (int jasenID) {
+
+        listaTekematta.clear();
+
+        ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasenID);
+
+        for (Kotityo alkio: kotityolista ) {
+        listaTekematta.add(alkio.getKotityoNimi(), alkio);
+        }
+
     }
 
 
@@ -303,36 +345,24 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             return;
         }
         hae(uusi.getId());
+
     }
 
     /**
-     * Tulostaa jäsenen tiedot
-     * @param os tietovirta johon tulostetaan
-     * @param jasen tulostettava jäsen
+     * Luo uuden kotityon
      */
-    public void tulosta(PrintStream os, final Jasen jasen) {
-        os.println("----------------------------------------------");
-        jasen.tulosta(os);
-        os.println("----------------------------------------------");
+    private void uusiKotityo() {
+        //if (jasenKohdalla == null) return;
+        Kotityo kottyo = new Kotityo();
+        kottyo.rekisteroi();
+        kottyo.taytaKotityo(1);
+        siivoustiimi.lisaa(kottyo);
+        haeJasenenKotityot(jasenKohdalla.getId());
+
     }
 
-
-
-    /**
-     * Tulostaa listassa olevat jäsenet tekstialueeseen
-     * @param text alue johon tulostetaan
-     */
-    public void tulostaValitut(TextArea text) {
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(text)) {
-            os.println("Tulostetaan kaikki jäsenet");
-            for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
-                Jasen jasen = siivoustiimi.annaJasen(i);
-                tulosta(os, jasen);
-                os.println("\n\n");
-            }
-        }
     }
-    }
+
 
 
 
