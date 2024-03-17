@@ -79,7 +79,14 @@ public class Jasenet {
      * </pre>
      */
     public void lisaa (Jasen jasen) throws SailoException {
-       if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita");
+       if (lkm >= alkiot.length) {
+           Jasen [] alkiot2 = new Jasen [alkiot.length+ alkiot.length];
+
+           for (int i= 0; i < alkiot.length; i++) {
+               alkiot2[i] = alkiot[i];
+           }
+         alkiot = alkiot2;
+       }
         this.alkiot[this.lkm] = jasen;
         this.lkm++;
     }
