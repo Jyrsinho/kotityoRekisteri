@@ -21,14 +21,15 @@
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="202.0" />
   </columnConstraints>
   <rowConstraints>
+      <RowConstraints />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MenuBar prefHeight="28.0" prefWidth="480.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <MenuBar prefHeight="28.0" prefWidth="480.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
         <menus>
           <Menu mnemonicParsing="false" text="TIEDOSTO">
             <items>
@@ -55,33 +56,33 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Label text="JÄSENET" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Label text="JÄSENET" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="Arial Black" size="13.0" />
          </font>
       </Label>
-      <Label text="TEKEMÄTTÄ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Label text="TEKEMÄTTÄ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="Arial Black" size="13.0" />
          </font>
       </Label>
-      <Label text="TEHTY" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Label text="TEHTY" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="Arial Black" size="13.0" />
          </font>
       </Label>
-      <Label text="17. 00 30.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+      <Label text="17. 00 30.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <padding>
             <Insets top="5.0" />
          </padding>
       </Label>
-      <ListChooser fx:id="listaJasenet" onMouseClicked="#klikkaaValitseJasen" rivit="Kalle Hakkila&#10;Taina Virtanen&#10;Timo Virtanen" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-      <ListChooser fx:id="listaTekematta" onMouseClicked="#klikkaaTekematta" rivit="Imurointi&#10;Lattioiden pesu&#10;Pölyjen pyyhintä&#10;Jääkaapin pesu" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-      <ListChooser fx:id="listaTehty" onMouseClicked="#klikkaaTehty" rivit="Vessan pesu&#10;Mattojen tamppaus&#10;Lattiakaivon tyhjennys" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-      <Button fx:id="buttonLisaaJasen" mnemonicParsing="false" onMouseClicked="#lisaaJasenKlikkaus" text="Lisää jäsen" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-      <Button fx:id="buttonLisaaKotityo" mnemonicParsing="false" onMouseClicked="#lisaaKotityklikkaus" text="Lisää kotityö" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-      <Button fx:id="buttonLisaaSuoritus" mnemonicParsing="false" onMouseClicked="#lisaaSuoritusKlikkaus" text="Lisää suoritus" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-      <ScrollPane fx:id="panelJasen" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <ListChooser fx:id="listaJasenet" onMouseClicked="#klikkaaValitseJasen" rivit="Kalle Hakkila&#10;Taina Virtanen&#10;Timo Virtanen" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <ListChooser fx:id="listaTekematta" onMouseClicked="#klikkaaTekematta" rivit="Imurointi&#10;Lattioiden pesu&#10;Pölyjen pyyhintä&#10;Jääkaapin pesu" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <ListChooser fx:id="listaTehty" onMouseClicked="#klikkaaTehty" rivit="Vessan pesu&#10;Mattojen tamppaus&#10;Lattiakaivon tyhjennys" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <Button fx:id="buttonLisaaJasen" mnemonicParsing="false" onMouseClicked="#lisaaJasenKlikkaus" text="Lisää jäsen" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <Button fx:id="buttonLisaaKotityo" mnemonicParsing="false" onMouseClicked="#lisaaKotityklikkaus" text="Lisää kotityö" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <Button fx:id="buttonLisaaSuoritus" mnemonicParsing="false" onMouseClicked="#lisaaSuoritusKlikkaus" text="Lisää suoritus" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+      <ScrollPane fx:id="panelJasen" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>

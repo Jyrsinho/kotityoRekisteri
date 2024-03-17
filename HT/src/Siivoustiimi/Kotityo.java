@@ -27,6 +27,23 @@ public class Kotityo {
 
     private static int seuraavaKotityoNro    = 1;
 
+
+    /**
+     * Alustetaan kotityo oletusarvoille
+     */
+    public Kotityo() {
+
+    }
+
+    /**
+     * Alustetaan kotityo tietylle jasenelle.
+     * @param jasenID jasenen viitenumero
+     */
+    public Kotityo (int jasenID) {
+        this.vastuuhenkilonID = jasenID;
+    }
+
+
     /**
      * @return jäsenen nimi
      */
@@ -41,6 +58,11 @@ public class Kotityo {
     public int getKotityoID() {
         return kotityoId;
     }
+
+    public int getVastuuhenkilonID() {
+        return vastuuhenkilonID;
+    }
+
 
     /**
      * Antaa kotityolle seuraavan ID numeron.
@@ -66,10 +88,10 @@ public class Kotityo {
      * Apumetodi, jolla saadaan täytettyä testiarvot kotityolle.
      * XX ja XX arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
      */
-    public void taytaKotityo() {
+    public void taytaKotityo(int id) {
 
         this.kotityoNimi = "Imurointi";
-        this.vastuuhenkilonID = 1;
+        this.vastuuhenkilonID = id;
         this.viimeisinSuoritus = new Date(2024-1-1);
         this.kesto = RandomIka.arvoIka( 0, 60);
         this.vanhenemisaika = RandomIka.arvoIka(1,30);
@@ -117,11 +139,11 @@ public class Kotityo {
         imurointi2.tulosta(System.out);
         System.out.println();
 
-        imurointi.taytaKotityo();
+        imurointi.taytaKotityo(1);
         imurointi.tulosta(System.out);
         System.out.println();
 
-        imurointi2.taytaKotityo();
+        imurointi2.taytaKotityo(1);
         imurointi2.tulosta(System.out);
 
 
