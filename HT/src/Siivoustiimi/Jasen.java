@@ -46,6 +46,22 @@ public class Jasen {
        return id;
    }
 
+    /**
+     *
+     * @return jasenen katuosoite
+     */
+   public String getKatuosoite() {return katuosoite;}
+
+    public String getPostinumero() {return postinumero;}
+
+    public String getKaupunki() {return kaupunki;}
+
+    public String getPuhelin() {return puhelinNumero;}
+
+    public int getIka() {return ika;}
+
+
+
 
     /**
      * Antaa jäsenelle seuraavan tunnusnumeron.
@@ -101,12 +117,22 @@ public class Jasen {
     }
 
 
+    //TODO viimeistele
     /**
      * Tulostetaan jäsenen tiedot
-     * @param os tietovirta johon tulostetaan
      */
-   public void tulosta(OutputStream os) {
-       tulosta(new PrintStream(os));
+   public String toString() {
+
+       return ""+
+               getId()          +"|"+
+               getNimi()        +"|"+
+               getKatuosoite()  +"|"+
+               getPostinumero() +"|"+
+               getKaupunki()    +"|"+
+               getPuhelin()     +"|"+
+               getIka()         +"|";
+
+
    }
 
 

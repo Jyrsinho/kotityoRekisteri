@@ -39,9 +39,10 @@ import Siivoustiimi.Kotityo;
  */
 public class PaaikkunaGUIController implements ModalControllerInterface<String>, Initializable {
 
-    @FXML public ScrollPane panelJasen;
-    public ScrollPane panelKotityo;
-    public ScrollPane panelSuoritus;
+    @FXML private ScrollPane panelJasen;
+
+    @FXML private ScrollPane panelKotityo;
+    @FXML private ScrollPane panelSuoritus;
 
     @FXML private ListChooser<Jasen> listaJasenet;
 
@@ -279,6 +280,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         if (jasenKohdalla == null) return;
 
+        // tässä pitäisi hakea kaikki jäsenen kotityöt tekemättä kolumniin.
+        haeJasenenKotityot(jasenKohdalla.getId());
+
         areaJasen.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaJasen)) {
             jasenKohdalla.tulosta(os);
@@ -289,6 +293,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Näyttää listasta valitun kotityön tiedot, tilapäisesti yhteen isoon edit-kenttään
      */
     protected void naytaKotityo() {
+
         kotityoKohdalla = listaTekematta.getSelectedObject();
 
         if (kotityoKohdalla == null) return;
@@ -308,6 +313,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     protected void hae(int jnro) {
         listaJasenet.clear();
 
+
         for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
             Jasen jasen = siivoustiimi.annaJasen(i);
             listaJasenet.add(jasen.getNimi(), jasen);
@@ -316,10 +322,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     /**
-     * Hakee yhden jäsenen kotityöt listaan
+     * Hakee yhden jäsenen kotityöt listaan tekemättömistä kotitöistä.
      */
     protected void haeJasenenKotityot (int jasenID) {
-
         listaTekematta.clear();
 
         ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasenID);

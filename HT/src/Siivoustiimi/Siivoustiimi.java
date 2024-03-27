@@ -93,17 +93,6 @@ public class Siivoustiimi {
     }
 
     /**
-     * Tallettaa siivoustiimin tiedot tiedostoon
-     * @throws SailoException jos tallettamisessa ongelmia
-     */
-    public void talleta() throws SailoException {
-        jasenet.talleta();
-        // TODO: yritä tallettaa toinen vaikka toinen epäonnistuisi
-    }
-
-
-
-    /**
      * testiohjelma
      * @param args ei käytössä
      */

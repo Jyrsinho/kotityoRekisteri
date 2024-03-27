@@ -1,5 +1,10 @@
 package Siivoustiimi;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 /**
  * pitää yllä varsinaista jäsenrekisteriä, eli osaa
  * lisätä ja poistaa jäsenen.
@@ -35,9 +40,19 @@ public class Jasenet {
     /**
      * Tallentaa jäsenistön tiedostoon.  Kesken.
      * @throws SailoException jos talletus epäonnistuu
+     * @param tiedostonNimi tallenenttavan tiedoston nimi.
      */
-    public void talleta() throws SailoException {
-        throw new SailoException("Ei osata vielä tallettaa tiedostoa " + tiedostonNimi);
+    public void tallenna(String tiedostonNimi) throws SailoException, FileNotFoundException {
+        File ftied = new File(tiedostonNimi+"/nimet.dat");
+        try {PrintStream fo = new PrintStream(new FileOutputStream(ftied , false));
+            for (int i = 0; i < getLkm(); i++) {
+                Jasen jasen = anna(i);
+                fo.println(jasen.toString());
+            }
+        } catch (FileNotFoundException e) {
+            throw new SailoException("Tiedosto" + ftied.getAbsolutePath() + " ei aukea.");
+        }
+
     }
 
 
@@ -119,5 +134,11 @@ public class Jasenet {
    catch (SailoException e) {
         System.err.println(e.getMessage());
    }
-}
+    try {
+        jasenet.tallenna("siivoustiimi");
+    } catch (SailoException | FileNotFoundException e) {
+        e.printStackTrace();
+    }
+
+    }
 }

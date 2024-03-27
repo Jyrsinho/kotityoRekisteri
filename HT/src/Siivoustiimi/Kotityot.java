@@ -58,15 +58,15 @@ public class Kotityot implements Iterable<Kotityo> {
 
     /**
      * Palauttaa siivoustiimin kotitoiden lukumaaran
-     * @return harrastusten lukumaara
+     * @return kotitöiden lukumaara
      */
     public int getLkm() {
         return alkiot.size();
     }
 
     /**
-     * Iteraattori kaikkien harrastusten läpikäymiseen
-     * @return harrastusiteraattori
+     * Iteraattori kaikkien kotitöiden läpikäymiseen
+     * @return kotityöiteraattori
      *
      * @example
      * <pre name="test">
