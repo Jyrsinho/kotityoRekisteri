@@ -1,21 +1,21 @@
 package Siivoustiimi;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  * pitää yllä varsinaista kotityö-rekisteriä, eli osaa lisätä ja poistaa kotityön.
  * lukee ja kirjoittaa kotityöt tiedostoon
  * osaa etsiä ja lajitella
  * @author jyrihuhtala
- * version 16.3.2024
+ * version 28.3.2024
  */
 public class Kotityot implements Iterable<Kotityo> {
 
-    private String tiedostonNimi = "";
-    private final Collection <Kotityo> alkiot = new ArrayList<Kotityo>();
+    private boolean muutettu = false;
+    private String tiedostonPerusNimi = "";
+
+    private final Collection<Kotityo> alkiot = new ArrayList<Kotityo>();
 
     /**
      * Luodaan Arraylist kotitöistä
@@ -25,35 +25,111 @@ public class Kotityot implements Iterable<Kotityo> {
     }
 
 
-    /**Lisaa uuden kotityon tietorakenteeseen.
+    /**
+     * Lisaa uuden kotityon tietorakenteeseen.
      *
      * @param kotityo lisattava kotityo
      */
-    public void lisaa (Kotityo kotityo) {
+    public void lisaa(Kotityo kotityo) {
         alkiot.add(kotityo);
+        muutettu = true;
+
     }
 
 
     /**
-     * Lukee jäsenistön tiedostosta.
-     * TODO Kesken.
-     * @param hakemisto tiedoston hakemisto
+     * Lukee kotityot tiedostosta.  TODO testit.
+     *
+     * @param tiedosto tiedoston nimi
      * @throws SailoException jos lukeminen epäonnistuu
      */
-    public void lueTiedostosta(String hakemisto) throws SailoException {
-        tiedostonNimi = hakemisto + ".har";
-        throw new SailoException("Ei osata vielä lukea tiedostoa " + tiedostonNimi);
+    public void lueTiedostosta(String tiedosto) throws SailoException, FileNotFoundException {
+        setTiedostonPerusNimi(tiedosto);
+
+        try (BufferedReader fi = new BufferedReader(new FileReader(getTiedostonNimi()))) {
+
+            String rivi;
+            while ( (rivi = fi.readLine()) != null ) {
+                rivi = rivi.trim();
+                if ( "".equals(rivi) || rivi.charAt(0) == ';' ) continue;
+                Kotityo kotityo = new Kotityo();
+                kotityo.parse(rivi); // TODO virhekäsittely
+                lisaa(kotityo);
+            }
+            muutettu = false;
+
+        } catch ( FileNotFoundException e ) {
+            throw new SailoException("Tiedosto " + getTiedostonNimi() + " ei aukea");
+        } catch ( IOException e ) {
+            throw new SailoException("Ongelmia tiedoston kanssa: " + e.getMessage());
+        }
     }
 
 
     /**
-     * Tallentaa jäsenistön tiedostoon.
-     * TODO Kesken.
-     * @throws SailoException jos talletus epäonnistuu
-     */
-    public void talleta() throws SailoException {
-        throw new SailoException("Ei osata vielä tallettaa tiedostoa " + tiedostonNimi);
+      *  Luetaan aikaisemmin annetun nimisestä tiedostosta
+      * @throws SailoException jos tulee poikkeus
+      */
+    public void lueTiedostosta() throws SailoException, FileNotFoundException {
+        lueTiedostosta(getTiedostonPerusNimi());
     }
+
+
+
+    /**
+     * Tallentaa kotityöt tiedostoon.  // TODO Kesken.
+     * @throws SailoException jos talletus epäonnistuu
+     * @param tiedostonNimi tallenenttavan tiedoston nimi.
+     */
+    public void tallenna(String tiedostonNimi) throws SailoException, FileNotFoundException {
+        File ftied = new File(tiedostonNimi+"/kotityot.dat");
+        try {
+            PrintStream fo = new PrintStream(new FileOutputStream(ftied , false));
+            for (int i = 0; i < getLkm(); i++) {
+                Kotityo kotityo = anna(i);
+                fo.println(kotityo.toString());
+            }
+        } catch (FileNotFoundException e) {
+            throw new SailoException("Tiedosto" + ftied.getAbsolutePath() + " ei aukea.");
+        }
+    }
+
+
+    /**
+     * Asettaa tiedoston perusnimen imlan tarkenninta
+     * @param tied tallennustiedoston perusnimi
+     */
+    public void setTiedostonPerusNimi(String tied) {
+        tiedostonPerusNimi = tied;
+    }
+
+
+    /**
+     * Palauttaa tiedoston nimen, jota käytetään tallennukseen
+     * @return tallennustiedoston nimi
+     */
+    public String getTiedostonPerusNimi() {
+        return tiedostonPerusNimi;
+    }
+
+
+    /**
+     * Palauttaa tiedoston nimen, jota käytetään tallennukseen
+     * @return tallennustiedoston nimi
+     */
+    public String getTiedostonNimi() {
+        return tiedostonPerusNimi + ".dat";
+    }
+
+
+    /**
+     * Palauttaa varakopiotiedoston nimen
+     * @return varakopiotiedoston nimi
+     */
+    public String getBakNimi() {
+        return tiedostonPerusNimi + ".bak";
+    }
+
 
 
     /**

@@ -73,8 +73,8 @@ public class Jasen {
 
 
     /**
-     * Antaa jäsenelle seuraavan tunnusnumeron.
-     * @return jäsenen uusi tunnusnumero
+     * Antaa jäsenelle seuraavan Id:n.
+     * @return jäsenen uusi Id
      * @example <pre name="test">
      * Jasen timo1 = new Jasen();
      * timo1.getId() === 0;
@@ -111,7 +111,7 @@ public class Jasen {
      *
      *   jasen.rekisteroi();
      *   int n = jasen.getId();
-     *   jasen.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
+     *   jasen.parse(""+(n+20));       // Otetaan merkkijonosta vain jasenen ID
      *   jasen.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
      *   jasen.getId() === n+20+1;
      * </pre>

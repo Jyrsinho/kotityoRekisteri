@@ -48,6 +48,7 @@ public class Jasenet {
         }
     }
 
+
     /**
      * Tallentaa jäsenistön tiedostoon.  Kesken.
      * @throws SailoException jos talletus epäonnistuu

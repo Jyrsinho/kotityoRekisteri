@@ -1,5 +1,6 @@
 package Siivoustiimi;
 
+import fi.jyu.mit.ohj2.Mjonot;
 import kanta.RandomIka;
 
 import java.io.OutputStream;
@@ -59,9 +60,29 @@ public class Kotityo {
         return kotityoId;
     }
 
+    /**
+     * @return kotityön vastuuhenkilön ID
+     */
     public int getVastuuhenkilonID() {
         return vastuuhenkilonID;
     }
+
+
+    /**
+     * @return kotityön arvioitu kestoaika
+     */
+    public int getKesto() {return kesto;}
+
+    /**
+     * @return kotityön viimeisimmän suorituksen päivämäärä
+     */
+    public Date getViimeisinSuoritus() {return viimeisinSuoritus;}
+
+
+    /**
+     * @return kotityön vanhenemisaika
+     */
+    public int getVanhenemisaika() {return vanhenemisaika;}
 
 
     /**
@@ -83,6 +104,7 @@ public class Kotityo {
         seuraavaKotityoNro ++;
         return this.kotityoId;
     }
+
 
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot kotityolle.
@@ -112,6 +134,47 @@ public class Kotityo {
 
     }
 
+     /**
+      * Asettaa kotityöId:n ja samalla varmistaa että
+      * seuraava numero on aina suurempi kuin tähän mennessä suurin.
+      * @param nr asetettava kotityöId
+      */
+    private void setKotityoID(int nr) {
+        this.kotityoId = nr;
+        if ( kotityoId >= seuraavaKotityoNro ) seuraavaKotityoNro = kotityoId + 1;
+    }
+
+
+
+    /**
+     * Selvittää kotityön tiedot | erotellusta merkkijonosta
+     * Pitää huolen että seuraavaKotityoNro on suurempi kuin tuleva kotityoId.
+     * @param s rivi josta kotityön tiedot otetaan
+     * @example
+     * <pre name="test">
+     *   Kotityo kotityo = new Kotityo();
+     *   kotityo.parse("1               |Imurointi                | 3                  | 20        | 7.1.2024           |    1|");
+     *   kotityo.getKotityoId() === 1;
+     *   kotityo.toString().startsWith("1|Imurointi|3|") === true;
+     *
+     *   kotityo.rekisteroi();
+     *   int n = kotityo.getKotityoId();
+     *   kotityo.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
+     *   kotityo.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
+     *   kotityo.getKotityoId() === n+20+1;
+     * </pre>
+     */
+
+    public void parse(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        setKotityoID(Mjonot.erota(sb, '|', getKotityoID()));
+
+        this.kotityoNimi = Mjonot.erota(sb, '|', getKotityoNimi());
+        this.vanhenemisaika = Mjonot.erota(sb, '|', getVanhenemisaika());
+        this.kesto = Mjonot.erota(sb,'|', getKesto());
+        this.viimeisinSuoritus = Mjonot.erota(sb, '|', getViimeisinSuoritus());
+        this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
+    }
 
     /**
      * Tulostetaan jäsenen tiedot
@@ -121,6 +184,16 @@ public class Kotityo {
         tulosta(new PrintStream(os));
     }
 
+
+    public String toString() {
+        return ""+
+                getKotityoID()          +"|"+
+                getKotityoNimi()        +"|"+
+                getVanhenemisaika()     +"|"+
+                getKesto()              +"|"+
+                getViimeisinSuoritus()    +"|"+
+                getVastuuhenkilonID()   +"|";
+    }
 
     /**
      * Testiohjelma jäsenelle.
