@@ -5,6 +5,9 @@ import kanta.RandomIka;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -23,7 +26,7 @@ public class Kotityo {
     private String kotityoNimi;
     private int vanhenemisaika;
     private int kesto;
-    private Date viimeisinSuoritus;
+    private String viimeisinSuoritus;
     private int vastuuhenkilonID;
 
     private static int seuraavaKotityoNro    = 1;
@@ -76,7 +79,7 @@ public class Kotityo {
     /**
      * @return kotityön viimeisimmän suorituksen päivämäärä
      */
-    public Date getViimeisinSuoritus() {return viimeisinSuoritus;}
+    public String getViimeisinSuoritus() {return viimeisinSuoritus;}
 
 
     /**
@@ -85,17 +88,18 @@ public class Kotityo {
     public int getVanhenemisaika() {return vanhenemisaika;}
 
 
+
     /**
      * Antaa kotityolle seuraavan ID numeron.
      * @return kotityon uusi kotityoID
      * example <pre name="test">
      * Kotityo imurointi = new Kotityo();
-     * imurointi.getId() === 0;
+     * imurointi.getKotityoID() === 0;
      * imurointi.rekisteroi();
      * Kotityo tiskaaminen = new Kotityo();
      * tiskaaminen.rekisteroi();
-     * int n1 = imurointi.getId();
-     * int n2 = tiskaaminen.getId();
+     * int n1 = imurointi.getKotityoID();
+     * int n2 = tiskaaminen.getKotityoID();
      * n1 === n2-1;
      * </pre>
      */
@@ -114,7 +118,7 @@ public class Kotityo {
 
         this.kotityoNimi = "Imurointi";
         this.vastuuhenkilonID = id;
-        this.viimeisinSuoritus = new Date(2024-1-1);
+        this.viimeisinSuoritus = "10-10-2010";
         this.kesto = RandomIka.arvoIka( 0, 60);
         this.vanhenemisaika = RandomIka.arvoIka(1,30);
 
@@ -154,27 +158,29 @@ public class Kotityo {
      * <pre name="test">
      *   Kotityo kotityo = new Kotityo();
      *   kotityo.parse("1               |Imurointi                | 3                  | 20        | 7.1.2024           |    1|");
-     *   kotityo.getKotityoId() === 1;
+     *   kotityo.getKotityoID() === 1;
      *   kotityo.toString().startsWith("1|Imurointi|3|") === true;
      *
      *   kotityo.rekisteroi();
-     *   int n = kotityo.getKotityoId();
+     *   int n = kotityo.getKotityoID();
      *   kotityo.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
      *   kotityo.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
-     *   kotityo.getKotityoId() === n+20+1;
+     *   kotityo.getKotityoID() === n+20+1;
      * </pre>
      */
 
-    public void parse(String s) {
+    public void parse(String s)  {
         StringBuilder sb = new StringBuilder(s);
         setKotityoID(Mjonot.erota(sb, '|', getKotityoID()));
 
         this.kotityoNimi = Mjonot.erota(sb, '|', getKotityoNimi());
         this.vanhenemisaika = Mjonot.erota(sb, '|', getVanhenemisaika());
         this.kesto = Mjonot.erota(sb,'|', getKesto());
-        this.viimeisinSuoritus = Mjonot.erota(sb, '|', getViimeisinSuoritus());
+        this.viimeisinSuoritus = Mjonot.erota(sb, '|', "12-12-2012");
         this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
     }
+
+
 
     /**
      * Tulostetaan jäsenen tiedot

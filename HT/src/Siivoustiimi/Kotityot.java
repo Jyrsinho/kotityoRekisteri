@@ -1,6 +1,7 @@
 package Siivoustiimi;
 
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -38,12 +39,58 @@ public class Kotityot implements Iterable<Kotityo> {
 
 
     /**
-     * Lukee kotityot tiedostosta.  TODO testit.
+     * Lukee kotityot tiedostosta.  TODO tarkista testit.
      *
      * @param tiedosto tiedoston nimi
      * @throws SailoException jos lukeminen epäonnistuu
+     * @example
+     * <pre name="test">
+     * #THROWS SailoException
+     * #THROWS java.io.IOException
+     * #import java.io.*;
+     * Kotityot kotityot = new Kotityot();
+     * Kotityo imurointi21 = new Kotityo(); imurointi21.taytaKotityo(2);
+     * Kotityo imurointi11 = new Kotityo(); imurointi11.taytaKotityo(1);
+     * Kotityo imurointi22 = new Kotityo(); imurointi22.taytaKotityo(2);
+     * Kotityo imurointi12 = new Kotityo(); imurointi12.taytaKotityo(1);
+     * Kotityo imurointi23 = new Kotityo(); imurointi23.taytaKotityo(2);
+     * String tiedNimi = "testiTiedosto";
+     * File ftied = new File(tiedNimi+".dat");
+     * ftied.delete();
+     * kotityot.lueTiedostosta(tiedNimi); #THROWS SailoException
+     * kotityot.lisaa(imurointi21);
+     * kotityot.lisaa(imurointi11);
+     * kotityot.lisaa(imurointi22);
+     * kotityot.lisaa(imurointi12);
+     * kotityot.lisaa(imurointi23);
+     *  try {
+     *           kotityot.tallenna();
+     *       } catch (IOException e) {
+     *           throw new RuntimeException(e);
+     *       }
+     * kotityot = new Kotityot();
+     * kotityot.lueTiedostosta(tiedNimi);
+     * Iterator<Kotityo> i = kotityot.iterator();
+     * i.next().toString() === imurointi21.toString();
+     * i.next().toString() === imurointi11.toString();
+     * i.next().toString() === imurointi22.toString();
+     * i.next().toString() === imurointi12.toString();
+     * i.next().toString() === imurointi23.toString();
+     * i.hasNext() === false;
+     * kotityot.lisaa(imurointi23);
+     *  try {
+     *           kotityot.tallenna();
+     *       } catch (IOException e) {
+     *           throw new RuntimeException(e);
+     *       }
+     * ftied.delete() === true;
+     * File fbak = new File(tiedNimi+".bak");
+     * fbak.delete() === true;
+     * </pre>
      */
-    public void lueTiedostosta(String tiedosto) throws SailoException, FileNotFoundException {
+
+
+    public void lueTiedostosta(String tiedosto) throws SailoException {
         setTiedostonPerusNimi(tiedosto);
 
         try (BufferedReader fi = new BufferedReader(new FileReader(getTiedostonNimi()))) {
@@ -79,20 +126,26 @@ public class Kotityot implements Iterable<Kotityo> {
     /**
      * Tallentaa kotityöt tiedostoon.  // TODO Kesken.
      * @throws SailoException jos talletus epäonnistuu
-     * @param tiedostonNimi tallenenttavan tiedoston nimi.
      */
-    public void tallenna(String tiedostonNimi) throws SailoException, FileNotFoundException {
-        File ftied = new File(tiedostonNimi+"/kotityot.dat");
-        try {
-            PrintStream fo = new PrintStream(new FileOutputStream(ftied , false));
-            for (int i = 0; i < getLkm(); i++) {
-                Kotityo kotityo = anna(i);
+    public void tallenna() throws SailoException, IOException {
+        if ( !muutettu ) return;
+        File fbak = new File(getBakNimi());
+        File ftied = new File(getTiedostonNimi());
+
+        fbak.delete();
+        ftied.renameTo(fbak);
+
+        try ( PrintWriter fo = new PrintWriter(new FileWriter(ftied.getCanonicalPath())) ) {
+            for (Kotityo kotityo : this) {
                 fo.println(kotityo.toString());
             }
-        } catch (FileNotFoundException e) {
-            throw new SailoException("Tiedosto" + ftied.getAbsolutePath() + " ei aukea.");
-        }
+        }catch (FileNotFoundException e) {
+            throw new SailoException("Tiedosto " + ftied.getName() + " ei aukea");
+        } catch ( IOException ex ) {
+        throw new SailoException("Tiedoston " + ftied.getName() + " kirjoittamisessa ongelmia");
     }
+        muutettu = false;
+}
 
 
     /**
@@ -201,7 +254,6 @@ public class Kotityot implements Iterable<Kotityo> {
      * </pre>
      *
      */
-
     public ArrayList<Kotityo> annaKotityot (int id) {
         ArrayList<Kotityo> loydetyt = new ArrayList<Kotityo>();
         for (Kotityo kottyo : alkiot)
@@ -215,6 +267,13 @@ public class Kotityot implements Iterable<Kotityo> {
      */
     public static void main(String[] args) {
         Kotityot kotityot = new Kotityot();
+
+        try {
+            kotityot.lueTiedostosta("kotityot");
+        }catch (SailoException e) {
+            System.err.println(e.getMessage());
+        }
+
         Kotityo imurointi = new Kotityo();
         imurointi.taytaKotityo(1);
         Kotityo imurointi2 = new Kotityo();
@@ -238,6 +297,13 @@ public class Kotityot implements Iterable<Kotityo> {
             kottyo.tulosta(System.out);
         }
 
+        try {
+            kotityot.tallenna();
+        } catch (SailoException | FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
