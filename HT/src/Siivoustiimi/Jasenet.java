@@ -1,9 +1,7 @@
 package Siivoustiimi;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.util.Scanner;
 
 /**
  * pitää yllä varsinaista jäsenrekisteriä, eli osaa
@@ -34,7 +32,20 @@ public class Jasenet {
      */
     public void lueTiedostosta(String hakemisto) throws SailoException {
         tiedostonNimi = hakemisto + "/nimet.dat";
-        throw new SailoException("Ei osata vielä lukea tiedostoa " + tiedostonNimi);
+        File ftied = new File(tiedostonNimi);
+
+        try (Scanner fi = new Scanner(new FileInputStream(ftied))) {
+            while (fi.hasNext()) {
+                String s = fi.nextLine();
+                Jasen jasen = new Jasen();
+                jasen.parse(s);         //TODO Tee fiksummin (palauttaa onko onnistunut vai ei)
+                lisaa(jasen);
+
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new SailoException("Ei saa luettua tiedostoa" + tiedostonNimi);
+        }
     }
 
     /**
@@ -113,7 +124,13 @@ public class Jasenet {
     public static void main (String []args) {
     Jasenet jasenet = new Jasenet();
 
-    Jasen timo1 = new Jasen();
+    try {
+        jasenet.lueTiedostosta("siivoustiimi");
+    }catch (SailoException e) {
+        System.err.println(e.getMessage());
+    }
+
+        Jasen timo1 = new Jasen();
     Jasen timo2 = new Jasen();
 
     timo1.rekisteroi();

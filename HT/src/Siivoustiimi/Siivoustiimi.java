@@ -1,5 +1,6 @@
 package Siivoustiimi;
 
+import java.io.FileNotFoundException;
 import java.net.IDN;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +89,14 @@ public class Siivoustiimi {
      * @param nimi jota käyteään lukemisessa
      * @throws SailoException jos lukeminen epäonnistuu
      */
-    public void lueTiedostosta(String nimi) throws SailoException {
+    public void lueTiedostosta(String nimi) throws SailoException, FileNotFoundException {
+        jasenet = new Jasenet();
+        kotityot = new Kotityot();
+
+       // setTiedosto(nimi);              //TODO
+        kotityot.lueTiedostosta(nimi); //TODO
         jasenet.lueTiedostosta(nimi);
+
     }
 
     /**

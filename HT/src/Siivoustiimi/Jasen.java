@@ -1,7 +1,8 @@
 package Siivoustiimi;
 
 
-import java.io.OutputStream;
+import fi.jyu.mit.ohj2.Mjonot;
+
 import java.io.PrintStream;
 import static kanta.RandomNumero.arvoNumero;
 import static kanta.RandomIka.arvoIka;
@@ -30,9 +31,17 @@ public class Jasen {
 
    private static int seuraavaNro    = 1;
 
+    /**
+     *
+     * @return jasenen etunimi
+     */
+   public String getEtunimi() {return etunimi;}
+
+
+    public String getSukunimi() {return sukunimi;}
 
     /**
-     * @return jasenen nimi
+     * @return jasenen koko nimi
      */
    public String getNimi() {
        return etunimi +" "+ sukunimi;
@@ -84,6 +93,43 @@ public class Jasen {
    }
 
 
+   public void setId(int numero) {
+       this.id = numero;
+       if (id >= seuraavaNro) seuraavaNro = id+1;
+   }
+
+    /**
+     * Selvittää jäsenen tiedot | erotellusta merkkijonosta
+     * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusNro.
+     * @param s rivi josta jäsenen tiedot otetaan
+     * @example
+     * <pre name="test">
+     *   Jasen jasen = new Jasen();
+     *   jasen.parse("5    |     Timo |  Kekkila     |Talvitie 4    |   11600   |    Vantaa   |   05013899304   |   41   |");
+     *   jasen.getId() === 5;
+     *   jasen.toString().startsWith("5|Timo|Kekkila|Talvitie 4|") === true;
+     *
+     *   jasen.rekisteroi();
+     *   int n = jasen.getId();
+     *   jasen.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
+     *   jasen.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
+     *   jasen.getId() === n+20+1;
+     * </pre>
+     */
+
+    public void parse(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        setId(Mjonot.erota(sb, '|', getId()));
+        this.etunimi = Mjonot.erota(sb, '|', getEtunimi());
+        this.sukunimi = Mjonot.erota(sb, '|', getSukunimi());
+        this.katuosoite = Mjonot.erota(sb,'|', getKatuosoite());
+        this.postinumero = Mjonot.erota(sb, '|', getPostinumero());
+        this.kaupunki = Mjonot.erota(sb, '|', getKaupunki());
+        this.puhelinNumero = Mjonot.erota(sb,'|', getPuhelin());
+        this.ika = Mjonot.erota(sb,'|', getIka());
+    }
+
+
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot jäsenelle.
      * Ikä ja puhelinnumero arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
@@ -104,8 +150,8 @@ public class Jasen {
      * Tulostetaan henkilön tiedot
      * @param out tietovirta johon tulostetaan
      */
-    public void tulosta(PrintStream out) {;
-       out.println(String.format("%03d", id));
+    public void tulosta(PrintStream out) {
+       out.printf("%03d%n", id);
        out.println(etunimi);
        out.println(sukunimi);
        out.println(katuosoite);
@@ -125,7 +171,8 @@ public class Jasen {
 
        return ""+
                getId()          +"|"+
-               getNimi()        +"|"+
+               getEtunimi()     +"|"+
+               getSukunimi()    +"|"+
                getKatuosoite()  +"|"+
                getPostinumero() +"|"+
                getKaupunki()    +"|"+
@@ -162,5 +209,4 @@ public class Jasen {
 
 
 }
-
 }
