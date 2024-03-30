@@ -42,7 +42,6 @@
       <Label text="Anna siivoustiimin nimi&gt;" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
       <TextField fx:id="textTiiminNimi" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <BorderPane>
-    <!-- TODO Add Nodes -->
 </BorderPane>
    </children>
 </GridPane>

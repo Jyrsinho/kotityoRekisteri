@@ -30,6 +30,11 @@ public class PaaikkunaMain extends Application {
             paaikkunaCtrl.setSiivoustiimi(siivoustiimi);
 
             primaryStage.show();
+
+            Application.Parameters params = getParameters();
+            if (!params.getRaw().isEmpty())
+                paaikkunaCtrl.lueTiedosto(params.getRaw().get(0));
+            else
             if ( !paaikkunaCtrl.avaa() ) Platform.exit();
 
         } catch (Exception e) {

@@ -1,9 +1,9 @@
 package Siivoustiimi;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.IDN;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * huolehtii Jäsenet ja Kotityöt - luokkien välisestä yhteistyöstä ja välittää näitä tietoja pyydettäessä.
@@ -15,6 +15,7 @@ public class Siivoustiimi {
 
     Jasenet jasenet = new Jasenet();
     Kotityot kotityot = new Kotityot();
+    Suoritukset suoritukset = new Suoritukset();
 
     //Kotityot kotityot = new Kotityot();
     //Suoritukset suoritukset = new Suoritukset();
@@ -29,19 +30,10 @@ public class Siivoustiimi {
     }
 
 
-    /**
-     * palauttaa listan yhden jäsenen kotitöistä
-     * @param jasenId
-     * @return
-     */
-    public List<Kotityo> getKotityot(int jasenId) {
-        return kotityot.annaKotityot(jasenId);
-    }
-
 
     /**
      * Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
-     * @param i
+     * @param i taulukon indeksi, josta haluttua jäsentä etsitään
      * @return Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
      * @throws IndexOutOfBoundsException jos indeksi on liian iso.
      */
@@ -52,6 +44,26 @@ public class Siivoustiimi {
     public ArrayList<Kotityo> annaKotityot(int jasenId) {
         return kotityot.annaKotityot(jasenId);
     }
+
+    public ArrayList<Suoritus> annaSuoritukset(int jasenId) {
+
+        return suoritukset.annaSuoritukset(jasenId);
+    }
+
+
+    /**
+     * Asettaa tiedostojen perusnimet
+     * @param nimi uusi nimi
+     */
+    public void setTiedosto(String nimi) {
+        File dir = new File(nimi);
+        dir.mkdirs();
+        String hakemistonNimi = "";
+        if ( !nimi.isEmpty() ) hakemistonNimi = nimi +"/";
+        jasenet.setTiedostonPerusNimi(hakemistonNimi + "nimet");
+        kotityot.setTiedostonPerusNimi(hakemistonNimi + "kotityot");
+    }
+
 
     /**
      * Lisätään uusi jäsen
@@ -84,20 +96,42 @@ public class Siivoustiimi {
         kotityot.lisaa(kotityo);
     }
 
+    public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
+
     /**
      * Lukee siivoustiimin tiedot tiedostosta
      * @param nimi jota käyteään lukemisessa
      * @throws SailoException jos lukeminen epäonnistuu
      */
+
     public void lueTiedostosta(String nimi) throws SailoException, FileNotFoundException {
         jasenet = new Jasenet();
         kotityot = new Kotityot();
 
-       // setTiedosto(nimi);              //TODO
-        kotityot.lueTiedostosta(nimi); //TODO
-        jasenet.lueTiedostosta(nimi);
-
+        setTiedosto(nimi);
+        jasenet.lueTiedostosta();
+        kotityot.lueTiedostosta();
     }
+
+    public void tallenna() throws SailoException, FileNotFoundException {
+        String virhe = "";
+        try {
+            jasenet.tallenna();
+        } catch ( SailoException ex ) {
+            virhe = ex.getMessage();
+        }
+
+        try {
+            kotityot.tallenna();
+        } catch ( SailoException ex ) {
+            virhe += ex.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if ( !"".equals(virhe) ) throw new SailoException(virhe);
+    }
+
+
 
     /**
      * testiohjelma

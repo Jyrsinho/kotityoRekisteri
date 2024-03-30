@@ -85,6 +85,10 @@ public class Suoritus {
 
     }
 
+    public int getSuorittajanID() {
+        return suorittajaID;
+    }
+
 
     /**
      * Testiohjelma suoritukselle.

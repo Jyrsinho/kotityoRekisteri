@@ -1,6 +1,8 @@
 package Siivoustiimi;
 
 import java.io.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -11,61 +13,132 @@ import java.util.Scanner;
  * @author jyrihuhtala
  * version 21.2.2024
  */
-public class Jasenet {
+public class Jasenet implements Iterable<Jasen>{
     private static final int MAX_JASENIA = 5;
     int lkm = 0;
     private String tiedostonNimi = "";
-    private Jasen[] alkiot= new Jasen[MAX_JASENIA];
+    private Jasen[] alkiot = new Jasen[MAX_JASENIA];
+    private String kokoNimi = "";
+    private String tiedostonPerusNimi = "nimet";
+    private boolean muutettu = false;
 
 
     /**
      * Luodaan taulukko jäsenistä
      */
-    public Jasenet () {
+    public Jasenet() {
 
     }
 
+
+    public String getTiedostonPerusNimi() {
+        return tiedostonPerusNimi;
+    }
+
+
+    public void setTiedostonPerusNimi(String tied) {
+        tiedostonPerusNimi = tied;
+    }
+
+
+    /**
+     * Palauttaa tiedoston nimen, jota käytetään tallennukseen
+     *
+     * @return tallennustiedoston nimi
+     */
+    public String getTiedostonNimi() {
+        return getTiedostonPerusNimi() + ".dat";
+    }
+
+
+    /**
+     * Palauttaa varakopiotiedoston nimen
+     *
+     * @return varakopiotiedoston nimi
+     */
+    public String getBakNimi() {
+        return tiedostonPerusNimi + ".bak";
+    }
+
+    /**
+     * Palauttaa Kerhon koko nimen
+     * @return Kerhon koko nimi merkkijononna
+     */
+    public String getKokoNimi() {
+        return kokoNimi;
+    }
+
+
     /**
      * Lukee jäsenistön tiedostosta.  Kesken.
+     *
      * @param hakemisto tiedoston hakemisto
      * @throws SailoException jos lukeminen epäonnistuu
      */
     public void lueTiedostosta(String hakemisto) throws SailoException {
-        tiedostonNimi = hakemisto + "/nimet.dat";
-        File ftied = new File(tiedostonNimi);
+        setTiedostonPerusNimi(hakemisto);
 
-        try (Scanner fi = new Scanner(new FileInputStream(ftied))) {
-            while (fi.hasNext()) {
-                String s = fi.nextLine();
+        try ( BufferedReader fi = new BufferedReader(new FileReader(getTiedostonNimi())) ) {
+
+            String rivi;
+
+            while ( (rivi = fi.readLine()) != null ) {
+                rivi = rivi.trim();
+                if ( "".equals(rivi) || rivi.charAt(0) == ';' ) continue;
                 Jasen jasen = new Jasen();
-                jasen.parse(s);         //TODO Tee fiksummin (palauttaa onko onnistunut vai ei)
+                jasen.parse(rivi); // voisi olla virhekäsittely
                 lisaa(jasen);
-
             }
-
-        } catch (FileNotFoundException e) {
-            throw new SailoException("Ei saa luettua tiedostoa" + tiedostonNimi);
+            muutettu = false;
+        } catch ( FileNotFoundException e ) {
+            throw new SailoException("Tiedosto " + getTiedostonNimi() + " ei aukea");
+        } catch ( IOException e ) {
+            throw new SailoException("Ongelmia tiedoston kanssa: " + e.getMessage());
         }
     }
 
 
     /**
      * Tallentaa jäsenistön tiedostoon.  Kesken.
-     * @throws SailoException jos talletus epäonnistuu
-     * @param tiedostonNimi tallenenttavan tiedoston nimi.
+     * Luetaan aikaisemmin annetun nimisestä tiedostosta
+     *
+     * @throws SailoException jos tulee poikkeus
      */
-    public void tallenna(String tiedostonNimi) throws SailoException, FileNotFoundException {
-        File ftied = new File(tiedostonNimi+"/nimet.dat");
-        try {PrintStream fo = new PrintStream(new FileOutputStream(ftied , false));
-            for (int i = 0; i < getLkm(); i++) {
-                Jasen jasen = anna(i);
+    public void lueTiedostosta() throws SailoException {
+        lueTiedostosta(getTiedostonPerusNimi());
+    }
+
+
+    /**
+     * Tallentaa jäsenistön tiedostoon.  Kesken.
+     *
+     * @throws SailoException jos talletus epäonnistuu
+     */
+    public void tallenna() throws SailoException, FileNotFoundException {
+
+        if (!muutettu) return;
+
+        File fbak = new File(getBakNimi());
+        File ftied = new File(getTiedostonNimi());
+        fbak.delete();
+        ftied.renameTo(fbak);
+
+        try ( PrintWriter fo = new PrintWriter(new FileWriter(ftied.getCanonicalPath())) ) {
+            fo.println(getKokoNimi());
+            fo.println(alkiot.length);
+            for (Jasen jasen : this) {
                 fo.println(jasen.toString());
             }
-        } catch (FileNotFoundException e) {
-            throw new SailoException("Tiedosto" + ftied.getAbsolutePath() + " ei aukea.");
+        } catch ( FileNotFoundException ex ) {
+            throw new SailoException("Tiedosto " + ftied.getName() + " ei aukea");
+        } catch ( IOException ex ) {
+            throw new SailoException("Tiedoston " + ftied.getName() + " kirjoittamisessa ongelmia");
         }
 
+        muutettu = false;
     }
+
+
 
 
     /**
@@ -119,6 +192,61 @@ public class Jasenet {
     }
 
     /**
+     * TODO Testit
+     * Luokka jäsenten iteroimiseksi.
+     * @example
+     */
+    public class JasenetIterator implements Iterator<Jasen> {
+        private int kohdalla = 0;
+
+
+        /**
+         * Onko olemassa vielä seuraavaa jäsentä
+         * @see java.util.Iterator#hasNext()
+         * @return true jos on vielä jäseniä
+         */
+        @Override
+        public boolean hasNext() {
+            return kohdalla < getLkm();
+        }
+
+
+        /**
+         * Annetaan seuraava jäsen
+         * @return seuraava jäsen
+         * @throws NoSuchElementException jos seuraava alkiota ei enää ole
+         * @see java.util.Iterator#next()
+         */
+        @Override
+        public Jasen next() throws NoSuchElementException {
+            if ( !hasNext() ) throw new NoSuchElementException("Ei oo");
+            return anna(kohdalla++);
+        }
+
+
+        /**
+         * Tuhoamista ei ole toteutettu
+         * @throws UnsupportedOperationException aina
+         * @see java.util.Iterator#remove()
+         */
+        @Override
+        public void remove() throws UnsupportedOperationException {
+            throw new UnsupportedOperationException("Me ei poisteta");
+        }
+    }
+
+
+    /**
+     * Palautetaan iteraattori jäsenistään.
+     * @return jäsen iteraattori
+     */
+    @Override
+    public Iterator<Jasen> iterator() {
+        return new JasenetIterator();
+    }
+
+
+    /**
      *
      * @param args ei köytössä
      */
@@ -153,10 +281,11 @@ public class Jasenet {
         System.err.println(e.getMessage());
    }
     try {
-        jasenet.tallenna("siivoustiimi");
+        jasenet.tallenna();
     } catch (SailoException | FileNotFoundException e) {
         e.printStackTrace();
     }
 
     }
+
 }

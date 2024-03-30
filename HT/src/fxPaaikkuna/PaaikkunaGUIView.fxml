@@ -29,7 +29,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MenuBar prefHeight="28.0" prefWidth="480.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <MenuBar prefHeight="28.0" prefWidth="480.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
         <menus>
           <Menu mnemonicParsing="false" text="TIEDOSTO">
             <items>
@@ -71,7 +71,7 @@
             <Font name="Arial Black" size="13.0" />
          </font>
       </Label>
-      <Label text="17. 00 30.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <Label fx:id="aikaNyt" text="17. 00 30.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <padding>
             <Insets top="5.0" />
          </padding>

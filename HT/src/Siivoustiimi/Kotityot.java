@@ -88,8 +88,6 @@ public class Kotityot implements Iterable<Kotityo> {
      * fbak.delete() === true;
      * </pre>
      */
-
-
     public void lueTiedostosta(String tiedosto) throws SailoException {
         setTiedostonPerusNimi(tiedosto);
 
@@ -149,7 +147,7 @@ public class Kotityot implements Iterable<Kotityo> {
 
 
     /**
-     * Asettaa tiedoston perusnimen imlan tarkenninta
+     * Asettaa tiedoston perusnimen ilman tarkenninta
      * @param tied tallennustiedoston perusnimi
      */
     public void setTiedostonPerusNimi(String tied) {
@@ -219,7 +217,6 @@ public class Kotityot implements Iterable<Kotityo> {
      *
      * </pre>
      */
-
     @Override
     public Iterator<Kotityo> iterator() {
         return alkiot.iterator();
