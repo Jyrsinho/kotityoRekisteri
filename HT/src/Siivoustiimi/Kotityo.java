@@ -176,7 +176,7 @@ public class Kotityo {
         this.kotityoNimi = Mjonot.erota(sb, '|', getKotityoNimi());
         this.vanhenemisaika = Mjonot.erota(sb, '|', getVanhenemisaika());
         this.kesto = Mjonot.erota(sb,'|', getKesto());
-        this.viimeisinSuoritus = Mjonot.erota(sb, '|', "12-12-2012");
+        this.viimeisinSuoritus = Mjonot.erota(sb, '|', "13-12-2012");
         this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
     }
 

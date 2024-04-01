@@ -43,67 +43,47 @@ import org.w3c.dom.Text;
  */
 public class PaaikkunaGUIController implements ModalControllerInterface<String>, Initializable {
 
-    @FXML
-    public Label aikaNyt;
+    @FXML public Label aikaNyt;
 
-    @FXML
-    private ScrollPane panelJasen;
+    @FXML private ScrollPane panelJasen;
 
-    @FXML
-    private ScrollPane panelKotityo;
-    @FXML
-    private ScrollPane panelSuoritus;
+    @FXML private ScrollPane panelKotityo;
 
-    @FXML
-    private ListChooser<Jasen> listaJasenet;
+    @FXML private ScrollPane panelSuoritus;
 
-    @FXML
-    private ListChooser<Suoritus> listaTehty;
+    @FXML private ListChooser<Jasen> listaJasenet;
 
-    @FXML
-    private ListChooser<Kotityo> listaTekematta;
+    @FXML private ListChooser<Suoritus> listaTehty;
 
-    @FXML
-    private Button buttonLisaaJasen;
+    @FXML private ListChooser<Kotityo> listaTekematta;
 
-    @FXML
-    private Button buttonLisaaKotityo;
+    @FXML private Button buttonLisaaJasen;
 
-    @FXML
-    private Button buttonLisaaSuoritus;
+    @FXML private Button buttonLisaaKotityo;
 
-    @FXML
-    private MenuItem menuApua;
+    @FXML private Button buttonLisaaSuoritus;
 
-    @FXML
-    private MenuItem menuAvaa;
+    @FXML private MenuItem menuApua;
 
-    @FXML
-    private MenuItem menuLisaaJasen;
+    @FXML private MenuItem menuAvaa;
 
-    @FXML
-    private MenuItem menuLisaaKotityo;
+    @FXML private MenuItem menuLisaaJasen;
 
-    @FXML
-    private MenuItem menuLopeta;
+    @FXML private MenuItem menuLisaaKotityo;
 
-    @FXML
-    private MenuItem menuMuokkaaJasen;
+    @FXML private MenuItem menuLopeta;
 
-    @FXML
-    private MenuItem menuMuokkaaKotityo;
+    @FXML private MenuItem menuMuokkaaJasen;
 
-    @FXML
-    private MenuItem menuPoistaJasen;
+    @FXML private MenuItem menuMuokkaaKotityo;
 
-    @FXML
-    private MenuItem menuPoistaKotityo;
+    @FXML private MenuItem menuPoistaJasen;
 
-    @FXML
-    private MenuItem menuTallenna;
+    @FXML private MenuItem menuPoistaKotityo;
 
-    @FXML
-    private MenuItem menuTulosta;
+    @FXML private MenuItem menuTallenna;
+
+    @FXML private MenuItem menuTulosta;
 
 
     /**
@@ -190,8 +170,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @FXML
     void menuKlikkaaLisaaJasen(ActionEvent event) {
 
-        ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen", null, "");
-
+        // ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen", null, "");
+        uusiJasen();
     }
 
     @FXML
@@ -373,9 +353,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         if (jasenKohdalla == null) return;
 
-        // tässä pitäisi hakea kaikki jäsenen kotityöt tekemättä kolumniin.
         haeJasenenKotityot(jasenKohdalla.getId());
-        haeJasenenSuoritukset(jasenKohdalla.getId());
 
         areaJasen.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaJasen)) {
@@ -391,6 +369,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         kotityoKohdalla = listaTekematta.getSelectedObject();
 
         if (kotityoKohdalla == null) return;
+
+        haeKotityonSuoritukset(kotityoKohdalla.getKotityoID());
+
 
         areaKotityo.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKotityo)) {
@@ -429,7 +410,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             Jasen jasen = siivoustiimi.annaJasen(i);
             listaJasenet.add(jasen.getNimi(), jasen);
         }
-        //  listaJasenet.setSelectedIndex(index); // tästä tulee muutosviesti joka näyttää jäsenen
     }
 
     /**
@@ -445,13 +425,13 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         }
     }
 
-    private void haeJasenenSuoritukset(int jasenID) {
+    private void haeKotityonSuoritukset(int kotityoID) {
         listaTehty.clear();
 
-        ArrayList<Suoritus> suorituslista = siivoustiimi.annaSuoritukset(jasenID);
+        ArrayList<Suoritus> suorituslista = siivoustiimi.annaSuoritukset(kotityoID);
 
         for (Suoritus alkio : suorituslista) {
-            listaTehty.add("1", alkio);
+            listaTehty.add(alkio.getViimeisinSuoritus(), alkio);
         }
     }
 

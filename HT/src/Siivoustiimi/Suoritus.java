@@ -1,11 +1,9 @@
 package Siivoustiimi;
 
-import java.io.PrintStream;
-import java.util.Calendar;
-import java.util.Date;
+import fi.jyu.mit.ohj2.Mjonot;
 
-import static kanta.RandomIka.arvoIka;
-import static kanta.RandomNumero.arvoNumero;
+import java.io.PrintStream;
+
 import static kanta.RandomNumero.rand;
 
 /**
@@ -23,7 +21,7 @@ public class Suoritus {
 
     private int suoritusID;
     private int suoritusAika;
-    private Date suoritusPvm;
+    private String suoritusPvm;
     private int kotityoID;
     private int suorittajaID;
 
@@ -35,6 +33,18 @@ public class Suoritus {
 
     public int getSuoritusID() {
         return suoritusID;
+    }
+
+    public int getKotityoID() {
+        return kotityoID;
+    }
+
+    public int getsuoritusAika() {
+        return suoritusAika;
+    }
+
+    public int getSuorittajaID() {
+        return suorittajaID;
     }
 
 
@@ -67,10 +77,27 @@ public class Suoritus {
      */
     public void taytaSuoritus(int tekijanId, int kotityontunnusnumero) {
         suoritusAika = rand(10,50);
-        suoritusPvm = Calendar.getInstance().getTime() ;
+        suoritusPvm = "12-12-2022";
         kotityoID = kotityontunnusnumero;
         suorittajaID = tekijanId;
     }
+
+    public void parse(String s)  {
+        StringBuilder sb = new StringBuilder(s);
+        setSuoritusID(Mjonot.erota(sb, '|', getKotityoID()));
+
+        this.suoritusAika = Mjonot.erota(sb, '|', getsuoritusAika());
+        this.suoritusPvm = Mjonot.erota(sb, '|', getViimeisinSuoritus());
+        this.kotityoID = Mjonot.erota(sb,'|', getKotityoID());
+        this.suorittajaID = Mjonot.erota(sb, '|', getSuorittajanID());
+
+    }
+
+    private void setSuoritusID(int nro) {
+        this.suoritusID = nro;
+        if (suoritusID >= seuraavaSuoritusNro) seuraavaSuoritusNro = suoritusID +1;
+    }
+
 
     /**
      * Tulostetaan suorituksen tiedot
@@ -88,6 +115,12 @@ public class Suoritus {
     public int getSuorittajanID() {
         return suorittajaID;
     }
+
+    public String getViimeisinSuoritus() {
+        return suoritusPvm;
+    }
+
+
 
 
     /**

@@ -1,5 +1,9 @@
 package Siivoustiimi;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -8,8 +12,6 @@ public class Suoritukset implements Iterable<Suoritus> {
     private String tiedostonPerusNimi = "";
 
     private boolean muutettu = false;
-
-
 
     private final Collection<Suoritus> alkiot = new ArrayList<Suoritus>();
 
@@ -23,7 +25,7 @@ public class Suoritukset implements Iterable<Suoritus> {
     public ArrayList<Suoritus> annaSuoritukset (int id) {
         ArrayList<Suoritus> loydetyt = new ArrayList<>();
         for (Suoritus suoritus : alkiot)
-            if (suoritus.getSuorittajanID() == id) loydetyt.add(suoritus);
+            if (suoritus.getKotityoID() == id) loydetyt.add(suoritus);
         return loydetyt;
     }
 
@@ -75,5 +77,35 @@ public class Suoritukset implements Iterable<Suoritus> {
     @Override
     public Iterator<Suoritus> iterator() {
         return alkiot.iterator();
+    }
+
+    public void lueTiedostosta(String tiedosto) throws SailoException {
+        setTiedostonPerusNimi(tiedosto);
+
+        try (BufferedReader fi = new BufferedReader(new FileReader(getTiedostonNimi()))) {
+
+            String rivi;
+            while ( (rivi = fi.readLine()) != null ) {
+                rivi = rivi.trim();
+                if ( "".equals(rivi) || rivi.charAt(0) == ';' ) continue;
+                Suoritus suoritus = new Suoritus();
+                suoritus.parse(rivi); // TODO virhekäsittely
+                lisaa(suoritus);
+            }
+            muutettu = false;
+
+        } catch ( FileNotFoundException e ) {
+            throw new SailoException("Tiedosto " + getTiedostonNimi() + " ei aukea");
+        } catch ( IOException e ) {
+            throw new SailoException("Ongelmia tiedoston kanssa: " + e.getMessage());
+        }
+    }
+
+    /**
+     *  Luetaan aikaisemmin annetun nimisestä tiedostosta
+     * @throws SailoException jos tulee poikkeus
+     */
+    public void lueTiedostosta() throws SailoException, FileNotFoundException {
+        lueTiedostosta(getTiedostonPerusNimi());
     }
 }

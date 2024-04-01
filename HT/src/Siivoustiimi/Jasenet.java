@@ -124,8 +124,6 @@ public class Jasenet implements Iterable<Jasen>{
         ftied.renameTo(fbak);
 
         try ( PrintWriter fo = new PrintWriter(new FileWriter(ftied.getCanonicalPath())) ) {
-            fo.println(getKokoNimi());
-            fo.println(alkiot.length);
             for (Jasen jasen : this) {
                 fo.println(jasen.toString());
             }
@@ -189,6 +187,7 @@ public class Jasenet implements Iterable<Jasen>{
        }
         this.alkiot[this.lkm] = jasen;
         this.lkm++;
+        muutettu = true;
     }
 
     /**

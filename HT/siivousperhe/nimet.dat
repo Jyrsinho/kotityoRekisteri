@@ -1,4 +1,5 @@
-1  |Kekkila  |   Timo     |Talvitie 4  |11600      |Vantaa     |504455632  |    35    |
-2  |Hakkila  |   Jaana    |Talvitie 4  |11600      |Vantaa     |405566774  |    35    |
-3  |Kekkila  |   Kalle    |Talvitie 4  |11600      |Vantaa     |           |    7     |
-4  |Korhonen |   Sergei   |Talvitie 4  |11600      |Vantaa     |503322194  |    7     |
+1|Kekkila|Timo|Talvitie 4|11600|Vantaa|504455632|35|
+2|Hakkila|Jaana|Talvitie 4|11600|Vantaa|405566774|35|
+3|Kekkila|Kalle|Talvitie 4|11600|Vantaa||7|
+4|Korhonen|Sergei|Talvitie 4|11600|Vantaa|503322194|7|
+5|Timo|Kekkila|Talvitie 4|11600|Vantaa|05091712278|67|

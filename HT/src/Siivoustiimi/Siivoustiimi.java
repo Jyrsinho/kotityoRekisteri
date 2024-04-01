@@ -45,9 +45,9 @@ public class Siivoustiimi {
         return kotityot.annaKotityot(jasenId);
     }
 
-    public ArrayList<Suoritus> annaSuoritukset(int jasenId) {
+    public ArrayList<Suoritus> annaSuoritukset(int kotityoID) {
 
-        return suoritukset.annaSuoritukset(jasenId);
+        return suoritukset.annaSuoritukset(kotityoID);
     }
 
 
@@ -62,6 +62,7 @@ public class Siivoustiimi {
         if ( !nimi.isEmpty() ) hakemistonNimi = nimi +"/";
         jasenet.setTiedostonPerusNimi(hakemistonNimi + "nimet");
         kotityot.setTiedostonPerusNimi(hakemistonNimi + "kotityot");
+        suoritukset.setTiedostonPerusNimi(hakemistonNimi + "suoritukset");
     }
 
 
@@ -107,10 +108,12 @@ public class Siivoustiimi {
     public void lueTiedostosta(String nimi) throws SailoException, FileNotFoundException {
         jasenet = new Jasenet();
         kotityot = new Kotityot();
+        suoritukset = new Suoritukset();
 
         setTiedosto(nimi);
         jasenet.lueTiedostosta();
         kotityot.lueTiedostosta();
+        suoritukset.lueTiedostosta();
     }
 
     public void tallenna() throws SailoException, FileNotFoundException {
