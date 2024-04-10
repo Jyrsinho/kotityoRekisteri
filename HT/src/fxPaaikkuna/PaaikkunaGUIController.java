@@ -199,6 +199,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @FXML
     void menuKlikkaaPoistaKotityo(ActionEvent event) {
         Dialogs.showMessageDialog("Vielä ei osata poistaa kotitöitä.");
+        //poistaKotityo();
     }
 
     @FXML
@@ -477,6 +478,17 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         suoritus.taytaSuoritus(1, 1);
         siivoustiimi.lisaa(suoritus);
         haeJasenenKotityot(jasenKohdalla.getId());
+    }
+
+    private void poistaKotityo() {
+        /*
+        Kotityo kotityo = new Kotityo();
+        kotityo = kotityoKohdalla;
+        listaTekematta.clear();
+        siivoustiimi.poista(kotityo);
+        haeJasenenKotityot(jasenKohdalla.getId());
+
+         */
     }
 }
 

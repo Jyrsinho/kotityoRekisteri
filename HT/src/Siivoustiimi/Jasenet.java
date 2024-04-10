@@ -1,6 +1,7 @@
 package Siivoustiimi;
 
 import java.io.*;
+import java.security.PublicKey;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -136,8 +137,12 @@ public class Jasenet implements Iterable<Jasen>{
         muutettu = false;
     }
 
+    /**
+     * Poistaa tiedostosta valitun jäsenen.
+     */
+    public void poista() {
 
-
+    }
 
     /**
      * Palauttaa kerhon jäsenten lukumääärämn

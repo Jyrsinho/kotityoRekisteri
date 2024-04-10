@@ -121,7 +121,14 @@ public class Suoritus {
     }
 
 
-
+    public String toString() {
+        return ""+
+                getSuoritusID()             +"|"+
+                getsuoritusAika()           +"|"+
+                getViimeisinSuoritus()      +"|"+
+                getKotityoID()              +"|"+
+                getSuorittajaID()           +"|";
+    }
 
     /**
      * Testiohjelma suoritukselle.

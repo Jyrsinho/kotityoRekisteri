@@ -120,7 +120,6 @@ public class Kotityot implements Iterable<Kotityo> {
     }
 
 
-
     /**
      * Tallentaa kotityöt tiedostoon.  // TODO Kesken.
      * @throws SailoException jos talletus epäonnistuu

@@ -1,9 +1,6 @@
 package Siivoustiimi;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -107,5 +104,29 @@ public class Suoritukset implements Iterable<Suoritus> {
      */
     public void lueTiedostosta() throws SailoException, FileNotFoundException {
         lueTiedostosta(getTiedostonPerusNimi());
+    }
+
+    /**
+     * Tallentaa suoritukset tiedostoon.  // TODO Kesken.
+     * @throws SailoException jos tallennus epäonnistuu
+     */
+    public void tallenna() throws SailoException, IOException {
+        if ( !muutettu ) return;
+        File fbak = new File(getBakNimi());
+        File ftied = new File(getTiedostonNimi());
+
+        fbak.delete();
+        ftied.renameTo(fbak);
+
+        try ( PrintWriter fo = new PrintWriter(new FileWriter(ftied.getCanonicalPath())) ) {
+            for (Suoritus suoritus : this) {
+                fo.println(suoritus.toString());
+            }
+        }catch (FileNotFoundException e) {
+            throw new SailoException("Tiedosto " + ftied.getName() + " ei aukea");
+        } catch ( IOException ex ) {
+            throw new SailoException("Tiedoston " + ftied.getName() + " kirjoittamisessa ongelmia");
+        }
+        muutettu = false;
     }
 }

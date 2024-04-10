@@ -99,6 +99,8 @@ public class Siivoustiimi {
 
     public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
 
+    public void poista (Kotityo kotityo) {kotityot.poista(kotityo);}
+
     /**
      * Lukee siivoustiimin tiedot tiedostosta
      * @param nimi jota käyteään lukemisessa
@@ -132,6 +134,12 @@ public class Siivoustiimi {
             throw new RuntimeException(e);
         }
         if ( !"".equals(virhe) ) throw new SailoException(virhe);
+
+        try {
+            suoritukset.tallenna();
+        }catch (SailoException | IOException e) {
+            virhe = e.getMessage();
+        }   if ( !"".equals(virhe) ) throw new SailoException(virhe);
     }
 
 
