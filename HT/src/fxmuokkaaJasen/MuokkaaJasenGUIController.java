@@ -1,5 +1,6 @@
 package fxmuokkaaJasen;
 import Siivoustiimi.Jasen;
+import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
@@ -11,7 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import Siivoustiimi.SailoException;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 /**
@@ -114,6 +117,7 @@ import java.util.ResourceBundle;
      */
     @FXML void klikkaaValitseJasen(MouseEvent event) {
 
+
     }
 
     /**
@@ -133,10 +137,25 @@ import java.util.ResourceBundle;
 
     private Jasen jasenKohdalla;
 
+    private Siivoustiimi siivoustiimi;
+
+    private String siivoustiiminnimi = "siivousperhe";
+
     /**
      * Tekee tarvittavat muut alustukset.
      */
     protected void alusta() {
+
+    }
+
+
+    /**
+     * @param siivoustiimi siivoustiimi jota käytetään tässä käyttöliittymässä
+     */
+
+    public void setSiivoustiimi(Siivoustiimi siivoustiimi) {
+        this.siivoustiimi = siivoustiimi;
+        naytaJasen(jasenKohdalla);
     }
 
     @Override
@@ -147,7 +166,7 @@ import java.util.ResourceBundle;
     @Override
     public void setDefault(Jasen oletus) {
         jasenKohdalla = oletus;
-        naytaJasen(jasenKohdalla);
+        naytaJasen(oletus);
 
     }
 
@@ -155,14 +174,16 @@ import java.util.ResourceBundle;
     @Override
     public void handleShown() {
         editNimi.requestFocus();
-
     }
+
+
 
     /**
      * Näytetään jäsenen tiedot TextField komponentteihin
      * @param jasen näytettävä jäsen
      */
     public void naytaJasen(Jasen jasen) {
+
         if (jasen == null) return;
 
         editNimi.setText(jasen.getNimi());
@@ -171,6 +192,7 @@ import java.util.ResourceBundle;
         editOsoite.setText(jasen.getKatuosoite());
         editIka.setText(String.valueOf(jasen.getIka()));
     }
+
 
 
 

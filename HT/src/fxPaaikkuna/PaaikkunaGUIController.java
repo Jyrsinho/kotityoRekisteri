@@ -178,7 +178,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @FXML
     void menuKlikkaaMuokkaaJasen(ActionEvent event) {
 
-        muokkaa();
+        muokkaaJasen();
     }
 
     @FXML
@@ -348,7 +348,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     /**
      *
      */
-    private void muokkaa(){
+    private void muokkaaJasen(){
         MuokkaaJasenGUIController.kysyJasen(null, jasenKohdalla);
     }
 
