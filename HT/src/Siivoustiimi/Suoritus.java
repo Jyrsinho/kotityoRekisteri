@@ -82,6 +82,24 @@ public class Suoritus {
         suorittajaID = tekijanId;
     }
 
+    /**
+     * Selvittää suorituksen tiedot | erotellusta merkkijonosta
+     * Pitää huolen että seuraavaSuoritusNro on suurempi kuin tuleva kotityoId.
+     * @param s rivi josta suorituksen tiedot otetaan
+     * @example
+     * <pre name="test">
+     *   Suoritus suoritus = new Suoritus();
+     *   suoritus.parse("1               |30                  | 20.1.2024                  | 1                 1|");
+     *   suoritus.getSuoritusID() === 1;
+     *   suoritus.toString().startsWith("1|30|") === true;
+     *
+     *   suoritus.rekisteroiSuoritus();
+     *   int n = suoritus.getSuoritusID();
+     *   suoritus.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
+     *   suoritus.rekisteroiSuoritus();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
+     *   suoritus.getSuoritusID() === n+20+1;
+     * </pre>
+     */
     public void parse(String s)  {
         StringBuilder sb = new StringBuilder(s);
         setSuoritusID(Mjonot.erota(sb, '|', getKotityoID()));
@@ -93,6 +111,11 @@ public class Suoritus {
 
     }
 
+    /**
+     * Asettaa suoritusId:n ja samalla varmistaa että
+     * seuraava Suoritusnumero on aina suurempi kuin tähän mennessä suurin.
+     * @param nro asetettava suoritusID
+     */
     private void setSuoritusID(int nro) {
         this.suoritusID = nro;
         if (suoritusID >= seuraavaSuoritusNro) seuraavaSuoritusNro = suoritusID +1;

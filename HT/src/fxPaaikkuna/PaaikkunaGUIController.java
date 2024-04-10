@@ -3,10 +3,8 @@ package fxPaaikkuna;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.*;
 import fxAloitusnakyma.AloitusnakymaGUIController;
-import fxlisaaJasen.lisaaJasenGUIController;
 import fxlisaaKotityo.lisaaKotityoGUIController;
-import fxlisaaSuoritus.lisaaSuoritusGUIController;
-import fxmuokkaaJasen.muokkaaJasenGUIController;
+import fxmuokkaaJasen.MuokkaaJasenGUIController;
 import fxmuokkaakotityo.muokkaakotityoGUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -27,14 +25,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import Siivoustiimi.Jasen;
 import Siivoustiimi.Suoritus;
 import Siivoustiimi.SailoException;
 import Siivoustiimi.Kotityo;
-import org.w3c.dom.Text;
 
 /**
  * Luokka siivoustiimin käyttöliittymän tapahtumien hoitamiseksi
@@ -182,7 +178,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @FXML
     void menuKlikkaaMuokkaaJasen(ActionEvent event) {
 
-        ModalController.showModal(muokkaaJasenGUIController.class.getResource("muokkaaJasenGuiView.fxml"), "Muokkaa Jäsen", null, "");
+        muokkaa();
     }
 
     @FXML
@@ -237,6 +233,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private TextArea areaKotityo = new TextArea();
     private TextArea areaSuoritus = new TextArea();
 
+    /**
+     * Tekee alustukset. Tekee tekstikentät joihin voidaan
+     * tulostaa jäsenten, kotitöiden ja suoritusten tiedot.
+     */
     protected void alusta() {
 
         panelJasen.setContent(areaJasen);
@@ -345,6 +345,13 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         naytaSuoritus();
     }
 
+    /**
+     *
+     */
+    private void muokkaa(){
+        MuokkaaJasenGUIController.kysyJasen(null, jasenKohdalla);
+    }
+
 
     /**
      * Näyttää listasta valitun jäsenen tiedot, tilapäisesti yhteen isoon edit-kenttään
@@ -352,14 +359,11 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private void naytaJasen() {
         jasenKohdalla = listaJasenet.getSelectedObject();
 
-        if (jasenKohdalla == null) return;
+        if (jasenKohdalla == null) {
+            return;
+        }
 
         haeJasenenKotityot(jasenKohdalla.getId());
-
-        areaJasen.setText("");
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaJasen)) {
-            jasenKohdalla.tulosta(os);
-        }
     }
 
     /**
@@ -426,6 +430,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         }
     }
 
+    /**
+     * Hakee valitun kotityön suoritukset listaan tehdyistä suorituksista.
+     * @param kotityoID
+     */
     private void haeKotityonSuoritukset(int kotityoID) {
         listaTehty.clear();
 
@@ -469,7 +477,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
 
     /**
-     * Luo uuden kotityon
+     * Luo uuden suorituksen
      */
     private void uusiSuoritus() {
         //if (jasenKohdalla == null) return;
