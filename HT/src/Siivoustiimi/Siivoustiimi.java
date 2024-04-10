@@ -99,7 +99,7 @@ public class Siivoustiimi {
 
     public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
 
-    public void poista (Kotityo kotityo) {kotityot.poista(kotityo);}
+    //public void poista (Kotityo kotityo) {kotityot.poista(kotityo);}
 
     /**
      * Lukee siivoustiimin tiedot tiedostosta
