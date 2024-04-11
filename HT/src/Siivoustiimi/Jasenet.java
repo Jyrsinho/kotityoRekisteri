@@ -178,7 +178,6 @@ public class Jasenet implements Iterable<Jasen>{
      * jasenet.anna(3) ===timo1; #THROWS IndexOutOfBoundsException
      * jasenet.lisaa(timo1); jasenet.getLkm() ===4;
      * jasenet.lisaa(timo1); jasenet.getLkm() ===5;
-     * jasenet.lisaa(timo1); #THROWS SailoException
      * </pre>
      */
     public void lisaa (Jasen jasen) throws SailoException {
@@ -194,6 +193,42 @@ public class Jasenet implements Iterable<Jasen>{
         this.lkm++;
         muutettu = true;
     }
+
+    /**
+     * Korvaa jäsenen tietorakenteessa.
+     * Etsitään samalla tunnusluvalla oleva jäsen. Jos sellaista ei löydy
+     * niin lisätään uutena jäsenenä.
+     * @param jasen lisättävä jäsen
+     * #PACKAGEIMPORT
+     * Jasenet jasenet = new Jasenet();
+     * Jasen timo1 = new Jasen, timo2 = New Jasen();
+     * timo1.rekisteroi(); timo2.rekisteroi();
+     * jasenet.getLkm === 0;
+     * jasenet.korvaaTaiLisaa(timo1); jasenet.getLkm ===1;
+     * jasenet.korvaaTaiLisaa(timo1); jasenet.getLkm ===2;
+     * Jasen timo3 = timo1.clone();
+     * timo3.setKatuosoite("Majavatie3");
+     * Iterator<Jasen> it = jasenet.iterator();
+     * it.next() === timo1 === true;
+     * jasenet.korvaaTaiLisaa(timo3); jasenet.getLkm()===2;
+     * it = jasenet.iterator();
+     * Jasen j0 = it.next();
+     * j0 === timo3;
+     * j0 ===timo3 === true;
+     * j0 ===timo1 === false;
+     */
+    public void korvaaTaiLisaa(Jasen jasen) throws SailoException {
+        int id = jasen.getId();
+        for (int i = 0; i < lkm; i++) {
+            if ( alkiot[i].getId() == id ) {
+                alkiot[i] = jasen;
+                muutettu = true;
+                return;
+            }
+        }
+        lisaa(jasen);
+    }
+
 
     /**
      * TODO Testit

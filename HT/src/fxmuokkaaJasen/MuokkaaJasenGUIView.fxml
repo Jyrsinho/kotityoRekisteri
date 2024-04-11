@@ -13,9 +13,8 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmuokkaaJasen.MuokkaaJasenGUIController">
   <columnConstraints>
     <ColumnConstraints />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.9479522705078" minWidth="10.0" prefWidth="168.0520477294922" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.9294128417969" minWidth="10.0" prefWidth="254.35882568359375" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.44244384765625" minWidth="10.0" prefWidth="178.64117431640625" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="324.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.5" minWidth="10.0" prefWidth="275.5" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints maxHeight="130.39037322998047" minHeight="10.0" prefHeight="46.01301193237305" vgrow="SOMETIMES" />
@@ -25,53 +24,27 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Hakuehto:" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="textHaku" onKeyReleased="#haeJasen" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label text="17:35 20.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
-      </TextField>
-      <ListChooser fx:id="valitseJasen" onMouseClicked="#klikkaaValitseJasen" prefHeight="234.0" prefWidth="147.0" rivit="Timo Kekkilä&#10;Jaana Hakkila&#10;Kalle Kekkilä" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label text="JÄSENET" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      </Label>
+      <Label text="JÄSENEN TIEDOT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font name="Arial Black" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="buttonuusiJasen" mnemonicParsing="false" onMouseClicked="#klikkaaUusiJasen" text="Uusi jäsen" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-      </Button>
-      <Button fx:id="buttonPoistaJasen" mnemonicParsing="false" onMouseClicked="#klikkaaPoistaJasen" text="Poista jäsen" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-      </Button>
-      <Label text="17:35 20.1.2024" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Label text="JÄSENEN TIEDOT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <Label text="JÄSENEN KOTITYÖT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font name="Arial Black" size="15.0" />
          </font>
       </Label>
-      <Label text="JÄSENEN KOTITYÖT" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="buttonTallenna" mnemonicParsing="false" onMouseClicked="#klikkaaTallenna" text="Tallenna" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="buttonTallenna" mnemonicParsing="false" onMouseClicked="#klikkaaTallenna" text="Tallenna" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <GridPane prefHeight="237.0" prefWidth="218.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <GridPane prefHeight="237.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.94796752929688" minWidth="10.0" prefWidth="88.42941284179688" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.1951904296875" minWidth="10.0" prefWidth="104.07058715820312" />
@@ -86,7 +59,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField text="0405876634" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="editPuhelin" text="0405876634" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Puhelin:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -115,7 +88,7 @@
             </Label>
             <TextField fx:id="editKaupunki" text="Vantaa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="editPostinumero" text="11600" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id= "editOsoite" text="Talvitie 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="editOsoite" text="Talvitie 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Nimi:" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -128,16 +101,17 @@
             </TextField>
          </children>
       </GridPane>
-      <Button fx:id="buttonMuokkaaKotityö" mnemonicParsing="false" onMouseClicked="#klikkaaMuokkaaKotityo" text="Muokkaa kotityö" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="buttonMuokkaaKotityö" mnemonicParsing="false" onMouseClicked="#klikkaaMuokkaaKotityo" text="Muokkaa kotityö" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <ListChooser fx:id="naytaKotityo" onMouseClicked="#klikkaaValitseKotityö" rivit="Imurointi&#10;Lattioiden pesu&#10;Autotallin siivous&#10;Tiskikoneen tyhjennys" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <Button fx:id="buttonCancel" mnemonicParsing="false" onMouseClicked="#klikkaaCancel" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      <ListChooser fx:id="listaKotityo" onMouseClicked="#klikkaaValitseKotityö" rivit="Imurointi&#10;Lattioiden pesu&#10;Autotallin siivous&#10;Tiskikoneen tyhjennys" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Button fx:id="buttonCancel" mnemonicParsing="false" onMouseClicked="#klikkaaCancel" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="20.0" />
          </GridPane.margin>
       </Button>
+      <Label fx:id="labelVirhe" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </GridPane>

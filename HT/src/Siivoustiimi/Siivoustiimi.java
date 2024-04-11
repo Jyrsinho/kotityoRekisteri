@@ -99,6 +99,18 @@ public class Siivoustiimi {
 
     public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
 
+    /**
+     * Korvaa jäsenen tietorakenteessa.  Ottaa jäsenen omistukseensa.
+     * Etsitään samalla tunnusnumerolla oleva jäsen.  Jos ei löydy,
+     * niin lisätään uutena jäsenenä.
+     * @param jasen lisättävän jäsenen viite.  Huom tietorakenne muuttuu omistajaksi
+     * @throws SailoException jos tietorakenne on jo täynnä
+     */
+    public void korvaaTaiLisaa(Jasen jasen) throws SailoException {
+        jasenet.korvaaTaiLisaa(jasen);
+    }
+
+
     //public void poista (Kotityo kotityo) {kotityot.poista(kotityo);}
 
     /**

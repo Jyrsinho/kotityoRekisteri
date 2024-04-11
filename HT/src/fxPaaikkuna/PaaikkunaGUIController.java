@@ -349,7 +349,18 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      */
     private void muokkaaJasen(){
-        MuokkaaJasenGUIController.kysyJasen(null, jasenKohdalla);
+        if (jasenKohdalla == null) return;
+        try {
+            Jasen jasen;
+            jasen = MuokkaaJasenGUIController.kysyJasen(null, jasenKohdalla.clone(), siivoustiimi);
+            if (jasen == null) return;
+            siivoustiimi.korvaaTaiLisaa(jasen);
+            hae(jasen.getId());
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }catch (SailoException e) {
+            Dialogs.showMessageDialog(e.getMessage());
+        }
     }
 
 
@@ -449,16 +460,18 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Luo uuden jäsenen
      */
     private void uusiJasen() {
-        Jasen uusi = new Jasen();
-        uusi.rekisteroi();
-        uusi.taytaJasen();
         try {
+            Jasen uusi = new Jasen();
+            uusi = MuokkaaJasenGUIController.kysyJasen(null, uusi, siivoustiimi);
+            if (uusi==null) return;
+            uusi.rekisteroi();
             siivoustiimi.lisaa(uusi);
+            hae(uusi.getId());
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
             return;
         }
-        hae(uusi.getId());
+
 
     }
 

@@ -1,5 +1,6 @@
 package fxmuokkaaJasen;
 import Siivoustiimi.Jasen;
+import Siivoustiimi.Kotityo;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
@@ -13,9 +14,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import Siivoustiimi.SailoException;
+import javafx.scene.control.Label;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 /**
  * @author jyrihuhtala
@@ -32,27 +36,20 @@ import java.util.ResourceBundle;
     public TextField editPostinumero;
     public TextField editKaupunki;
     public TextField editIka;
+    public TextField editPuhelin;
+
+    @FXML private Label labelVirhe;
+
     @FXML private Button buttonMuokkaaKotityö;
 
     @FXML private Button buttonCancel;
 
-    @FXML private Button buttonPoistaJasen;
 
     @FXML private Button buttonTallenna;
 
-    @FXML private Button buttonuusiJasen;
-
-    @FXML private ListChooser<?> naytaKotityo;
-
-    @FXML private TextField textHaku;
-
-    @FXML private ListChooser<Jasen> listaJasenet;
+    @FXML private ListChooser<Kotityo> listaKotityo;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        alusta();
-    }
 
         /**
         * Haetaan jäsenlistasta kirjoitettua hakuehtoa vastaavia jäseniä.
@@ -92,33 +89,19 @@ import java.util.ResourceBundle;
      */
     @FXML void klikkaaTallenna(MouseEvent event) {
 
-        Dialogs.showMessageDialog("Vielä ei osata tallentaa");
-        ModalController.closeStage(buttonCancel);
-
+        if(jasenKohdalla != null && jasenKohdalla.getNimi().trim().equals("")) {
+            naytaVirhe("Nimi ei saa olla tyhjä");
+            return;
+        }
+        ModalController.closeStage(labelVirhe);
     }
 
     @FXML void klikkaaCancel(MouseEvent event) {
-        ModalController.closeStage(buttonCancel);
+        jasenKohdalla = null;
+        ModalController.closeStage(labelVirhe);
 
     }
 
-    /**
-     * Avaa Lisää jäsen ikkunan
-     * @param event
-     */
-    @FXML void klikkaaUusiJasen(MouseEvent event) {
-
-        Dialogs.showMessageDialog("Vielä ei osata avata Lisää Jäsen ikkunaa");
-        }
-
-    /**
-     * Valitaan listasta jäsen.
-     * @param event
-     */
-    @FXML void klikkaaValitseJasen(MouseEvent event) {
-
-
-    }
 
     /**
      * Valitaan listasta kotityö.
@@ -136,32 +119,33 @@ import java.util.ResourceBundle;
 //------------------------------------------------------
 
     private Jasen jasenKohdalla;
+    private TextField edits[];
 
     private Siivoustiimi siivoustiimi;
 
-    private String siivoustiiminnimi = "siivousperhe";
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        alusta();
+    }
 
     /**
      * Tekee tarvittavat muut alustukset.
      */
     protected void alusta() {
 
-    }
-
-
-    /**
-     * @param siivoustiimi siivoustiimi jota käytetään tässä käyttöliittymässä
-     */
-
-    public void setSiivoustiimi(Siivoustiimi siivoustiimi) {
-        this.siivoustiimi = siivoustiimi;
-        naytaJasen(jasenKohdalla);
+         edits = new TextField[]{editNimi, editOsoite, editKaupunki, editPostinumero, editPuhelin, editIka};
+         int i = 0;
+         for (TextField edit : edits) {
+                 final int k = ++i;
+                 edit.setOnKeyReleased( e -> kasitteleMuutosJaseneen(k, (TextField)(e.getSource())));
+         }
     }
 
     @Override
     public Jasen getResult() {
         return jasenKohdalla;
     }
+
 
     @Override
     public void setDefault(Jasen oletus) {
@@ -174,8 +158,45 @@ import java.util.ResourceBundle;
     @Override
     public void handleShown() {
         editNimi.requestFocus();
+
     }
 
+    private void naytaVirhe(String virhe) {
+        if ( virhe == null || virhe.isEmpty() ) {
+            labelVirhe.setText("");
+            labelVirhe.getStyleClass().removeAll("virhe");
+            return;
+        }
+        labelVirhe.setText(virhe);
+        labelVirhe.getStyleClass().add("virhe");
+    }
+
+
+    /**
+     * Käsitellään jäseneen tullut muutos
+     * @param edit muuttunut kenttä
+     */
+    private void kasitteleMuutosJaseneen(int k, TextField edit) {
+        if (jasenKohdalla == null) return;
+        String s = edit.getText();
+        String virhe = null;
+        switch (k) {
+            case 1 : virhe = jasenKohdalla.setSukunimi(s); break;
+            case 2 : virhe = jasenKohdalla.setEtunimi(s); break;
+            case 3 : virhe = jasenKohdalla.setKatuosoite(s); break;
+            case 4 : virhe = jasenKohdalla.setKaupunki(s); break;
+            default:
+        }
+        if (virhe == null) {
+            Dialogs.setToolTipText(edit,"");
+            edit.getStyleClass().removeAll("virhe");
+            naytaVirhe(virhe);
+        } else {
+            Dialogs.setToolTipText(edit,virhe);
+            edit.getStyleClass().add("virhe");
+            naytaVirhe(virhe);
+        }
+    }
 
 
     /**
@@ -191,27 +212,40 @@ import java.util.ResourceBundle;
         editPostinumero.setText(jasen.getPostinumero());
         editOsoite.setText(jasen.getKatuosoite());
         editIka.setText(String.valueOf(jasen.getIka()));
+        editPuhelin.setText(jasen.getPuhelin());
+
+
     }
 
+    //TODO Näytä käyttäjän kotityöt listassa
 
+    public void naytaKotityot(Jasen jasen) {
+        listaKotityo.clear();
+        ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasen.getId());
+
+        for (Kotityo alkio : kotityolista) {
+            listaKotityo.add(alkio.getKotityoNimi(), alkio);
+        }
+    }
 
 
     /**
      * Luodaan jäsenen kysymisdialogi ja palautetaan sama tietue muutettuna tai null
-     * TODO: korjattava toimimaan
      * @param modalityStage mille ollaan modaalisia, null = sovellukselle
      * @param oletus mitä dataan näytetään oletuksena
      * @return null jos painetaan Cancel, muuten täytetty tietue
      */
 
-    public static Jasen kysyJasen(Stage modalityStage, Jasen oletus) {
-        return ModalController.showModal(
+    public static Jasen kysyJasen(Stage modalityStage, Jasen oletus, Siivoustiimi oletusTiimi) {
+        return ModalController.<Jasen, MuokkaaJasenGUIController>showModal(
                 MuokkaaJasenGUIController.class.getResource("MuokkaaJasenGUIView.fxml"),
-                "Muokkaa Jasen",
-                modalityStage, oletus, null
+                oletus.getEtunimi()+"" +oletus.getSukunimi(),
+                modalityStage, oletus, ctrl-> ctrl.setSiivoustiimi(oletusTiimi)
         );
-
     }
 
+    private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
+        this.siivoustiimi = oletusTiimi;
+    }
 }
 

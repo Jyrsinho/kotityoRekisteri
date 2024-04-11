@@ -18,7 +18,7 @@ import static kanta.RandomIka.arvoIka;
  * @author jyrihuhtala
  * @version 1.0 20.02.2024
  */
-public class Jasen {
+public class Jasen implements Cloneable {
 
    private int id;
    private String sukunimi;
@@ -70,7 +70,11 @@ public class Jasen {
     public int getIka() {return ika;}
 
 
-
+    public Jasen clone() throws CloneNotSupportedException {
+       Jasen uusi;
+       uusi = (Jasen) super.clone();
+       return uusi;
+    }
 
     /**
      * Antaa jäsenelle seuraavan Id:n.
@@ -97,6 +101,32 @@ public class Jasen {
        this.id = numero;
        if (id >= seuraavaNro) seuraavaNro = id+1;
    }
+
+
+    public String setEtunimi(String etunimi) {
+        this.etunimi = etunimi;
+        return null;
+    }
+
+    public String setSukunimi(String sukunimi) {
+        this.sukunimi = sukunimi;
+        return null;
+    }
+   public String setKatuosoite (String katuosoite) {
+       this.katuosoite = katuosoite;
+       return null;
+   }
+
+    public String setKaupunki (String kaupunki) {
+       this.kaupunki = kaupunki;
+       return null;
+    }
+
+    public String setPostinumero (String postinumero) {
+       if (!postinumero.matches(("[0-9]*"))) return "Postinumeron on oltava numeerinen";
+       this.postinumero = postinumero;
+       return null;
+    }
 
     /**
      * Selvittää jäsenen tiedot | erotellusta merkkijonosta
