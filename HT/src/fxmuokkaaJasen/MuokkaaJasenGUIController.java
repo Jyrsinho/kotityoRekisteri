@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -45,7 +46,6 @@ import java.util.ResourceBundle;
     @FXML private Button buttonMuokkaaKotityö;
 
     @FXML private Button buttonCancel;
-
 
     @FXML private Button buttonTallenna;
 
@@ -89,6 +89,7 @@ import java.util.ResourceBundle;
      * tallentaa muokattavaksi valitun jäsenen tiedot tiedostoon.
      * @param event
      */
+    //TODO EI TALLENNA -KORJATTAVA
     @FXML void klikkaaTallenna(MouseEvent event) throws SailoException, FileNotFoundException {
 
         if (jasenKohdalla != null && jasenKohdalla.getEtunimi().trim().equals("") || jasenKohdalla.getSukunimi().trim().equals("")) {
@@ -99,7 +100,6 @@ import java.util.ResourceBundle;
             siivoustiimi.tallenna();
         } catch (SailoException ex) {
             Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-            ex.getMessage();
         }
         ModalController.closeStage(labelVirhe);
     }
@@ -116,8 +116,6 @@ import java.util.ResourceBundle;
      * @param event
      */
         @FXML void klikkaaValitseKotityö(MouseEvent event) {
-
-            Dialogs.showMessageDialog("Vielä ei osata valita kotityötä.");
 
         }
 
@@ -257,6 +255,9 @@ import java.util.ResourceBundle;
 
     private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
         this.siivoustiimi = oletusTiimi;
+        naytaKotityot(jasenKohdalla);
     }
+
+
 }
 
