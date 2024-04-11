@@ -123,8 +123,20 @@ public class Jasen implements Cloneable {
     }
 
     public String setPostinumero (String postinumero) {
-       if (!postinumero.matches(("[0-9]*"))) return "Postinumeron on oltava numeerinen";
+       if (!postinumero.matches(("[0-9]*"))) return "Postinumeron on oltava numero";
        this.postinumero = postinumero;
+       return null;
+    }
+
+    public String setIka (String ika) {
+       if (!ika.matches(("[0-9]*"))) return "Iän on oltava numero";
+       this.ika = Integer.parseInt(ika);
+       return null;
+    }
+
+    public String setPuhelin (String puhelin) {
+       if (!puhelin.matches(("[0-9]*"))) return "puhelinnumeron on oltava numero";
+       this.puhelinNumero = puhelin;
        return null;
     }
 

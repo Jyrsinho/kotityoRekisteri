@@ -239,8 +239,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     protected void alusta() {
 
-        panelJasen.setContent(areaJasen);
-        panelJasen.setFitToHeight(true);
 
         panelKotityo.setContent(areaKotityo);
         panelKotityo.setFitToHeight(true);
@@ -282,13 +280,12 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
 
-    private String tallenna() throws FileNotFoundException {
+    private void tallenna() throws FileNotFoundException {
         try {
             siivoustiimi.tallenna();
-            return null;
         } catch (SailoException ex) {
             Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-            return ex.getMessage();
+            ex.getMessage();
         }
     }
 
@@ -424,7 +421,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
             Jasen jasen = siivoustiimi.annaJasen(i);
-            listaJasenet.add(jasen.getNimi(), jasen);
+            listaJasenet.add(jasen.getSukunimi()+" "+ jasen.getEtunimi(), jasen);
         }
     }
 

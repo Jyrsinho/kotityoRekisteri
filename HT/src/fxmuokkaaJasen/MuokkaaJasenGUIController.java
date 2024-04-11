@@ -31,12 +31,14 @@ import java.util.ResourceBundle;
  */
     public class MuokkaaJasenGUIController implements ModalControllerInterface<Jasen>, Initializable {
 
-    public TextField editNimi;
+    public TextField editEtunimi;
     public TextField editOsoite;
     public TextField editPostinumero;
     public TextField editKaupunki;
     public TextField editIka;
     public TextField editPuhelin;
+    public TextField editSukunimi;
+
 
     @FXML private Label labelVirhe;
 
@@ -87,11 +89,17 @@ import java.util.ResourceBundle;
      * tallentaa muokattavaksi valitun jäsenen tiedot tiedostoon.
      * @param event
      */
-    @FXML void klikkaaTallenna(MouseEvent event) {
+    @FXML void klikkaaTallenna(MouseEvent event) throws SailoException, FileNotFoundException {
 
-        if(jasenKohdalla != null && jasenKohdalla.getNimi().trim().equals("")) {
+        if (jasenKohdalla != null && jasenKohdalla.getEtunimi().trim().equals("") || jasenKohdalla.getSukunimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
             return;
+        }
+        try {
+            siivoustiimi.tallenna();
+        } catch (SailoException ex) {
+            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
+            ex.getMessage();
         }
         ModalController.closeStage(labelVirhe);
     }
@@ -133,7 +141,7 @@ import java.util.ResourceBundle;
      */
     protected void alusta() {
 
-         edits = new TextField[]{editNimi, editOsoite, editKaupunki, editPostinumero, editPuhelin, editIka};
+         edits = new TextField[]{editEtunimi, editSukunimi, editOsoite, editKaupunki, editPostinumero, editPuhelin, editIka};
          int i = 0;
          for (TextField edit : edits) {
                  final int k = ++i;
@@ -151,13 +159,12 @@ import java.util.ResourceBundle;
     public void setDefault(Jasen oletus) {
         jasenKohdalla = oletus;
         naytaJasen(oletus);
-
     }
 
 
     @Override
     public void handleShown() {
-        editNimi.requestFocus();
+        editEtunimi.requestFocus();
 
     }
 
@@ -181,10 +188,13 @@ import java.util.ResourceBundle;
         String s = edit.getText();
         String virhe = null;
         switch (k) {
-            case 1 : virhe = jasenKohdalla.setSukunimi(s); break;
-            case 2 : virhe = jasenKohdalla.setEtunimi(s); break;
+            case 1 : virhe = jasenKohdalla.setEtunimi(s); break;
+            case 2 : virhe = jasenKohdalla.setSukunimi(s); break;
             case 3 : virhe = jasenKohdalla.setKatuosoite(s); break;
             case 4 : virhe = jasenKohdalla.setKaupunki(s); break;
+            case 5 : virhe = jasenKohdalla.setPostinumero(s); break;
+            case 6 : virhe = jasenKohdalla.setPuhelin(s); break;
+            case 7 : virhe = jasenKohdalla. setIka(s); break;
             default:
         }
         if (virhe == null) {
@@ -207,7 +217,8 @@ import java.util.ResourceBundle;
 
         if (jasen == null) return;
 
-        editNimi.setText(jasen.getNimi());
+        editEtunimi.setText(jasen.getEtunimi());
+        editSukunimi.setText(jasen.getSukunimi());
         editKaupunki.setText(jasen.getKaupunki());
         editPostinumero.setText(jasen.getPostinumero());
         editOsoite.setText(jasen.getKatuosoite());
@@ -240,7 +251,7 @@ import java.util.ResourceBundle;
         return ModalController.<Jasen, MuokkaaJasenGUIController>showModal(
                 MuokkaaJasenGUIController.class.getResource("MuokkaaJasenGUIView.fxml"),
                 oletus.getEtunimi()+"" +oletus.getSukunimi(),
-                modalityStage, oletus, ctrl-> ctrl.setSiivoustiimi(oletusTiimi)
+                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
         );
     }
 

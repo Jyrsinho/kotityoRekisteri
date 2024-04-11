@@ -59,46 +59,48 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="editPuhelin" text="0405876634" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Puhelin:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <TextField fx:id="editPuhelin" text="0405876634" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Puhelin:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Kaupunki:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Label text="Kaupunki:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="editIka" text="40" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Syntymäaika:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <TextField fx:id="editIka" text="40" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Ikä:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Postinumero:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Label text="Postinumero:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Osoite:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label text="Osoite:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="editKaupunki" text="Vantaa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="editPostinumero" text="11600" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="editOsoite" text="Talvitie 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Nimi:" GridPane.halignment="RIGHT">
+            <TextField fx:id="editKaupunki" text="Vantaa" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="editPostinumero" text="11600" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="editOsoite" text="Talvitie 4" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Etunimi" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="editNimi" text="Timo Kekkilä" GridPane.columnIndex="1">
+            <TextField fx:id="editEtunimi" text="Timo Kekkilä" GridPane.columnIndex="1">
                <opaqueInsets>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </opaqueInsets>
             </TextField>
+            <Label text="Sukunimi" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="editSukunimi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="buttonMuokkaaKotityö" mnemonicParsing="false" onMouseClicked="#klikkaaMuokkaaKotityo" text="Muokkaa kotityö" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
