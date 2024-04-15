@@ -94,7 +94,6 @@ public class Siivoustiimi {
      * siivoustiimi.annaJasen(3) === timo1; #THROWS IndexOutOfBoundsException
      * siivoustiimi.lisaa(timo1); siivoustiimi.getJasenia() === 4;
      * siivoustiimi.lisaa(timo1); siivoustiimi.getJasenia() ===5;
-     * siivoustiimi.lisaa(timo1); #THROWS SailoException
      * </pre>
      */
     public void lisaa(Jasen jasen) throws SailoException {
@@ -118,8 +117,28 @@ public class Siivoustiimi {
         jasenet.korvaaTaiLisaa(jasen);
     }
 
+    /**
+     * Poistaa jäsenen tietorakenteesta.
+     * @param jasen poistettava jäsen
+     * @return 1 jos poistaminen onnistuu. 0 jos poistaminen ei onnistu.
+     * Siivoustiimi siivoustiimi = new Siivoustiimi();
+     * Jasen jasen1 = new Jasen(); Jasen jasen2 = new Jasen();
+     * siivoustiimi.getJasenia() == 2;
+     * siivoustiimi.poista(jasen2);
+     * siivoustiimi.getJasenia() ==1;
+     */
+    public int poista(Jasen jasen) {
+        if (jasen == null) return 0;
+        int ret = jasenet.poista(jasen.getId());
+        return ret;
+    }
 
-    //public void poista (Kotityo kotityo) {kotityot.poista(kotityo);}
+    public void poistaKotityo(Kotityo kotityo) {
+        if (kotityo ==null) return;
+        kotityot.poista(kotityo);
+    }
+
+
 
     /**
      * Lukee siivoustiimin tiedot tiedostosta

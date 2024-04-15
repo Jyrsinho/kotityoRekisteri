@@ -184,19 +184,19 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     @FXML
     void menuKlikkaaPoistaJasen(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata poistaa jäsentä.");
+        //Dialogs.showMessageDialog("Vielä ei osata poistaa jäsentä.");
+        poistaJasen();
+    }
+
+    @FXML
+    void menuKlikkaaPoistaKotityo(ActionEvent event) {
+        poistaKotityo();
     }
 
     @FXML
     void menuKlikkaaMuokkaaKotityo(ActionEvent event) {
 
         ModalController.showModal(muokkaakotityoGUIController.class.getResource("muokkaakotityoGUIView.fxml"), "Muokkaa kotityö", null, "");
-    }
-
-    @FXML
-    void menuKlikkaaPoistaKotityo(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata poistaa kotitöitä.");
-        //poistaKotityo();
     }
 
     @FXML
@@ -500,15 +500,30 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         haeJasenenKotityot(jasenKohdalla.getId());
     }
 
+    /**
+     * poistaa Kotityön tietorakenteesta.
+     */
     private void poistaKotityo() {
-        /*
-        Kotityo kotityo = new Kotityo();
-        kotityo = kotityoKohdalla;
-        listaTekematta.clear();
-        siivoustiimi.poista(kotityo);
-        haeJasenenKotityot(jasenKohdalla.getId());
 
-         */
+        Kotityo kotityo = kotityoKohdalla;
+        if (kotityo == null) return;
+        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + kotityo.getKotityoNimi(), "Kyllä", "Ei") )
+            return;
+        siivoustiimi.poistaKotityo(kotityo);
+        int index = listaTekematta.getSelectedIndex();
+        listaTekematta.setSelectedIndex(index);
+    }
+
+    /**
+     * poistaa jasenen tietorakenteesta.
+     */
+    private void poistaJasen() {
+        Jasen jasen = jasenKohdalla;
+        if (jasen==null) return;
+        siivoustiimi.poista(jasen);
+        int index = listaJasenet.getSelectedIndex();
+        hae(0);
+        listaJasenet.setSelectedIndex(index);
     }
 }
 

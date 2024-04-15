@@ -38,6 +38,14 @@ public class Kotityot implements Iterable<Kotityo> {
     }
 
 
+
+    public void poista(Kotityo kotityo) {
+        for (Kotityo alkio : alkiot) {
+            if (alkio == kotityo) alkiot.remove(alkio);
+        }
+    }
+
+
     /**
      * Lukee kotityot tiedostosta.  TODO tarkista testit.
      *

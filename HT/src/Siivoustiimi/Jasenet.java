@@ -162,12 +162,32 @@ public class Jasenet implements Iterable<Jasen>{
         muutettu = false;
     }
 
+
+    public int etsiId(int id) {
+        for (int i = 0; i < lkm; i++) {
+            if (id == alkiot[i].getId()) return 1;
+        }
+        return -1;
+    }
+
+
     /**
      * Poistaa tiedostosta valitun jäsenen.
      */
-    public void poista() {
+    public int poista(int id) {
 
-    }
+        int ind = etsiId(id);
+        if (ind < 0) return 0;
+        lkm--;
+        for (int i =ind; i <lkm; i++) {
+            alkiot[i] = alkiot[i+1];
+        }
+
+        alkiot[lkm] = null;
+        muutettu = true;
+        return 1;
+        }
+
 
     /**
      * Palauttaa kerhon jäsenten lukumääärämn
