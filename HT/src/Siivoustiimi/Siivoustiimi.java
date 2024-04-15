@@ -29,6 +29,8 @@ public class Siivoustiimi {
         return jasenet.getLkm();
     }
 
+    public Jasen[] getJasenet() {return jasenet.getJasenet();}
+
 
 
     /**
@@ -50,6 +52,12 @@ public class Siivoustiimi {
         return suoritukset.annaSuoritukset(kotityoID);
     }
 
+    /**
+     * Etsii annettua merkkijonoa vastaavan jäsenen ID:n
+     */
+    public int etsiJasenenID (String jasenenNimi) {
+        return jasenet.annaJasenenId(jasenenNimi);
+    }
 
     /**
      * Asettaa tiedostojen perusnimet

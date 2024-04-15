@@ -88,6 +88,29 @@ public class Kotityo {
     public int getVanhenemisaika() {return vanhenemisaika;}
 
 
+    public String setKotityonNimi(String uusiNimi) {
+        if (uusiNimi.isEmpty()) return "Nimi ei voi olla tyhjä";
+        this.kotityoNimi = uusiNimi;
+        return null;
+    }
+
+    public String setVanhenemisaika(String uusiVanhenemisAika) {
+        if (!uusiVanhenemisAika.matches(("[0-9]*"))) return "Vanhenemisajan on oltava numero";
+        this.vanhenemisaika = Integer.parseInt(uusiVanhenemisAika);
+        return null;
+    }
+
+    public String setKesto (String uusiKesto) {
+        if (!uusiKesto.matches(("[0-9]*"))) return "Keston on oltava numero";
+        this.kesto = Integer.parseInt(uusiKesto);
+        return null;
+    }
+
+    public String setVastuuhenkilonID(int uusiID) {
+        this.vastuuhenkilonID = uusiID;
+        return null;
+    }
+
 
     /**
      * Antaa kotityolle seuraavan ID numeron.

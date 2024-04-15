@@ -47,7 +47,7 @@ import java.util.ResourceBundle;
 
     @FXML private Button buttonCancel;
 
-    @FXML private Button buttonTallenna;
+    @FXML private Button buttonOK;
 
     @FXML private ListChooser<Kotityo> listaKotityo;
 
@@ -87,10 +87,10 @@ import java.util.ResourceBundle;
 
     /**
      * tallentaa muokattavaksi valitun jäsenen tiedot tiedostoon.
-     * @param event
+     * @param event ookoon klikkaaminen
      */
-    //TODO EI TALLENNA -KORJATTAVA
-    @FXML void klikkaaTallenna(MouseEvent event) throws SailoException, FileNotFoundException {
+    @FXML void klikkaaOK(MouseEvent event) throws SailoException, FileNotFoundException {
+
 
         if (jasenKohdalla != null && jasenKohdalla.getEtunimi().trim().equals("") || jasenKohdalla.getSukunimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
@@ -126,7 +126,6 @@ import java.util.ResourceBundle;
 
     private Jasen jasenKohdalla;
     private TextField edits[];
-
     private Siivoustiimi siivoustiimi;
 
     @Override
@@ -166,6 +165,10 @@ import java.util.ResourceBundle;
 
     }
 
+    /**
+     * Näyttää mahdollisen virheen
+     * @param virhe, joka näytetään
+     */
     private void naytaVirhe(String virhe) {
         if ( virhe == null || virhe.isEmpty() ) {
             labelVirhe.setText("");
@@ -192,7 +195,7 @@ import java.util.ResourceBundle;
             case 4 : virhe = jasenKohdalla.setKaupunki(s); break;
             case 5 : virhe = jasenKohdalla.setPostinumero(s); break;
             case 6 : virhe = jasenKohdalla.setPuhelin(s); break;
-            case 7 : virhe = jasenKohdalla. setIka(s); break;
+            case 7 : virhe = jasenKohdalla.setIka(s); break;
             default:
         }
         if (virhe == null) {

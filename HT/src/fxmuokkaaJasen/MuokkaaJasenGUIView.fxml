@@ -39,7 +39,7 @@
             <Font name="Arial Black" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="buttonTallenna" mnemonicParsing="false" onMouseClicked="#klikkaaTallenna" text="Tallenna" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="buttonOK" mnemonicParsing="false" onMouseClicked="#klikkaaOK" text="OK" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>

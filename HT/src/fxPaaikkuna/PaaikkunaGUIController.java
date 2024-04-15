@@ -3,7 +3,7 @@ package fxPaaikkuna;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.*;
 import fxAloitusnakyma.AloitusnakymaGUIController;
-import fxlisaaKotityo.lisaaKotityoGUIController;
+import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
 import fxmuokkaakotityo.muokkaakotityoGUIController;
 import javafx.application.Platform;
@@ -172,7 +172,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     @FXML
     void menuKlikkaaLisaaKotityo(ActionEvent event) {
-        ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"), "Lisää Kotityö", null, "");
+       // ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"), "Lisää Kotityö", null, "");
+       uusiKotityo();
     }
 
     @FXML
@@ -476,12 +477,13 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Luo uuden kotityon
      */
     private void uusiKotityo() {
-        //if (jasenKohdalla == null) return;
         Kotityo kottyo = new Kotityo();
+        kottyo = LisaaKotityoGUIController.kysyKotityo(null, kottyo, siivoustiimi);
+        if (kottyo == null) return;
         kottyo.rekisteroi();
-        kottyo.taytaKotityo(1);
         siivoustiimi.lisaa(kottyo);
-        haeJasenenKotityot(jasenKohdalla.getId());
+        // haeJasenenKotityot(jasenKohdalla.getId());
+
 
     }
 

@@ -32,6 +32,31 @@ public class Jasenet implements Iterable<Jasen>{
     }
 
 
+    /**
+     * palauttaa annettua merkkijonoa vastaavan jäsenen ID:n
+     * @param jasenenNimi jäsenen nimi
+     * @return jäsenen ID:n
+     * @example <pre name="test">
+     * Jasenet jasenet = new Jasenet();
+     * Jasen uusi = new Jasen(); Jasen uusi2 = new Jasen(); Jasen uusi3 = new Jasen();
+     * uusi.taytaJasen(); uusi2.taytaJasen(); uusi3.taytaJasen();
+     * uusi.rekisteroi(); uusi2.rekisteroi(); uusi3.rekisteroi();
+     * uusi2.setEtunimi("Kari"); uusi2.setSukunimi("Karila");
+     * jasenet.lisaa(uusi); jasenet.lisaa(uusi2); jasenet.lisaa(uusi3);
+     * jasenet.annaJasenenId("Kari Karila");
+     * </pre>
+     */
+    public int annaJasenenId(String jasenenNimi) {
+        for (Jasen jasen: alkiot) {
+            if (jasen.getNimi().equals(jasenenNimi)) return jasen.getId();
+        }
+        return -1;
+    }
+
+    public Jasen[] getJasenet() {
+        return alkiot;
+    }
+
     public String getTiedostonPerusNimi() {
         return tiedostonPerusNimi;
     }
@@ -180,7 +205,7 @@ public class Jasenet implements Iterable<Jasen>{
      * jasenet.lisaa(timo1); jasenet.getLkm() ===5;
      * </pre>
      */
-    public void lisaa (Jasen jasen) throws SailoException {
+    public void lisaa (Jasen jasen)  {
        if (lkm >= alkiot.length) {
            Jasen [] alkiot2 = new Jasen [alkiot.length+ alkiot.length];
 
@@ -306,7 +331,7 @@ public class Jasenet implements Iterable<Jasen>{
     timo2.rekisteroi();
     timo2.taytaJasen();
 
-    try {
+
         jasenet.lisaa(timo1);
         jasenet.lisaa(timo2);
 
@@ -314,17 +339,16 @@ public class Jasenet implements Iterable<Jasen>{
             Jasen jasen = jasenet.anna(i);
             System.out.println("Jäsen indeksi: " + i);
             jasen.tulosta(System.out);
-        }
+            System.out.println();
     }
-   catch (SailoException e) {
-        System.err.println(e.getMessage());
-   }
     try {
         jasenet.tallenna();
     } catch (SailoException | FileNotFoundException e) {
         e.printStackTrace();
     }
 
+    System.out.println(jasenet.annaJasenenId("Timo Kekkila"));
+    //System.out.println(jasenet.annaJasenenId("Jyri Huhtala"));
     }
 
 }
