@@ -384,6 +384,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     /**
      * Näyttää listasta valitun jäsenen tiedot, tilapäisesti yhteen isoon edit-kenttään
      */
+
     private void naytaJasen() {
         jasenKohdalla = listaJasenet.getSelectedObject();
 
@@ -393,6 +394,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         haeJasenenKotityot(jasenKohdalla.getId());
     }
+
+
+
 
     /**
      * Näyttää listasta valitun kotityön tiedot, tilapäisesti yhteen isoon edit-kenttään
@@ -499,6 +503,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (kottyo == null) return;
         kottyo.rekisteroi();
         siivoustiimi.lisaa(kottyo);
+        naytaJasen();
         haeJasenenKotityot(jasenKohdalla.getId());
 
     }
@@ -526,8 +531,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + kotityo.getKotityoNimi(), "Kyllä", "Ei") )
             return;
         siivoustiimi.poistaKotityo(kotityo);
-        int index = listaTekematta.getSelectedIndex();
-        listaTekematta.setSelectedIndex(index);
+        hae(jasenKohdalla.getId());
     }
 
     /**

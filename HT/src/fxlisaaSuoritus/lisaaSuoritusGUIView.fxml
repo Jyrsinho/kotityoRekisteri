@@ -47,6 +47,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Kotityö" GridPane.halignment="RIGHT">
@@ -72,6 +73,12 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                   </Label>
+                  <Label text="Kesto" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ChoiceBox fx:id="kestoValinta" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>

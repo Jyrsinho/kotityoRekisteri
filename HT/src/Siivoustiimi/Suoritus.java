@@ -138,12 +138,28 @@ public class Suoritus {
         this.suorittajaID = suorittajaID;
     }
 
+    /**
+     * Asettaa suoritukselle parametrina annetun kotityön ID:n
+     * @param kotityoID suoritusta koskevan kotityön ID.
+     */
     public void setKotityoID (int kotityoID) {
         this.kotityoID = kotityoID;
     }
 
+    /**
+     * Asettaa suoritukselle suorituksen ajankohdan päivämäärän merkkijonoarvona
+     * @param suoritusPvm suoritusta koskeva päivämäärä merkkijonona.
+     */
     public void setTekoaika (String suoritusPvm) {
         this.suoritusPvm = suoritusPvm;
+    }
+
+    /**
+     * 
+     * @param kesto
+     */
+    public void setKesto (int kesto) {
+        this.suoritusAika = kesto;
     }
 
 

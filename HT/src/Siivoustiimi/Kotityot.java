@@ -45,11 +45,15 @@ public class Kotityot implements Iterable<Kotityo> {
     }
 
 
-
+    /**
+     * Poistaa valitun kotityön tietorakenteesta
+     * @param kotityo, joka poistetaan.
+     */
     public void poista(Kotityo kotityo) {
         for (Kotityo alkio : alkiot) {
             if (alkio == kotityo) alkiot.remove(alkio);
         }
+        muutettu = true;
     }
 
 

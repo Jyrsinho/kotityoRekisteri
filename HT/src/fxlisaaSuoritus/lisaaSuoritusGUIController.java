@@ -32,7 +32,8 @@ import java.util.ResourceBundle;
  */
 public class lisaaSuoritusGUIController implements ModalControllerInterface<Suoritus>, Initializable {
 
-    @FXML public Label labelVirhe;
+    @FXML private Label labelVirhe;
+    @FXML private ChoiceBox kestoValinta;
     @FXML private Button buttonCancel;
 
     @FXML private Button buttonOK;
@@ -158,6 +159,15 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         kotityoValinta.setItems(optionsList);
     }
 
+    private void naytaKestoVaihtoehdot() {
+        ObservableList<Integer> optionsList = FXCollections.observableArrayList();
+        int[] kestoaikaTaulukko = {5,10,15,30,60};
+        for (int alkio: kestoaikaTaulukko) {
+            optionsList.add(alkio);
+        }
+        kestoValinta.setItems(optionsList);
+    }
+
     /**
      * Asettaa lisättävälle suoritukselle käyttäjän valitsemat arvot.
      * @param uusiSuoritus suoritus, jota muokataan
@@ -166,6 +176,8 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         uusiSuoritus.setKotityoID(kotityoValinta.getValue().getKotityoID());
         uusiSuoritus.setTekoaika(String.valueOf(kalenteriValinta.getValue()));
         uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getId());
+        uusiSuoritus.setKesto((Integer) kestoValinta.getValue());
+        // kasitteleMuutosKotityohon();
     }
 
     /**
@@ -193,6 +205,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
 
         naytaTiimi(oletusTiimi); //lataa Tekijä-valikkoon kaikki tiimin jäsenet.
         naytaKotityot(oletusTiimi); // lataa Kotityo-valikkoon kaikki tiimin kotityöt.
+        naytaKestoVaihtoehdot();
     }
 
 }

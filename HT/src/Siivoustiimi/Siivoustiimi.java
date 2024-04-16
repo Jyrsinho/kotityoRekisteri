@@ -135,6 +135,7 @@ public class Siivoustiimi {
         kotityot.korvaa(kotityo);
     }
 
+
     /**
      * Poistaa jäsenen tietorakenteesta.
      * @param jasen poistettava jäsen

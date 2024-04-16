@@ -167,6 +167,20 @@ public class Jasenet implements Iterable<Jasen>{
     }
 
 
+    /**
+     * etsii jäsenen Iideen tietokannasta
+     * @param id, jota etsitään
+     * @return 1 jos iidee löytyy, -1 jos ID ei löydy.
+     * @example <pre name="test">
+     * Jasenet jasenet = new Jasenet();
+     * Jasen timo1 = new Jasen(); Jasen timo2 = new Jasen(); Jasen timo3 = new Jasen();
+     * jasenet.lisaa(timo1); jasenet.lisaa(timo2); jasenet.lisaa(timo3);
+     * timo1.rekisteroi(); timo2.rekisteroi(); timo3.rekisteroi();
+     * jasenet.getLkm() === 3;
+     *
+     * </pre>
+     * TODO tähän järkevät testit
+     */
     public int etsiId(int id) {
         for (int i = 0; i < lkm; i++) {
             if (id == alkiot[i].getId()) return 1;
@@ -174,9 +188,18 @@ public class Jasenet implements Iterable<Jasen>{
         return -1;
     }
 
-
     /**
      * Poistaa tiedostosta valitun jäsenen.
+     * @param id poistettavan jäsenen ID.
+     * @example <pre name="test">
+     * Jasenet jasenet = new Jasenet();
+     * Jasen timo1 = new Jasen(); Jasen timo2 = new Jasen(); Jasen timo3 = new Jasen();
+     * jasenet.lisaa(timo1); jasenet.lisaa(timo2); jasenet.lisaa(timo3);
+     * timo1.rekisteroi(); timo2.rekisteroi(); timo3.rekisteroi();
+     * jasenet.getLkm() === 3;
+     * jasenet.poista(1);
+     * jasenet.getLkm() ===2;
+     * </pre>
      */
     public int poista(int id) {
 
