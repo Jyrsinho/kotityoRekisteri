@@ -52,9 +52,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     }
 
     /**
-     * Tallentaa uuden kotityön tiedostoon.
-     *
-     * @param event
+     * Lisää uuden kotityön tietorakenteeseen.
+     * @param event OK painikkeen klikkaaminen
      */
 
     @FXML
@@ -64,9 +63,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         if (uusikotityo != null && uusikotityo.getKotityoNimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
             return;
-
         }
-
 
         try {
             siivoustiimi.tallenna();

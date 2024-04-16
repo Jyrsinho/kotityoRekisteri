@@ -47,6 +47,14 @@ public class Suoritus {
         return suorittajaID;
     }
 
+    public int getSuorittajanID() {
+        return suorittajaID;
+    }
+
+    public String getViimeisinSuoritus() {
+        return suoritusPvm;
+    }
+
 
     /**
      * Antaa suoritukselle seuraavan tunnusnumeron.
@@ -123,6 +131,23 @@ public class Suoritus {
 
 
     /**
+     * Asettaa suoritukselle parametrina annetun tekijän ID:n
+     * @param suorittajaID suorituksen tehneen jäsenen ID
+     */
+    public void setSuorittajaID(int suorittajaID) {
+        this.suorittajaID = suorittajaID;
+    }
+
+    public void setKotityoID (int kotityoID) {
+        this.kotityoID = kotityoID;
+    }
+
+    public void setTekoaika (String suoritusPvm) {
+        this.suoritusPvm = suoritusPvm;
+    }
+
+
+    /**
      * Tulostetaan suorituksen tiedot
      * @param out tietovirta johon tulostetaan
      */
@@ -133,14 +158,6 @@ public class Suoritus {
         out.println(kotityoID);
         out.println(suorittajaID);
 
-    }
-
-    public int getSuorittajanID() {
-        return suorittajaID;
-    }
-
-    public String getViimeisinSuoritus() {
-        return suoritusPvm;
     }
 
 

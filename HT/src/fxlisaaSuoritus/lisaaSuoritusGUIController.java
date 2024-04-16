@@ -5,6 +5,7 @@ import Siivoustiimi.Kotityo;
 import Siivoustiimi.Siivoustiimi;
 import Siivoustiimi.Suoritus;
 import Siivoustiimi.Jasen;
+import Siivoustiimi.SailoException;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
@@ -14,14 +15,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -32,6 +32,7 @@ import java.util.ResourceBundle;
  */
 public class lisaaSuoritusGUIController implements ModalControllerInterface<Suoritus>, Initializable {
 
+    @FXML public Label labelVirhe;
     @FXML private Button buttonCancel;
 
     @FXML private Button buttonOK;
@@ -55,25 +56,31 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
 
     }
 
-    /**
-     * Valitsee vetovalikosta kotityön suorituspäivämäärän.
-     * @param event
-     */
-    @FXML
-    void clickedKalenteriValinta(MouseEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata valita kalenterista suorituspäivämäärää.");
-
-    }
 
     /**
-     * Tallentaa käyttäjän lisäämän suorituksen tietokantaan.
-     * @param event
+     * Lisää käyttäjän antaman suorituksen tietokantaan.
+     * @param event OK painikkeen klikkaaminen
      */
     @FXML
     void clickedOK(MouseEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata tallentaa.");
-        ModalController.closeStage(buttonCancel);
+
+        if (uusiSuoritus != null && tekijaValinta.getValue() == null || kotityoValinta.getValue() == null) {
+            naytaVirhe("Kaikkiin kenttiin on valittava arvo");
+            return;
+        }
+            kasittelemuutoksetSuoritukseen(uusiSuoritus);
+        try {
+            siivoustiimi.tallenna();
+        } catch (SailoException ex) {
+            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        ModalController.closeStage(labelVirhe);
+
     }
+
+
 
     // ================================================================================================================================
 
@@ -102,7 +109,21 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
     }
 
     public void alusta() {
+        kalenteriValinta.setValue(LocalDate.now());
+    }
 
+    /**
+     * Näyttää mahdollisen virheen
+     * @param virhe, joka näytetään
+     */
+    private void naytaVirhe(String virhe) {
+        if ( virhe == null || virhe.isEmpty() ) {
+            labelVirhe.setText("");
+            labelVirhe.getStyleClass().removeAll("virhe");
+            return;
+        }
+        labelVirhe.setText(virhe);
+        labelVirhe.getStyleClass().add("virhe");
     }
 
     /**
@@ -137,6 +158,15 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         kotityoValinta.setItems(optionsList);
     }
 
+    /**
+     * Asettaa lisättävälle suoritukselle käyttäjän valitsemat arvot.
+     * @param uusiSuoritus suoritus, jota muokataan
+     */
+    private void kasittelemuutoksetSuoritukseen(Suoritus uusiSuoritus) {
+        uusiSuoritus.setKotityoID(kotityoValinta.getValue().getKotityoID());
+        uusiSuoritus.setTekoaika(String.valueOf(kalenteriValinta.getValue()));
+        uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getId());
+    }
 
     /**
      * Luodaan Suorituksen kysymisdialogi ja palautetaan sama tietue muutettuna tai null
