@@ -191,7 +191,6 @@ public class Siivoustiimi {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if ( !"".equals(virhe) ) throw new SailoException(virhe);
 
         try {
             suoritukset.tallenna();

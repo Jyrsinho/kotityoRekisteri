@@ -33,6 +33,7 @@ public class Suoritukset implements Iterable<Suoritus> {
      */
     public void lisaa (Suoritus suoritus) {
         alkiot.add(suoritus);
+        muutettu = true;
     }
 
 
