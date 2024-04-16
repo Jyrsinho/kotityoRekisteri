@@ -20,7 +20,7 @@ import java.util.Date;
  * @author jyrihuhtala
  * @version 1.0 20.02.2024
  */
-public class Kotityo {
+public class Kotityo implements Cloneable {
 
     private int kotityoId;
     private String kotityoNimi;
@@ -109,6 +109,12 @@ public class Kotityo {
     public String setVastuuhenkilonID(int uusiID) {
         this.vastuuhenkilonID = uusiID;
         return null;
+    }
+
+    public Kotityo clone() throws CloneNotSupportedException {
+        Kotityo uusi;
+        uusi = (Kotityo) super.clone();
+        return uusi;
     }
 
 

@@ -142,6 +142,11 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         labelVirhe.getStyleClass().add("virhe");
     }
 
+    /**
+     * Luodaan lista näytettäväksi Choiceboxissa. Lisätään choiceboxiin siivousttiimin jäsenten
+     * nimet.
+     * @param oletustiimi siivoustiimi, jonka jäsenet näytetään choiceboxissa.
+     */
     private void naytaTiimi(Siivoustiimi oletustiimi) {
 
         ObservableList<String> optionsList = FXCollections.observableArrayList();
@@ -186,7 +191,12 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
                 }
         }
 
-        public void lisaaKotityolleVastuuhenkilo(String vastuuhenkilo) {
+    /**
+     * asetetaan lisättävälle kotityölle vastuuhenkilö kysymällä siivoustiimiltä vastuuhenkilön nimeä
+     * vastaava ID.
+     * @param vastuuhenkilo
+     */
+    public void lisaaKotityolleVastuuhenkilo(String vastuuhenkilo) {
             int vastuuhenkilonID = siivoustiimi.etsiJasenenID(vastuuhenkilo);
             uusikotityo.setVastuuhenkilonID(vastuuhenkilonID);
         }
@@ -196,6 +206,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      * Luodaan kotityön kysymisdialogi ja palautetaan sama tietue muutettuna tai null
      * @param modalityStage mille ollaan modaalisia, null = sovellukselle
      * @param oletus        mitä dataan näytetään oletuksena
+     * @param oletusTiimi mihin siivoustiimiin muutoksia tehdään
      * @return null jos painetaan Cancel, muuten täytetty tietue
      */
 
@@ -207,11 +218,14 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         );
     }
 
+    /**
+     * Asetetaan ikkunassa käytettäväksi siivoustiimiksi parametrina tuotu siivoustiimi.
+     * @param oletusTiimi siivoustiimi, jota käytetään.
+     */
     private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
         this.siivoustiimi = oletusTiimi;
 
         naytaTiimi(oletusTiimi); //lataa vastuuhenkilö-valikkoon kaikki tiimin jäsenet.
-        // TODO ladataan Vastuuhenkilö valikkoon kaikki tiimin jäsenet.
     }
 
 

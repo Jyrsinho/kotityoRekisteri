@@ -5,6 +5,7 @@ import fi.jyu.mit.fxgui.*;
 import fxAloitusnakyma.AloitusnakymaGUIController;
 import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
+import fxlisaaSuoritus.lisaaSuoritusGUIController;
 import fxmuokkaakotityo.muokkaakotityoGUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -344,7 +345,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     /**
-     *
+     * Avaa ikkunan, jossa jäseneen asetetaan uudet tiedot
      */
     private void muokkaaJasen(){
         if (jasenKohdalla == null) return;
@@ -360,6 +361,24 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             Dialogs.showMessageDialog(e.getMessage());
         }
     }
+
+    /*
+    private void muokkaaKotityo(){
+        if (kotityoKohdalla == null) return;
+        try {
+            Kotityo kotityo;
+            kotityo =  muokkaakotityoGUIController.kysyKotityo(null, kotityoKohdalla.clone(), siivoustiimi);
+            if (kotityo== null) return;
+            siivoustiimi.korvaa(kotityo);
+            hae(kotityo.getKotityoID());
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }catch (SailoException e) {
+            Dialogs.showMessageDialog(e.getMessage());
+        }
+    }
+
+     */
 
 
     /**
@@ -469,8 +488,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
             return;
         }
-
-
     }
 
     /**
@@ -482,8 +499,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (kottyo == null) return;
         kottyo.rekisteroi();
         siivoustiimi.lisaa(kottyo);
-        // haeJasenenKotityot(jasenKohdalla.getId());
-
+        haeJasenenKotityot(jasenKohdalla.getId());
 
     }
 
@@ -492,10 +508,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Luo uuden suorituksen
      */
     private void uusiSuoritus() {
-        //if (jasenKohdalla == null) return;
         Suoritus suoritus = new Suoritus();
+        suoritus = lisaaSuoritusGUIController.kysySuoritus(null, suoritus, siivoustiimi);
+        if (suoritus == null) return;
         suoritus.rekisteroiSuoritus();
-        suoritus.taytaSuoritus(1, 1);
         siivoustiimi.lisaa(suoritus);
         haeJasenenKotityot(jasenKohdalla.getId());
     }
@@ -520,6 +536,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private void poistaJasen() {
         Jasen jasen = jasenKohdalla;
         if (jasen==null) return;
+        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + jasen.getNimi(), "Kyllä", "Ei") )
+            return;
         siivoustiimi.poista(jasen);
         int index = listaJasenet.getSelectedIndex();
         hae(0);

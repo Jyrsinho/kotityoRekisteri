@@ -67,8 +67,8 @@
                      </GridPane.margin>
                   </Label>
                   <DatePicker fx:id="kalenteriValinta" onMouseClicked="#clickedKalenteriValinta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBoxChooser fx:id="tekijaValinta" rivit="Taina&#10;Timo&#10;Kalle" selectFirst="false" onMouseClicked="#clickedTekijaValinta" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBoxChooser fx:id="ComboboxKotityo" rivit="tiskaaminen&#10;imurointi&#10;pölyjen pyyhkiminen&#10;lattian peseminen" selectFirst="false" onMouseClicked="#kotityoVetoValikkoKlikkaus" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <ChoiceBox fx:id="tekijaValinta"  prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="kotityoValinta" prefWidth="150.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>

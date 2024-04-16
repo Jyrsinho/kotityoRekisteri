@@ -18,6 +18,9 @@ import javafx.scene.input.MouseEvent;
  * @version 10.2.2024
  */
 public class muokkaakotityoGUIController implements ModalControllerInterface<String> {
+    public TextField editTextVanhenee;
+    public TextField editTextKesto;
+    public TextField editNimi;
     @FXML
     private Button buttonPoistaKotityo;
 
@@ -36,13 +39,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Str
     private ListChooser<?> kotityoValikko;
 
     @FXML
-    private ChoiceBox<?> vetoValikkoVanhenee;
-
-    @FXML
-    private ChoiceBox<?> vetovalikkoKesto;
-
-    @FXML
-    private ChoiceBox<?> vetovalikkoTekija;
+    private ChoiceBox<?> valitseTekija;
 
 
     /**

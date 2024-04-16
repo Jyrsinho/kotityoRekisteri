@@ -1,7 +1,6 @@
 package Siivoustiimi;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -25,7 +24,15 @@ public class Kotityot implements Iterable<Kotityo> {
 
     }
 
+    /**
+     * Palauttaa Collectionin siivoustiimin kotitöistä.
+     * @return kaikki siivoustiimin kotityöt
+     */
+    public Collection<Kotityo> getKotityot() {
+        return alkiot;
+    }
 
+        
     /**
      * Lisaa uuden kotityon tietorakenteeseen.
      *
@@ -199,6 +206,28 @@ public class Kotityot implements Iterable<Kotityo> {
     }
 
     /**
+     * Korvaa kotityön tietorakenteessa.
+     * Etsitään samalla tunnusluvalla oleva jäsen.
+     * @param kotityo lisättävä jäsen
+     * #PACKAGEIMPORT
+     * Kotityot kotityot = new Kotityot();
+     * Kotityo imurointi1 = new Kotityo, imurointi2 = New Jasen();
+     * imurointi1.rekisteroi(); imurointi.rekisteroi();
+     */
+    public void korvaa(Kotityo kotityo) {
+        int id = kotityo.getKotityoID();
+        for (Kotityo alkio: alkiot) {
+            if (id == alkio.getKotityoID()) {
+                alkio = kotityo;
+                muutettu = true;
+                return;
+            }
+        }
+    }
+
+
+
+    /**
      * Iteraattori kaikkien kotitöiden läpikäymiseen
      * @return kotityöiteraattori
      *
@@ -309,8 +338,6 @@ public class Kotityot implements Iterable<Kotityo> {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
 

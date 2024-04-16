@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * huolehtii Jäsenet ja Kotityöt - luokkien välisestä yhteistyöstä ja välittää näitä tietoja pyydettäessä.
@@ -29,7 +30,20 @@ public class Siivoustiimi {
         return jasenet.getLkm();
     }
 
+    /**
+     * Palauttaa listan siivoustiimin jäsenistä.
+     * @return Palauttaa listan siivoustiimin jäsenistä.
+     */
     public Jasen[] getJasenet() {return jasenet.getJasenet();}
+
+    /**
+     * Palauttaa listan siivoustiimin kotitöistä
+     *
+     * @return Arraylist, joka sisältää siivoustiimin kotityöt
+     */
+    public Collection<Kotityo> getKotityot() {
+       return kotityot.getKotityot();
+    }
 
 
 
@@ -115,6 +129,10 @@ public class Siivoustiimi {
      */
     public void korvaaTaiLisaa(Jasen jasen) throws SailoException {
         jasenet.korvaaTaiLisaa(jasen);
+    }
+
+    public void korvaa(Kotityo kotityo) {
+        kotityot.korvaa(kotityo);
     }
 
     /**
@@ -215,4 +233,6 @@ public class Siivoustiimi {
             System.out.println(e.getMessage());
         }
     }
+
+
 }

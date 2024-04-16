@@ -53,6 +53,10 @@ public class Jasenet implements Iterable<Jasen>{
         return -1;
     }
 
+    /**
+     * Palauttaa listan siivoustiimin jäsenistä.
+     * @return
+     */
     public Jasen[] getJasenet() {
         return alkiot;
     }

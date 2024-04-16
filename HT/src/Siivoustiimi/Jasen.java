@@ -69,6 +69,11 @@ public class Jasen implements Cloneable {
 
     public int getIka() {return ika;}
 
+    /**
+     * Kloonaa jäsenen
+     * @return kloonin jäsenestä
+     * @throws CloneNotSupportedException
+     */
 
     public Jasen clone() throws CloneNotSupportedException {
        Jasen uusi;
