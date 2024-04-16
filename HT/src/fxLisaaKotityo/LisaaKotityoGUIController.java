@@ -15,6 +15,7 @@ import Siivoustiimi.SailoException;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -104,6 +105,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         selectVastuuhenkilo.setOnAction(event -> {
             String valittuVastuuHenkilo = selectVastuuhenkilo.getValue();
             lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
+            lisaaKotityolleAlustavaEdellinenSuoritus();
         });
     }
 
@@ -197,6 +199,14 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
             int vastuuhenkilonID = siivoustiimi.etsiJasenenID(vastuuhenkilo);
             uusikotityo.setVastuuhenkilonID(vastuuhenkilonID);
         }
+
+    /**
+     * asetetaan lisättävälle kotityölle alustavaksi edelliseksi suoritukseksi kotityön luomisen päivämäärä.
+     * TODO tähän järkevömpi ja monipuolisempi versio.
+     */
+    public void lisaaKotityolleAlustavaEdellinenSuoritus() {
+        uusikotityo.setViimeisinSuoritus(LocalDate.now());
+    }
 
 
     /**

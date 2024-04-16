@@ -26,7 +26,7 @@ public class Kotityo implements Cloneable {
     private String kotityoNimi;
     private int vanhenemisaika;
     private int kesto;
-    private String viimeisinSuoritus;
+    private LocalDate viimeisinSuoritus;
     private int vastuuhenkilonID;
 
     private static int seuraavaKotityoNro    = 1;
@@ -79,7 +79,7 @@ public class Kotityo implements Cloneable {
     /**
      * @return kotityön viimeisimmän suorituksen päivämäärä
      */
-    public String getViimeisinSuoritus() {return viimeisinSuoritus;}
+    public LocalDate getViimeisinSuoritus() {return viimeisinSuoritus;}
 
 
     /**
@@ -109,6 +109,10 @@ public class Kotityo implements Cloneable {
     public String setVastuuhenkilonID(int uusiID) {
         this.vastuuhenkilonID = uusiID;
         return null;
+    }
+
+    public void setViimeisinSuoritus (LocalDate viimeisinSuoritus) {
+        this.viimeisinSuoritus = viimeisinSuoritus;
     }
 
     public Kotityo clone() throws CloneNotSupportedException {
@@ -147,7 +151,7 @@ public class Kotityo implements Cloneable {
 
         this.kotityoNimi = "Imurointi";
         this.vastuuhenkilonID = id;
-        this.viimeisinSuoritus = "10-10-2010";
+        this.viimeisinSuoritus = LocalDate.of(2022, 4, 15);
         this.kesto = RandomIka.arvoIka( 0, 60);
         this.vanhenemisaika = RandomIka.arvoIka(1,30);
 
@@ -205,7 +209,7 @@ public class Kotityo implements Cloneable {
         this.kotityoNimi = Mjonot.erota(sb, '|', getKotityoNimi());
         this.vanhenemisaika = Mjonot.erota(sb, '|', getVanhenemisaika());
         this.kesto = Mjonot.erota(sb,'|', getKesto());
-        this.viimeisinSuoritus = Mjonot.erota(sb, '|', "13-12-2012");
+        this.viimeisinSuoritus = LocalDate.parse(Mjonot.erota(sb, '|', "13-12-2012"));
         this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
     }
 
