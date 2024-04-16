@@ -65,6 +65,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
     @FXML
     void clickedOK(MouseEvent event) {
 
+        kasitteleMuutosKotityohon();
         if (uusiSuoritus != null && tekijaValinta.getValue() == null || kotityoValinta.getValue() == null) {
             naytaVirhe("Kaikkiin kenttiin on valittava arvo");
             return;
@@ -177,7 +178,21 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         uusiSuoritus.setTekoaika(String.valueOf(kalenteriValinta.getValue()));
         uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getId());
         uusiSuoritus.setKesto((Integer) kestoValinta.getValue());
-        // kasitteleMuutosKotityohon();
+
+    }
+
+    /**
+     * vertaillaan suoritusta koskevan kotityön nykyistä viimeisintä suoritusta tässä ikkunassa
+     * asetettavan suorituksen suorituspäivämäärään. Jos tässä ikkunassa asetettava arvo on myöhemmin
+     * kuin suoritusta koskevan kotityön viimeisin suoritus, tulee tässä ikkunassa asetettavasta viimeisimmästä
+     * suorituksesta tätä suoritusta koskevan kotityön viimeisin suoritus.
+     */
+    private void kasitteleMuutosKotityohon() {
+        int vertailu = kalenteriValinta.getValue().compareTo(kotityoValinta.getValue().getViimeisinSuoritus());
+
+        if (vertailu > 0) {
+            kotityoValinta.getValue().setViimeisinSuoritus(kalenteriValinta.getValue());
+        }
     }
 
     /**
