@@ -62,10 +62,7 @@ public class Kotityot implements Iterable<Kotityo> {
     /**
      * järjestelee kaikki siivoustiimin kotityöt tehtyihin ja tekemättömiin kotitöihin
      * kotityön viimeisimmän suorituksen ja kotityön vanhenemisajan perusteella.
-     * @example <pre name="test">
-     * Kotityot kotityot = new Kotityot();
-     * Kotityo imurointi1 =
-     * </pre>
+     * TODO TESTIT: selvitettävä miten testataan metodia, joka on riippuvainen nykyisestä päivämäärästä. Tällä hetkellä testataan pääohjelmassa.
      */
     public void jarjesteleKotityot() {
 
@@ -366,6 +363,44 @@ public class Kotityot implements Iterable<Kotityo> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        for (Kotityo alkio: kotityot.listaTehdyista){
+            System.out.println(alkio);
+        }
+
+        System.out.println("--------------------------------------------");
+
+        for (Kotityo alkio: kotityot.alkiot) {
+            System.out.println(alkio);
+        }
+        System.out.println("--------------------------------------------");
+
+        for (Kotityo alkio: kotityot.listaTehdyista){
+            System.out.println(alkio);
+        }
+
+        System.out.println("--------------------------------------------");
+
+            kotityot.jarjesteleKotityot();
+        System.out.println("--------------------------------------------");
+
+        for (Kotityo alkio: kotityot.alkiot) {
+            System.out.println(alkio);
+        }
+        System.out.println("--------------------------------------------");
+
+        for (Kotityo alkio: kotityot.listaTehdyista){
+            System.out.println(alkio);
+        }
+
+        System.out.println("--------------------------------------------");
+
+        for (Kotityo alkio: kotityot.listaTekemattomista) {
+            System.out.println(alkio);
+        }
+
+
+
 
     }
 
