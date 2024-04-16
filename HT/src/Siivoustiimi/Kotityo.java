@@ -144,6 +144,19 @@ public class Kotityo implements Cloneable {
 
 
     /**
+     * Tarkistaa onko kotityön edellinen suoritus vanhentunut
+     * @return true jos suoritus on vanhentunut, false jos ei ole vanhentunut.
+     * TODO TESTIT: selvitettävä miten testataan metodia, joka on riippuvainen nykyisestä päivämäärästä. Tällä hetkellä testataan pääohjelmassa.
+     */
+    public boolean onVanhentunut() {
+
+        int vertailu = (viimeisinSuoritus.plusDays(vanhenemisaika).compareTo(LocalDate.now()));
+
+        return vertailu < 0 ;
+    }
+
+
+    /**
      * Apumetodi, jolla saadaan täytettyä testiarvot kotityolle.
      * XX ja XX arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
      */
@@ -151,7 +164,7 @@ public class Kotityo implements Cloneable {
 
         this.kotityoNimi = "Imurointi";
         this.vastuuhenkilonID = id;
-        this.viimeisinSuoritus = LocalDate.of(2022, 4, 15);
+        this.viimeisinSuoritus = LocalDate.of(2024, 4, 01);
         this.kesto = RandomIka.arvoIka( 0, 60);
         this.vanhenemisaika = RandomIka.arvoIka(1,30);
 
@@ -230,7 +243,7 @@ public class Kotityo implements Cloneable {
                 getKotityoNimi()        +"|"+
                 getVanhenemisaika()     +"|"+
                 getKesto()              +"|"+
-                getViimeisinSuoritus()    +"|"+
+                getViimeisinSuoritus()  +"|"+
                 getVastuuhenkilonID()   +"|";
     }
 
@@ -258,6 +271,12 @@ public class Kotityo implements Cloneable {
         imurointi2.taytaKotityo(1);
         imurointi2.tulosta(System.out);
 
+        System.out.println();
+
+        System.out.println(imurointi.onVanhentunut());
+        System.out.println(imurointi2.onVanhentunut());
+
+        System.out.println(LocalDate.now());
 
     }
 

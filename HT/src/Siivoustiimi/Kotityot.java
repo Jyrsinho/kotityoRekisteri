@@ -17,6 +17,9 @@ public class Kotityot implements Iterable<Kotityo> {
 
     private final Collection<Kotityo> alkiot = new ArrayList<Kotityo>();
 
+    private Collection<Kotityo> listaTekemattomista = new ArrayList<Kotityo>();
+    private Collection<Kotityo> listaTehdyista = new ArrayList<Kotityo>();
+
     /**
      * Luodaan Arraylist kotitöistä
      */
@@ -54,6 +57,28 @@ public class Kotityot implements Iterable<Kotityo> {
             if (alkio == kotityo) alkiot.remove(alkio);
         }
         muutettu = true;
+    }
+
+    /**
+     * järjestelee kaikki siivoustiimin kotityöt tehtyihin ja tekemättömiin kotitöihin
+     * kotityön viimeisimmän suorituksen ja kotityön vanhenemisajan perusteella.
+     * @example <pre name="test">
+     * Kotityot kotityot = new Kotityot();
+     * Kotityo imurointi1 =
+     * </pre>
+     */
+    public void jarjesteleKotityot() {
+
+        for (Kotityo kotityo: alkiot) {
+            if (kotityo.onVanhentunut() == true) {
+                listaTekemattomista.add(kotityo);
+            }
+            else {
+                listaTehdyista.add(kotityo);
+            }
+        }
+
+
     }
 
 
@@ -341,7 +366,10 @@ public class Kotityot implements Iterable<Kotityo> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
+
+
 
 
 

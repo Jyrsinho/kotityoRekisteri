@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -41,12 +42,6 @@ import Siivoustiimi.Kotityo;
 public class PaaikkunaGUIController implements ModalControllerInterface<String>, Initializable {
 
     @FXML public Label aikaNyt;
-
-    @FXML private ScrollPane panelJasen;
-
-    @FXML private ScrollPane panelKotityo;
-
-    @FXML private ScrollPane panelSuoritus;
 
     @FXML private ListChooser<Jasen> listaJasenet;
 
@@ -231,9 +226,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private Kotityo kotityoKohdalla;
     private Suoritus suoritusKohdalla;
 
-    private TextArea areaJasen = new TextArea();
-    private TextArea areaKotityo = new TextArea();
-    private TextArea areaSuoritus = new TextArea();
+
 
     /**
      * Tekee alustukset. Tekee tekstikentät joihin voidaan
@@ -241,21 +234,15 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     protected void alusta() {
 
-
-        panelKotityo.setContent(areaKotityo);
-        panelKotityo.setFitToHeight(true);
-
-        panelSuoritus.setContent(areaSuoritus);
-        panelSuoritus.setFitToHeight(true);
+        aikaNyt.setText(String.valueOf(LocalDate.now()));
 
         listaJasenet.clear();
         listaJasenet.addSelectionListener(e -> naytaJasen());
 
         listaTekematta.clear();
-        listaTekematta.addSelectionListener(e -> naytaKotityo());
 
         listaTehty.clear();
-        listaTehty.addSelectionListener(e -> naytaSuoritus());
+
     }
 
 
@@ -340,8 +327,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     public void setSiivoustiimi(Siivoustiimi siivoustiimi) {
         this.siivoustiimi = siivoustiimi;
         naytaJasen();
-        naytaKotityo();
-        naytaSuoritus();
     }
 
     /**
@@ -396,43 +381,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
 
-
-
-    /**
-     * Näyttää listasta valitun kotityön tiedot, tilapäisesti yhteen isoon edit-kenttään
-     */
-    private void naytaKotityo() {
-
-        kotityoKohdalla = listaTekematta.getSelectedObject();
-
-        if (kotityoKohdalla == null) return;
-
-        haeKotityonSuoritukset(kotityoKohdalla.getKotityoID());
-
-
-        areaKotityo.setText("");
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaKotityo)) {
-            kotityoKohdalla.tulosta(os);
-        }
-    }
-
-    /**
-     * Näyttää listasta valitun suorituksen tiedot, tilapäisesti yhteen isoon edit-kenttään
-     */
-    private void naytaSuoritus() {
-
-        suoritusKohdalla = listaTehty.getSelectedObject();
-
-        if (suoritusKohdalla == null) return;
-
-        areaSuoritus.setText("");
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaSuoritus)) {
-            suoritusKohdalla.tulosta(os);
-
-        }
-    }
-
-
     /**
      * Hakee jäsenten tiedot listaan
      *
@@ -442,15 +390,16 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         listaJasenet.clear();
 
-
         for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
             Jasen jasen = siivoustiimi.annaJasen(i);
             listaJasenet.add(jasen.getSukunimi()+" "+ jasen.getEtunimi(), jasen);
         }
     }
 
+
     /**
      * Hakee yhden jäsenen kotityöt listaan tekemättömistä kotitöistä.
+     * TODO Muokattava kahdeksi listaksi, joista toisessa jäsenen tehdyt ja toisessa jäsenen tekemättömät kotityöt
      */
     private void haeJasenenKotityot(int jasenID) {
         listaTekematta.clear();

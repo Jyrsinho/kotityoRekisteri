@@ -7,8 +7,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -77,20 +75,10 @@
          </padding>
       </Label>
       <ListChooser fx:id="listaJasenet" onMouseClicked="#klikkaaValitseJasen" rivit="Kalle Hakkila&#10;Taina Virtanen&#10;Timo Virtanen" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
-      <ListChooser fx:id="listaTekematta" onMouseClicked="#klikkaaTekematta" rivit="Imurointi&#10;Lattioiden pesu&#10;Pölyjen pyyhintä&#10;Jääkaapin pesu" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <ListChooser fx:id="listaTekematta" onMouseClicked="#klikkaaTekematta" rivit="Imurointi&#10;Lattioiden pesu&#10;Pölyjen pyyhintä&#10;Jääkaapin pesu" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
       <ListChooser fx:id="listaTehty" onMouseClicked="#klikkaaTehty" rivit="Vessan pesu&#10;Mattojen tamppaus&#10;Lattiakaivon tyhjennys" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
       <Button fx:id="buttonLisaaJasen" mnemonicParsing="false" onMouseClicked="#lisaaJasenKlikkaus" text="Lisää jäsen" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Button fx:id="buttonLisaaKotityo" mnemonicParsing="false" onMouseClicked="#lisaaKotityklikkaus" text="Lisää kotityö" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Button fx:id="buttonLisaaSuoritus" mnemonicParsing="false" onMouseClicked="#lisaaSuoritusKlikkaus" text="Lisää suoritus" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-      <ScrollPane fx:id="panelKotityo" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
-      <ScrollPane fx:id="panelSuoritus" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
    </children>
 </GridPane>
