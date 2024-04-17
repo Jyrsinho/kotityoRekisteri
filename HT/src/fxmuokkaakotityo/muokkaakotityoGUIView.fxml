@@ -27,13 +27,13 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="17:35 20.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+      <Label fx:id="labelAika"  GridPane.columnIndex="2" GridPane.halignment="CENTER" />
       <Label text="Hakuehto:" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="hakuKentta" onKeyReleased="#haeKotityo" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <TextField fx:id="hakuEhto" onKeyReleased="#haeKotityo" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
@@ -62,7 +62,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </Label>
-      <ListChooser fx:id="kotityoValikko" prefHeight="234.0" prefWidth="147.0" rivit="Imurointi&#10;Lattioiden Pesu&#10;Autotallin siivous&#10;Tiskikoneen tyhjennys" GridPane.rowIndex="3" />
+      <ListChooser fx:id="kotityoValikko"  prefHeight="234.0" prefWidth="147.0"  GridPane.rowIndex="3" />
       <Button fx:id="buttonUusiKotityo" mnemonicParsing="false" onMouseClicked="#klikkaaUusiKotityo" text="Uusi kotityö" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -115,7 +115,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="selectTekija" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ChoiceBox fx:id="valitseTekija" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>

@@ -54,6 +54,20 @@ public class Jasenet implements Iterable<Jasen>{
     }
 
     /**
+     * Palauttaa jäsenIDtä vastaavan jäsenen.
+     * @param jasenID ID, jonka perusteella jäsentä etsitään.
+     * @return jäsenIDtä vastaavan jäsenen.
+     */
+    public Jasen annaJasenIDPerusteella (int jasenID) {
+        for (Jasen alkio: alkiot) {
+            if (alkio.getId() == jasenID)
+                return alkio;
+        }
+        return null;
+    }
+
+
+    /**
      * Palauttaa listan siivoustiimin jäsenistä.
      * @return
      */

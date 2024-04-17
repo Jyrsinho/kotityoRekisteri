@@ -237,6 +237,7 @@ public class Kotityot implements Iterable<Kotityo> {
         return alkiot.size();
     }
 
+
     /**
      * Korvaa kotityön tietorakenteessa.
      * Etsitään samalla tunnusluvalla oleva jäsen.
@@ -327,6 +328,23 @@ public class Kotityot implements Iterable<Kotityo> {
     }
 
     /**
+     * Etsii kaikki annetun merkkijonon sisältävät kotityöt.
+     * @param text merkkijono, jonka perusteella kotitöitä etsitään.
+     * @return kaikki kotityöt, jotka sisältävät annetun merkkijonon.
+     */
+    public Collection<Kotityo> etsiKotityot(String text) {
+        Collection<Kotityo> sopivatKotityot = new ArrayList<Kotityo>();
+
+        for (Kotityo alkio: alkiot) {
+            if (alkio.getKotityoNimi().contains(text)) {
+                sopivatKotityot.add(alkio);
+            }
+        }
+        return sopivatKotityot;
+    }
+
+
+    /**
      * Testiohjelma harrastuksille
      * @param args ei käytössä
      */
@@ -405,13 +423,6 @@ public class Kotityot implements Iterable<Kotityo> {
             System.out.println(alkio);
         }
 
-
-
-
     }
-
-
-
-
 
 }

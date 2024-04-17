@@ -82,7 +82,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     @FXML void lisaaJasenKlikkaus(MouseEvent event) {
 
-        // ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
         uusiJasen();
 
     }
@@ -93,7 +92,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @param event
      */
     @FXML void lisaaKotityklikkaus(MouseEvent event) {
-        //  ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"),"Lisää Kotityö",null,"");
         uusiKotityo();
     }
 
@@ -104,7 +102,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     @FXML void lisaaSuoritusKlikkaus(MouseEvent event) {
 
-        //ModalController.showModal(lisaaSuoritusGUIController.class.getResource("lisaaSuoritusGUIView.fxml"), "Lisää Suoritus", null, "");
         uusiSuoritus();
     }
 
@@ -142,12 +139,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     @FXML void menuKlikkaaLisaaJasen(ActionEvent event) {
 
-        // ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen", null, "");
         uusiJasen();
     }
 
     @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) {
-       // ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"), "Lisää Kotityö", null, "");
        uusiKotityo();
     }
 
@@ -157,7 +152,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML void menuKlikkaaPoistaJasen(ActionEvent event) {
-        //Dialogs.showMessageDialog("Vielä ei osata poistaa jäsentä.");
         poistaJasen();
     }
 
@@ -351,7 +345,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
 
     /**
-     * Näyttää listasta valitun jäsenen tiedot, tilapäisesti yhteen isoon edit-kenttään
+     * Näyttää listasta valitun jäsenen kotityöt.
      */
 
     private void naytaJasen() {
@@ -360,7 +354,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (jasenKohdalla == null) {
             return;
         }
-
         haeJasenenKotityot(jasenKohdalla.getId());
     }
 
@@ -383,7 +376,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     /**
      * Hakee yhden jäsenen kaikki kotityöt ja järjestelee ne kahteen listaan. Tehtyihin kotitöihin ja tekemättömiin kotitöihin.
-     * TODO Korjattava
      */
     private void haeJasenenKotityot(int jasenID) {
         listaTekematta.clear();

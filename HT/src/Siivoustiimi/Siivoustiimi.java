@@ -18,8 +18,7 @@ public class Siivoustiimi {
     Kotityot kotityot = new Kotityot();
     Suoritukset suoritukset = new Suoritukset();
 
-    //Kotityot kotityot = new Kotityot();
-    //Suoritukset suoritukset = new Suoritukset();
+
 
     /**
      * palauttaa siivoustiimin jäsenmäärän
@@ -57,10 +56,33 @@ public class Siivoustiimi {
         return jasenet.anna(i);
     }
 
+
+    /**
+     * Palauttaa jäsenIDtä vastaavan jäsenen.
+     * @param jasenID ID, jonka perusteella jäsentä etsitään.
+     * @return jäsenIDtä vastaavan jäsenen.
+     */
+    public Jasen annaJasenIDPerusteella (int jasenID){
+        return jasenet.annaJasenIDPerusteella(jasenID);
+
+    }
+
+
+    /**
+     * Palauttaa tiettyä jäsenIdtä vastaavan jäsenen kaikki kotityöt.
+     * @param jasenId jäsen, jonka kotitöitä haetaan.
+     * @return tiettyä jäsenIdtä vastaavan jäsenen kaikki kotityöt.
+     */
     public ArrayList<Kotityo> annaKotityot(int jasenId) {
         return kotityot.annaKotityot(jasenId);
     }
 
+
+    /**
+     * Palauttaa tiettyä kotityöIDtä vastaavan kotityön kaikki suoritukset.
+     * @param kotityoID kotityö, jonka suorituksia haetaan.
+     * @return tiettyä kotityöIDtä vastaavan kotityön kaikki suoritukset.
+     */
     public ArrayList<Suoritus> annaSuoritukset(int kotityoID) {
 
         return suoritukset.annaSuoritukset(kotityoID);
@@ -72,6 +94,17 @@ public class Siivoustiimi {
     public int etsiJasenenID (String jasenenNimi) {
         return jasenet.annaJasenenId(jasenenNimi);
     }
+
+
+    /**
+     * Etsii kaikki annetun merkkijonon sisältävät kotityöt.
+     * @param text merkkijono, jonka perusteella kotitöitä etsitään.
+     * @return kaikki kotityöt, jotka sisältävät annetun merkkijonon.
+     */
+    public Collection<Kotityo> etsiKotityot(String text) {
+        return kotityot.etsiKotityot(text);
+    }
+
 
     /**
      * Asettaa tiedostojen perusnimet
@@ -114,10 +147,22 @@ public class Siivoustiimi {
         jasenet.lisaa(jasen);
     }
 
+
+    /**
+     * Lisaa uuden kotityon tietorakenteeseen.
+     *
+     * @param kotityo lisattava kotityo
+     */
     public void lisaa (Kotityo kotityo) {
         kotityot.lisaa(kotityo);
     }
 
+
+    /**
+     * Lisaa uuden suorituksen tietorakenteeseen.
+     *
+     * @param suoritus lisattava suoritus
+     */
     public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
 
     /**
@@ -131,6 +176,11 @@ public class Siivoustiimi {
         jasenet.korvaaTaiLisaa(jasen);
     }
 
+    /**
+     * Korvaa kotityön tietorakenteessa.
+     * Etsitään samalla tunnusluvulla oleva kotityö.
+     * @param kotityo lisättävän kotityön viite.
+     */
     public void korvaa(Kotityo kotityo) {
         kotityot.korvaa(kotityo);
     }
@@ -152,6 +202,10 @@ public class Siivoustiimi {
         return ret;
     }
 
+    /**
+     * Poistaa kotityön tietorakenteesta
+     * @param kotityo poistettava kotityö
+     */
     public void poistaKotityo(Kotityo kotityo) {
         if (kotityo ==null) return;
         kotityot.poista(kotityo);
@@ -176,6 +230,12 @@ public class Siivoustiimi {
         suoritukset.lueTiedostosta();
     }
 
+
+    /**
+     * Tallentaa siivoustiimin suoritukset, kotityöt ja jäsenet kaikki omiin tiedostoihinsa.
+     * @throws SailoException
+     * @throws FileNotFoundException
+     */
     public void tallenna() throws SailoException, FileNotFoundException {
         String virhe = "";
         try {
@@ -233,6 +293,5 @@ public class Siivoustiimi {
             System.out.println(e.getMessage());
         }
     }
-
 
 }

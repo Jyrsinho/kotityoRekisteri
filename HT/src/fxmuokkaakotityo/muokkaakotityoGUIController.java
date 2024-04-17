@@ -12,6 +12,7 @@ import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,9 +23,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.management.StringValueExp;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 /**
@@ -33,6 +37,7 @@ import java.util.ResourceBundle;
  */
 public class muokkaakotityoGUIController implements ModalControllerInterface<Kotityo>, Initializable {
 
+    @FXML public Label labelAika;
     @FXML private TextField editTextVanhenee;
     @FXML private TextField editTextKesto;
     @FXML private TextField editNimi;
@@ -46,11 +51,12 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
 
     @FXML private Button buttonUusiKotityo;
 
-    @FXML private TextField hakuKentta;
+    @FXML private TextField hakuEhto;
 
     @FXML private ListChooser<Kotityo> kotityoValikko;
 
     @FXML private ChoiceBox<Jasen> valitseTekija;
+
 
 
     /**
@@ -58,7 +64,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
      * @param event
      */
     @FXML void haeKotityo(KeyEvent event) {
-        Dialogs.showMessageDialog("Vielä ei osata hakea kotitöitä");
+        kasitteleHaku();
     }
 
 
@@ -104,28 +110,47 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
     private Siivoustiimi siivoustiimi;
     private TextField edits[];
     private Kotityo uusikotityo;
+    private Kotityo kotityoKohdalla;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         alusta();
+
     }
+
 
     public void alusta() {
-
+        kotityoValikko.addSelectionListener(e -> naytaKotityo());
     }
+
 
     @Override
     public Kotityo getResult() {
         return null;
     }
 
+
     @Override
     public void setDefault(Kotityo oletus) {
+        editTextKesto.setText(String.valueOf(oletus.getKesto()));
+        editNimi.setText(oletus.getKotityoNimi());
+        editTextVanhenee.setText(String.valueOf(oletus.getVanhenemisaika()));
+
     }
 
     @Override
     public void handleShown() {
 
+    }
+
+
+    private void naytaKotityo() {
+        kotityoKohdalla = kotityoValikko.getSelectedObject();
+
+        if (kotityoKohdalla == null) {
+            return;
+        }
+        haeKotityonTiedot(kotityoKohdalla);
     }
 
     /**
@@ -141,6 +166,16 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
         labelVirhe.setText(virhe);
         labelVirhe.getStyleClass().add("virhe");
     }
+
+
+    private void haeKotityonTiedot(Kotityo kotityo) {
+
+        editNimi.setText(kotityo.getKotityoNimi());
+        editTextVanhenee.setText(String.valueOf(kotityo.getVanhenemisaika()));
+        editTextKesto.setText(String.valueOf(kotityo.getKesto()));
+        valitseTekija.setValue(siivoustiimi.annaJasen(kotityo.getVastuuhenkilonID()));
+    }
+
 
     /**
      * Luodaan lista näytettäväksi Choiceboxissa. Lisätään choiceboxiin siivousttiimin jäsenten
@@ -165,9 +200,22 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
      */
     private void haeKaikkiKotityot (Siivoustiimi oletustiimi) {
 
-
         for (Kotityo alkio: siivoustiimi.getKotityot()) {
             kotityoValikko.add(alkio.getKotityoNimi(), alkio);
+        }
+
+   }
+
+
+    /**
+     * hakee kotitöiden listasta kotityot, jotka vastaavat käyttäjän hakuehtoa.
+     */
+   private void kasitteleHaku () {
+        kotityoValikko.clear();
+
+        Collection<Kotityo> ehtoonSopivatKotityot = siivoustiimi.etsiKotityot(hakuEhto.getText());
+        for (Kotityo alkio : ehtoonSopivatKotityot) {
+            kotityoValikko.add(alkio.getKotityoNimi(),alkio);
         }
 
    }
@@ -185,7 +233,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
         return ModalController.<Kotityo, muokkaakotityoGUIController>showModal(
                 muokkaakotityoGUIController.class.getResource("muokkaakotityoGUIView.fxml"),
                 "Uusi Kotityö",
-                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
+                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi, oletus)
         );
     }
 
@@ -193,11 +241,12 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
      * Asetetaan ikkunassa käytettäväksi siivoustiimiksi parametrina tuotu siivoustiimi.
      * @param oletusTiimi siivoustiimi, jota käytetään.
      */
-    private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
+    private void setSiivoustiimi(Siivoustiimi oletusTiimi, Kotityo oletus) {
         this.siivoustiimi = oletusTiimi;
 
         naytaTiimi(oletusTiimi); //lataa vastuuhenkilö-valikkoon kaikki tiimin jäsenet.
         haeKaikkiKotityot(oletusTiimi); //hakee Listchooseriin kaikki tiimin kotityöt.
+        valitseTekija.setValue(siivoustiimi.annaJasenIDPerusteella(oletus.getVastuuhenkilonID()));
     }
 
 }
