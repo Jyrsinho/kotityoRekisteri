@@ -45,7 +45,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     @FXML private ListChooser<Jasen> listaJasenet;
 
-    @FXML private ListChooser<Suoritus> listaTehty;
+    @FXML private ListChooser<Kotityo> listaTehty;
 
     @FXML private ListChooser<Kotityo> listaTekematta;
 
@@ -297,7 +297,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     @Override
     public void setDefault(String s) {
-
+        jasenKohdalla = listaJasenet.getSelectedObject();
     }
 
     @Override
@@ -347,9 +347,12 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         }
     }
 
+
     /*
+     *
+
     private void muokkaaKotityo(){
-        if (kotityoKohdalla == null) return;
+        //if (kotityoKohdalla == null) return;
         try {
             Kotityo kotityo;
             kotityo =  muokkaakotityoGUIController.kysyKotityo(null, kotityoKohdalla.clone(), siivoustiimi);
@@ -364,6 +367,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
      */
+
+
 
 
     /**
@@ -403,27 +408,19 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     private void haeJasenenKotityot(int jasenID) {
         listaTekematta.clear();
+        listaTehty.clear();
 
         ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasenID);
 
         for (Kotityo alkio : kotityolista) {
-            listaTekematta.add(alkio.getKotityoNimi(), alkio);
+            if (alkio.onVanhentunut()) {
+                listaTekematta.add(alkio.getKotityoNimi(), alkio);
+            }
+            listaTehty.add(alkio.getKotityoNimi(), alkio);
         }
     }
 
-    /**
-     * Hakee valitun kotityön suoritukset listaan tehdyistä suorituksista.
-     * @param kotityoID
-     */
-    private void haeKotityonSuoritukset(int kotityoID) {
-        listaTehty.clear();
 
-        ArrayList<Suoritus> suorituslista = siivoustiimi.annaSuoritukset(kotityoID);
-
-        for (Suoritus alkio : suorituslista) {
-            listaTehty.add(alkio.getViimeisinSuoritus(), alkio);
-        }
-    }
 
 
     /**

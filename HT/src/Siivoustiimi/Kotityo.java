@@ -95,12 +95,14 @@ public class Kotityo implements Cloneable {
     }
 
     public String setVanhenemisaika(String uusiVanhenemisAika) {
+        if (uusiVanhenemisAika.isEmpty()) return "Vanhenemisaika ei voi olla tyhjä";
         if (!uusiVanhenemisAika.matches(("[0-9]*"))) return "Vanhenemisajan on oltava numero";
         this.vanhenemisaika = Integer.parseInt(uusiVanhenemisAika);
         return null;
     }
 
     public String setKesto (String uusiKesto) {
+        if (uusiKesto.isEmpty()) return "Kesto ei voi olla tyhjä";
         if (!uusiKesto.matches(("[0-9]*"))) return "Keston on oltava numero";
         this.kesto = Integer.parseInt(uusiKesto);
         return null;

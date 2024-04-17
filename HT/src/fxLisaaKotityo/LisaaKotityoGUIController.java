@@ -29,6 +29,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     public Label labelVirhe;
     public TextField editVanhenemisaika;
     public TextField editKesto;
+    public DatePicker tehtyViimeksiKalenteri;
 
     @FXML
     private Button buttonCancel;
@@ -60,9 +61,16 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     @FXML
     void klikkaaOK(MouseEvent event) {
 
+        String valittuVastuuHenkilo = selectVastuuhenkilo.getValue();
+        lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
+        lisaaKotityolleAlustavaEdellinenSuoritus();
 
         if (uusikotityo != null && uusikotityo.getKotityoNimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
+            return;
+        }
+        else if (uusikotityo != null && uusikotityo.getViimeisinSuoritus() == null) {
+            naytaVirhe("Kalenterista on valittava arvo");
             return;
         }
 
@@ -96,6 +104,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      * Tekee tarvittavat muut alustukset.
      */
     public void alusta() {
+
         edits = new TextField[]{editNimi, editVanhenemisaika, editKesto};
         int i = 0;
         for (TextField edit : edits) {
@@ -103,9 +112,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
             edit.setOnKeyReleased(e -> kasitteleMuutosKotityohon(k, (TextField) (e.getSource())));
         }
         selectVastuuhenkilo.setOnAction(event -> {
-            String valittuVastuuHenkilo = selectVastuuhenkilo.getValue();
-            lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
-            lisaaKotityolleAlustavaEdellinenSuoritus();
         });
     }
 
@@ -117,7 +123,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
 
     @Override
     public void setDefault(Kotityo oletus) {
-
         uusikotityo = oletus;
     }
 
@@ -201,11 +206,10 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         }
 
     /**
-     * asetetaan lisättävälle kotityölle alustavaksi edelliseksi suoritukseksi kotityön luomisen päivämäärä.
-     * TODO tähän järkevömpi ja monipuolisempi versio.
+     * asetetaan lisättävälle kotityölle arvoksi käyttäjän kalenterista valitsema päivämäärä.
      */
     public void lisaaKotityolleAlustavaEdellinenSuoritus() {
-        uusikotityo.setViimeisinSuoritus(LocalDate.now());
+        uusikotityo.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
     }
 
 
