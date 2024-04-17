@@ -53,11 +53,17 @@ public class Kotityot implements Iterable<Kotityo> {
      * @param kotityo, joka poistetaan.
      */
     public void poista(Kotityo kotityo) {
-        for (Kotityo alkio : alkiot) {
-            if (alkio == kotityo) alkiot.remove(alkio);
+        Iterator<Kotityo> iterator = alkiot.iterator();
+        while (iterator.hasNext()) {
+            Kotityo alkio = iterator.next();
+            if (alkio.equals(kotityo)) {
+                iterator.remove();
+                muutettu = true;
+                return; // Poistetaan vain ensimmäinen esiintymä ja lopetetaan silmukka
+            }
         }
-        muutettu = true;
     }
+
 
     /**
      * järjestelee kaikki siivoustiimin kotityöt tehtyihin ja tekemättömiin kotitöihin

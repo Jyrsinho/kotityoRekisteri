@@ -20,8 +20,8 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="187.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="83.0" minHeight="9.0" prefHeight="51.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="204.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -62,7 +62,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </Label>
-      <ListChooser fx:id="kotityoValikko" onMouseClicked="#klikkaaValitseKotityo" prefHeight="234.0" prefWidth="147.0" rivit="Imurointi&#10;Lattioiden Pesu&#10;Autotallin siivous&#10;Tiskikoneen tyhjennys" GridPane.rowIndex="3" />
+      <ListChooser fx:id="kotityoValikko" prefHeight="234.0" prefWidth="147.0" rivit="Imurointi&#10;Lattioiden Pesu&#10;Autotallin siivous&#10;Tiskikoneen tyhjennys" GridPane.rowIndex="3" />
       <Button fx:id="buttonUusiKotityo" mnemonicParsing="false" onMouseClicked="#klikkaaUusiKotityo" text="Uusi kotityö" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -115,7 +115,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="selectTekija" onMouseClicked="#klikkaaTekija" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ChoiceBox fx:id="selectTekija" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -141,7 +141,7 @@
           <TreeTableColumn prefWidth="75.0" text="Suoritusaika" />
         </columns>
       </TreeTableView>
-      <Button fx:id="buttonTallenna" mnemonicParsing="false" onMouseClicked="#klikkaaTallenna" text="Tallenna" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      <Button fx:id="buttonOK" mnemonicParsing="false" onMouseClicked="#klikkaaOk" text="Tallenna" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
@@ -151,5 +151,6 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Button>
+      <Label fx:id="labelVirhe" textFill="#ff0002" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
    </children>
 </GridPane>

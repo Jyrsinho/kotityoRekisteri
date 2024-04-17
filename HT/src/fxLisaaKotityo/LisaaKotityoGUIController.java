@@ -132,6 +132,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         editNimi.requestFocus();
     }
 
+
     /**
      * Näyttää mahdollisen virheen
      * @param virhe, joka näytetään

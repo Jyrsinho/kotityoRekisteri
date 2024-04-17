@@ -14,14 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -83,8 +80,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      * @param event
      */
-    @FXML
-    void lisaaJasenKlikkaus(MouseEvent event) {
+    @FXML void lisaaJasenKlikkaus(MouseEvent event) {
 
         // ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen",null, "");
         uusiJasen();
@@ -96,8 +92,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      * @param event
      */
-    @FXML
-    void lisaaKotityklikkaus(MouseEvent event) {
+    @FXML void lisaaKotityklikkaus(MouseEvent event) {
         //  ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"),"Lisää Kotityö",null,"");
         uusiKotityo();
     }
@@ -107,8 +102,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      * @param event
      */
-    @FXML
-    void lisaaSuoritusKlikkaus(MouseEvent event) {
+    @FXML void lisaaSuoritusKlikkaus(MouseEvent event) {
 
         //ModalController.showModal(lisaaSuoritusGUIController.class.getResource("lisaaSuoritusGUIView.fxml"), "Lisää Suoritus", null, "");
         uusiSuoritus();
@@ -120,8 +114,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      * @param event
      */
-    @FXML
-    void klikkaaTehty(MouseEvent event) {
+    @FXML void klikkaaTehty(MouseEvent event) {
         //  Dialogs.showMessageDialog("Ei osata vielä avata valita kotityötä.");
 
     }
@@ -131,84 +124,77 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      * @param event
      */
-    @FXML
-    void klikkaaTekematta(MouseEvent event) {
+    @FXML void klikkaaTekematta(MouseEvent event) {
         //   Dialogs.showMessageDialog("Ei osata vielä avata valita kotityötä.");
 
     }
 
-    /**
-     * Tuplaklikkaus valitsee jäsenen muokattavaksi.
-     *
-     * @param event
-     */
-    @FXML
-    void klikkaaValitseJasen(MouseEvent event) {
 
-    }
-
-    @FXML
-    void menuKlikkaaAvaa(ActionEvent event) {
+    @FXML void menuKlikkaaAvaa(ActionEvent event) {
 
         ModalController.showModal(AloitusnakymaGUIController.class.getResource("Aloitusnakyma.fxml"), "Aloita", null, "");
 
     }
 
-    @FXML
-    void klikkaaApua(ActionEvent event) {
+    @FXML void klikkaaApua(ActionEvent event) {
         avustus();
     }
 
-    @FXML
-    void menuKlikkaaLisaaJasen(ActionEvent event) {
+    @FXML void menuKlikkaaLisaaJasen(ActionEvent event) {
 
         // ModalController.showModal(lisaaJasenGUIController.class.getResource("lisaaJasenGUIView.fxml"), "Lisää Jäsen", null, "");
         uusiJasen();
     }
 
-    @FXML
-    void menuKlikkaaLisaaKotityo(ActionEvent event) {
+    @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) {
        // ModalController.showModal(lisaaKotityoGUIController.class.getResource("lisaaKotityoGUIView.fxml"), "Lisää Kotityö", null, "");
        uusiKotityo();
     }
 
-    @FXML
-    void menuKlikkaaMuokkaaJasen(ActionEvent event) {
+    @FXML void menuKlikkaaMuokkaaJasen(ActionEvent event) {
 
         muokkaaJasen();
     }
 
-    @FXML
-    void menuKlikkaaPoistaJasen(ActionEvent event) {
+    @FXML void menuKlikkaaPoistaJasen(ActionEvent event) {
         //Dialogs.showMessageDialog("Vielä ei osata poistaa jäsentä.");
         poistaJasen();
     }
 
-    @FXML
-    void menuKlikkaaPoistaKotityo(ActionEvent event) {
+    @FXML void menuKlikkaaPoistaKotityo(ActionEvent event) {
         poistaKotityo();
     }
 
-    @FXML
-    void menuKlikkaaMuokkaaKotityo(ActionEvent event) {
+    @FXML void menuKlikkaaMuokkaaKotityo(ActionEvent event) {
 
-        ModalController.showModal(muokkaakotityoGUIController.class.getResource("muokkaakotityoGUIView.fxml"), "Muokkaa kotityö", null, "");
+        muokkaaKotityo();
     }
 
-    @FXML
-    void menuKlikkaaTulosta(ActionEvent event) {
+    @FXML void menuKlikkaaTulosta(ActionEvent event) {
         Dialogs.showMessageDialog("Vielä ei osata tulostaa");
     }
 
-    @FXML
-    void menuKlikkaaLopeta(ActionEvent event) {
+    @FXML void menuKlikkaaLopeta(ActionEvent event) {
         Platform.exit();
     }
 
-    @FXML
-    void menuklikkaaTAllenna(ActionEvent event) throws FileNotFoundException {
+    @FXML void menuklikkaaTAllenna(ActionEvent event) throws FileNotFoundException {
         tallenna();
     }
+
+    @FXML public void valitseKotityoTekemattaListasta(MouseEvent mouseEvent) {
+        kotityoKohdalla = listaTehty.getSelectedObject();
+    }
+
+    @FXML public void valitseJasenTehtyListasta(MouseEvent mouseEvent) {
+        kotityoKohdalla = listaTehty.getSelectedObject();
+    }
+
+    @FXML void klikkaaValitseJasen(MouseEvent event) {
+
+        jasenKohdalla = listaJasenet.getSelectedObject();
+    }
+
 
 
     public void initialize(URL url, ResourceBundle bundle) {
@@ -224,7 +210,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private Siivoustiimi siivoustiimi;
     private Jasen jasenKohdalla;
     private Kotityo kotityoKohdalla;
-    private Suoritus suoritusKohdalla;
 
 
 
@@ -298,6 +283,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @Override
     public void setDefault(String s) {
         jasenKohdalla = listaJasenet.getSelectedObject();
+
     }
 
     @Override
@@ -348,11 +334,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
 
-    /*
-     *
-
     private void muokkaaKotityo(){
-        //if (kotityoKohdalla == null) return;
+        if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
+        if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
+        if (kotityoKohdalla == null) return;
         try {
             Kotityo kotityo;
             kotityo =  muokkaakotityoGUIController.kysyKotityo(null, kotityoKohdalla.clone(), siivoustiimi);
@@ -361,14 +346,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             hae(kotityo.getKotityoID());
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
-        }catch (SailoException e) {
-            Dialogs.showMessageDialog(e.getMessage());
         }
     }
-
-     */
-
-
 
 
     /**
@@ -472,12 +451,14 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     private void poistaKotityo() {
 
+        if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
+        if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
         Kotityo kotityo = kotityoKohdalla;
         if (kotityo == null) return;
         if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + kotityo.getKotityoNimi(), "Kyllä", "Ei") )
             return;
         siivoustiimi.poistaKotityo(kotityo);
-        hae(jasenKohdalla.getId());
+        haeJasenenKotityot(jasenKohdalla.getId());
     }
 
     /**
@@ -493,6 +474,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         hae(0);
         listaJasenet.setSelectedIndex(index);
     }
+
 }
 
 
