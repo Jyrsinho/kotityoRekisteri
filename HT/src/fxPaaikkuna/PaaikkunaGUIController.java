@@ -382,8 +382,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
 
     /**
-     * Hakee yhden jäsenen kotityöt listaan tekemättömistä kotitöistä.
-     * TODO Muokattava kahdeksi listaksi, joista toisessa jäsenen tehdyt ja toisessa jäsenen tekemättömät kotityöt
+     * Hakee yhden jäsenen kaikki kotityöt ja järjestelee ne kahteen listaan. Tehtyihin kotitöihin ja tekemättömiin kotitöihin.
+     * TODO Korjattava
      */
     private void haeJasenenKotityot(int jasenID) {
         listaTekematta.clear();
@@ -394,11 +394,11 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         for (Kotityo alkio : kotityolista) {
             if (alkio.onVanhentunut()) {
                 listaTekematta.add(alkio.getKotityoNimi(), alkio);
+            } else {
+                listaTehty.add(alkio.getKotityoNimi(), alkio);
             }
-            listaTehty.add(alkio.getKotityoNimi(), alkio);
         }
     }
-
 
 
 

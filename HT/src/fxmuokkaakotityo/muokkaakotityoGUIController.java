@@ -107,6 +107,10 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        alusta();
+    }
+
+    public void alusta() {
 
     }
 
@@ -151,7 +155,6 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
             optionsList.add(oletustiimi.annaJasen(i));
         }
 
-        // Create a ChoiceBox and set its items
         valitseTekija.setItems(optionsList);
 
     }
@@ -180,7 +183,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
 
     public static Kotityo kysyKotityo(Stage modalityStage, Kotityo oletus, Siivoustiimi oletusTiimi) {
         return ModalController.<Kotityo, muokkaakotityoGUIController>showModal(
-                muokkaakotityoGUIController.class.getResource("muokkaakotityo.fxml"),
+                muokkaakotityoGUIController.class.getResource("muokkaakotityoGUIView.fxml"),
                 "Uusi Kotityö",
                 modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
         );
