@@ -277,11 +277,26 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @Override
     public void setDefault(String s) {
         jasenKohdalla = listaJasenet.getSelectedObject();
+        haeJasenenKotityot(jasenKohdalla.getId());
 
     }
 
     @Override
     public void handleShown() {
+
+    }
+
+    /**
+     * Päivittää ikkunan tiedot
+     */
+    private void paivitaIkkuna() {
+
+        listaJasenet.clear();
+        listaTehty.clear();
+        listaTekematta.clear();
+        hae(0);
+        naytaJasen();
+        haeJasenenKotityot(jasenKohdalla.getId());
 
     }
 
@@ -327,7 +342,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         }
     }
 
-
+    /**
+     * Avaa ikkunan, jossa kotityöhön asetetaan uudet tiedot
+     */
     private void muokkaaKotityo(){
         if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
         if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
@@ -337,7 +354,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             kotityo =  muokkaakotityoGUIController.kysyKotityo(null, kotityoKohdalla.clone(), siivoustiimi);
             if (kotityo== null) return;
             siivoustiimi.korvaa(kotityo);
-            hae(kotityo.getKotityoID());
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
@@ -366,11 +382,14 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     protected void hae(int jnro) {
 
         listaJasenet.clear();
+        listaTekematta.clear();
+        listaTehty.clear();
 
         for (int i = 0; i < siivoustiimi.getJasenia(); i++) {
             Jasen jasen = siivoustiimi.annaJasen(i);
             listaJasenet.add(jasen.getSukunimi()+" "+ jasen.getEtunimi(), jasen);
         }
+        haeJasenenKotityot(0);
     }
 
 

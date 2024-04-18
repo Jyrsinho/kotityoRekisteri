@@ -22,12 +22,12 @@ public class Siivoustiimi {
 
     /**
      * palauttaa siivoustiimin jäsenmäärän
-     *
      * @return jäsenmäärä
      */
     public int getJasenia() {
         return jasenet.getLkm();
     }
+
 
     /**
      * Palauttaa listan siivoustiimin jäsenistä.
@@ -35,9 +35,9 @@ public class Siivoustiimi {
      */
     public Jasen[] getJasenet() {return jasenet.getJasenet();}
 
+
     /**
      * Palauttaa listan siivoustiimin kotitöistä
-     *
      * @return Arraylist, joka sisältää siivoustiimin kotityöt
      */
     public Collection<Kotityo> getKotityot() {
@@ -87,6 +87,7 @@ public class Siivoustiimi {
 
         return suoritukset.annaSuoritukset(kotityoID);
     }
+
 
     /**
      * Etsii annettua merkkijonoa vastaavan jäsenen ID:n
@@ -164,6 +165,7 @@ public class Siivoustiimi {
      * @param suoritus lisattava suoritus
      */
     public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
+
 
     /**
      * Korvaa jäsenen tietorakenteessa.  Ottaa jäsenen omistukseensa.

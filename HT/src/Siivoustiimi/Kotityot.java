@@ -35,11 +35,20 @@ public class Kotityot implements Iterable<Kotityo> {
         return alkiot;
     }
 
-        
+
     /**
-     * Lisaa uuden kotityon tietorakenteeseen.
-     *
-     * @param kotityo lisattava kotityo
+     * Lisää uuden kotityon tietorakenteeseen. Ottaa jäsenen omistukseensa.
+     * @param kotityo lisättävän jäsenen viite.
+     * @example <pre name="test">
+     * Kotityot kotityot = new Kotityot();
+     * Kotityo imurointi1 = new Kotityo(), imurointi2 = new Kotityo();
+     * kotityot.getLkm() === 0;
+     * kotityot.lisaa(imurointi1); kotityot.getLkm() ===1;
+     * kotityot.lisaa(imurointi2); kotityot.getLkm() ===2;
+     * kotityot.lisaa(imurointi1); kotityot.getLkm() ===3;
+     * kotityot.lisaa(imurointi1); kotityot.getLkm() ===4;
+     * kotityot.lisaa(imurointi1); kotityot.getLkm() ===5;
+     * </pre>
      */
     public void lisaa(Kotityo kotityo) {
         alkiot.add(kotityo);
@@ -86,7 +95,7 @@ public class Kotityot implements Iterable<Kotityo> {
 
 
     /**
-     * Lukee kotityot tiedostosta.  TODO tarkista testit.
+     * Lukee kotityot tiedostosta.
      *
      * @param tiedosto tiedoston nimi
      * @throws SailoException jos lukeminen epäonnistuu
@@ -145,7 +154,7 @@ public class Kotityot implements Iterable<Kotityo> {
                 rivi = rivi.trim();
                 if ( "".equals(rivi) || rivi.charAt(0) == ';' ) continue;
                 Kotityo kotityo = new Kotityo();
-                kotityo.parse(rivi); // TODO virhekäsittely
+                kotityo.parse(rivi);
                 lisaa(kotityo);
             }
             muutettu = false;
@@ -168,7 +177,7 @@ public class Kotityot implements Iterable<Kotityo> {
 
 
     /**
-     * Tallentaa kotityöt tiedostoon.  // TODO Kesken.
+     * Tallentaa kotityöt tiedostoon.
      * @throws SailoException jos talletus epäonnistuu
      */
     public void tallenna() throws SailoException, IOException {
@@ -318,7 +327,6 @@ public class Kotityot implements Iterable<Kotityo> {
      * loytyneet = kotityot.annaKotityot(2);
      * loytyneet.size() === 4;
      * </pre>
-     *
      */
     public ArrayList<Kotityo> annaKotityot (int id) {
         ArrayList<Kotityo> loydetyt = new ArrayList<Kotityo>();

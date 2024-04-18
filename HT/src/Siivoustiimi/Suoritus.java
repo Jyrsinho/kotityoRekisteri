@@ -27,30 +27,56 @@ public class Suoritus {
 
     private static int seuraavaSuoritusNro = 1;
 
+    /**
+     * Alustetaan suoritus oletusarvoille.
+     */
     public Suoritus () {
-
     }
 
+    /**
+     * Alustetaan suoritus tietylle kotityölle.
+     * @param kotityoID kotityön viitenumero
+     */
+    public Suoritus (int kotityoID){
+        this.kotityoID= kotityoID;
+    }
+
+    /**
+     * palauttaa suorituksen ID:n
+     * @return palauttaa suorituksen ID:n
+     */
     public int getSuoritusID() {
         return suoritusID;
     }
 
+    /**
+     * Palauttaa suorituksen omistavan kotityön ID:N
+     * @return Palauttaa suorituksen omistavan kotityön ID:N
+     */
     public int getKotityoID() {
         return kotityoID;
     }
 
+    /**
+     * Palauttaa suorituksen suoritusajan.
+     * @return Palauttaa suorituksen suoritusajan.
+     */
     public int getsuoritusAika() {
         return suoritusAika;
     }
 
+    /**
+     * Palauttaa suorittajan tekijän ID:n
+     * @return Palauttaa suorittajan tekijän ID:n
+     */
     public int getSuorittajaID() {
         return suorittajaID;
     }
 
-    public int getSuorittajanID() {
-        return suorittajaID;
-    }
-
+    /**
+     * Palauttaa viimeisimmän suorituksen päivämäärän merkkijonona.
+     * @return Palauttaa viimeisimmän suorituksen päivämäärän merkkijonona.
+     */
     public String getViimeisinSuoritus() {
         return suoritusPvm;
     }
@@ -115,7 +141,7 @@ public class Suoritus {
         this.suoritusAika = Mjonot.erota(sb, '|', getsuoritusAika());
         this.suoritusPvm = Mjonot.erota(sb, '|', getViimeisinSuoritus());
         this.kotityoID = Mjonot.erota(sb,'|', getKotityoID());
-        this.suorittajaID = Mjonot.erota(sb, '|', getSuorittajanID());
+        this.suorittajaID = Mjonot.erota(sb, '|', getSuorittajaID());
 
     }
 

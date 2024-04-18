@@ -1,6 +1,8 @@
 package fxmuokkaaJasen;
+
 import Siivoustiimi.Jasen;
 import Siivoustiimi.Kotityo;
+import Siivoustiimi.SailoException;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
@@ -9,16 +11,12 @@ import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import Siivoustiimi.SailoException;
-import javafx.scene.control.Label;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -52,19 +50,7 @@ import java.util.ResourceBundle;
     @FXML private ListChooser<Kotityo> listaKotityo;
 
 
-
-        /**
-        * Haetaan jäsenlistasta kirjoitettua hakuehtoa vastaavia jäseniä.
-        * @param event
-        */
-        @FXML void haeJasen(KeyEvent event) {
-
-             Dialogs.showMessageDialog("Vielä ei osata hakea jäseniä");
-
-        }
-
-
-        /**
+    /**
         * Avaa muokkaa kotityö ikkunan valitun kotityön kohdalta.
         * @param event
         */
@@ -74,16 +60,6 @@ import java.util.ResourceBundle;
 
         }
 
-
-        /**
-        * Poistaa valitun jösenen listasta ja tiedostosta.
-        * @param event
-        */
-        @FXML void klikkaaPoistaJasen(MouseEvent event) {
-
-            Dialogs.showMessageDialog("Vielä ei osata poistaa jäsentä");
-
-        }
 
     /**
      * tallentaa muokattavaksi valitun jäsenen tiedot tiedostoon.
@@ -109,17 +85,6 @@ import java.util.ResourceBundle;
         ModalController.closeStage(labelVirhe);
 
     }
-
-
-    /**
-     * Valitaan listasta kotityö.
-     * @param event
-     */
-        @FXML void klikkaaValitseKotityö(MouseEvent event) {
-
-        }
-
-
 
 
 //------------------------------------------------------
@@ -223,14 +188,21 @@ import java.util.ResourceBundle;
         editKaupunki.setText(jasen.getKaupunki());
         editPostinumero.setText(jasen.getPostinumero());
         editOsoite.setText(jasen.getKatuosoite());
-        editIka.setText(String.valueOf(jasen.getIka()));
+        if (jasen.getIka()==0) {
+            editIka.setText("");
+        }
+        else {
+            editIka.setText(String.valueOf(jasen.getIka()));
+        }
         editPuhelin.setText(jasen.getPuhelin());
 
 
     }
 
-    //TODO Näytä käyttäjän kotityöt listassa
-
+    /**
+     * Näyttää kaikki jäsenen kotityöt listassa
+     * @param jasen, jonka kotityöt näytetään
+     */
     public void naytaKotityot(Jasen jasen) {
         listaKotityo.clear();
         ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasen.getId());

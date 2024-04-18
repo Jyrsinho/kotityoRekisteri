@@ -186,14 +186,16 @@ public class Jasenet implements Iterable<Jasen>{
      * @param id, jota etsitään
      * @return 1 jos iidee löytyy, -1 jos ID ei löydy.
      * @example <pre name="test">
+     * Siivoustiimi siivoustiimi = new Siivoustiimi();
      * Jasenet jasenet = new Jasenet();
      * Jasen timo1 = new Jasen(); Jasen timo2 = new Jasen(); Jasen timo3 = new Jasen();
-     * jasenet.lisaa(timo1); jasenet.lisaa(timo2); jasenet.lisaa(timo3);
      * timo1.rekisteroi(); timo2.rekisteroi(); timo3.rekisteroi();
+     * jasenet.lisaa(timo1); jasenet.lisaa(timo2); jasenet.lisaa(timo3);
      * jasenet.getLkm() === 3;
+     * jasenet.etsiId(timo1.getId()) === 1;
+     * jasenet.etsiId(5) === -1;
      *
      * </pre>
-     * TODO tähän järkevät testit
      */
     public int etsiId(int id) {
         for (int i = 0; i < lkm; i++) {
@@ -317,9 +319,28 @@ public class Jasenet implements Iterable<Jasen>{
 
 
     /**
-     * TODO Testit
-     * Luokka jäsenten iteroimiseksi.
+     * Iteraattori kaikkien jasenten lapikaymiseen
+     * @return jaseniteraattori
+     *
      * @example
+     * <pre name="test">
+     * #PACKAGEIMPORT
+     * #import java.util.*;
+     *
+     *  Jasenet jasenet = new Jasenet();
+     *  Jasen timo1 = new Jasen(); jasenet.lisaa(timo1);
+     *  Jasen timo2 = new Jasen(); jasenet.lisaa(timo2);
+     *  Jasen timo3 = new Jasen(); jasenet.lisaa(timo3);
+     *  Jasen timo4 = new Jasen(); jasenet.lisaa(timo4);
+     *  Jasen timo5 = new Jasen(); jasenet.lisaa(timo5);
+     *
+     *  Iterator<Jasen> i2=jasenet.iterator();
+     *  i2.next() === timo1;
+     *  i2.next() === timo2;
+     *  i2.next() === timo3;
+     *  i2.next() === timo4;
+     *  i2.next() === timo5;
+     * </pre>
      */
     public class JasenetIterator implements Iterator<Jasen> {
         private int kohdalla = 0;

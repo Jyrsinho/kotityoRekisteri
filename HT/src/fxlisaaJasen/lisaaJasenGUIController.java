@@ -23,8 +23,7 @@ public class lisaaJasenGUIController implements ModalControllerInterface<String>
      * Peruuttaa jösenen lisäämisen ja ohjelma palaa päävalikkoon.
      * @param event
      */
-    @FXML
-    void klikkaaCancel(MouseEvent event) {
+    @FXML void klikkaaCancel(MouseEvent event) {
     ModalController.closeStage(buttonCancel);
     }
 
@@ -32,8 +31,7 @@ public class lisaaJasenGUIController implements ModalControllerInterface<String>
      * Tallentaa uuden jäsenen tiedostoon.
      * @param event
      */
-    @FXML
-    void klikkaaOK(MouseEvent event) {
+    @FXML void klikkaaOK(MouseEvent event) {
         //Dialogs.showMessageDialog("Ei osata vielä tallentaa.");
         ModalController.closeStage(buttonCancel);        //  ModalController.showModal(PaaikkunaGUIController.class.getResource("PaaikkunaGUIView.fxml"), "Paaikkuna", null, "");
 

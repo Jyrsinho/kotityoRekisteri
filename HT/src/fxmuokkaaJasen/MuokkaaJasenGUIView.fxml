@@ -108,7 +108,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <ListChooser fx:id="listaKotityo" onMouseClicked="#klikkaaValitseKotityö" rivit="Imurointi&#10;Lattioiden pesu&#10;Autotallin siivous&#10;Tiskikoneen tyhjennys" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <ListChooser fx:id="listaKotityo"  GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Button fx:id="buttonCancel" mnemonicParsing="false" onMouseClicked="#klikkaaCancel" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="20.0" />

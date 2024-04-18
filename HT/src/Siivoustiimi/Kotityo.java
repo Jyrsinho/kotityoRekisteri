@@ -5,10 +5,7 @@ import kanta.RandomIka;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Siivoustiimin kotityo.
@@ -152,7 +149,7 @@ public class Kotityo implements Cloneable {
      */
     public boolean onVanhentunut() {
 
-        int vertailu = (viimeisinSuoritus.plusDays(vanhenemisaika).compareTo(LocalDate.now()));
+        int vertailu = (viimeisinSuoritus.plusDays(vanhenemisaika-1).compareTo(LocalDate.now()));
 
         return vertailu < 0 ;
     }
@@ -253,7 +250,7 @@ public class Kotityo implements Cloneable {
      * Testiohjelma jäsenelle.
      * @param args ei käytössä.
      */
-    public static void main (String args[]) {
+    public static void main (String args[] ) {
 
         Kotityo imurointi = new Kotityo();
         Kotityo imurointi2 = new Kotityo();

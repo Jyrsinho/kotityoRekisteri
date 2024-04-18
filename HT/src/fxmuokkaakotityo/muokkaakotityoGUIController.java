@@ -1,18 +1,15 @@
 package fxmuokkaakotityo;
 
-
-import Siivoustiimi.Kotityo;
-import Siivoustiimi.Siivoustiimi;
 import Siivoustiimi.Jasen;
+import Siivoustiimi.Kotityo;
+import Siivoustiimi.SailoException;
+import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
-import fxLisaaKotityo.LisaaKotityoGUIController;
-import fxPaaikkuna.PaaikkunaGUIController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,11 +20,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.management.StringValueExp;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -80,7 +74,16 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
      */
     @FXML void klikkaaOk(MouseEvent event) {
 
+        try {
+            kasitteleMuutoksetKotityohon();
+            siivoustiimi.tallenna();
+        } catch (SailoException ex) {
+            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         ModalController.closeStage(labelVirhe);
+
     }
 
 
@@ -109,7 +112,6 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
 
     private Siivoustiimi siivoustiimi;
     private TextField edits[];
-    private Kotityo uusikotityo;
     private Kotityo kotityoKohdalla;
 
     @Override
@@ -132,6 +134,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
 
     @Override
     public void setDefault(Kotityo oletus) {
+        kotityoKohdalla = oletus;
         editTextKesto.setText(String.valueOf(oletus.getKesto()));
         editNimi.setText(oletus.getKotityoNimi());
         editTextVanhenee.setText(String.valueOf(oletus.getVanhenemisaika()));
@@ -168,12 +171,40 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
     }
 
 
+    /**
+     * Hakee tietorakenteista kotityön tiedot ja asettaa ne käyttäjän muokattavaksi
+     * @param kotityo jonka tiedot haetaan.
+     */
     private void haeKotityonTiedot(Kotityo kotityo) {
 
         editNimi.setText(kotityo.getKotityoNimi());
         editTextVanhenee.setText(String.valueOf(kotityo.getVanhenemisaika()));
         editTextKesto.setText(String.valueOf(kotityo.getKesto()));
-        valitseTekija.setValue(siivoustiimi.annaJasen(kotityo.getVastuuhenkilonID()));
+        valitseTekija.setValue(siivoustiimi.annaJasenIDPerusteella(kotityo.getVastuuhenkilonID()));
+
+        haeKotityonSuoritukset(kotityo);
+    }
+
+    /**
+     * Asetetaan kotityölle uudet arvot
+     */
+    private void kasitteleMuutoksetKotityohon() {
+
+        if (kotityoKohdalla!= null) {
+            kotityoKohdalla.setKesto(editTextKesto.getText());
+            kotityoKohdalla.setVastuuhenkilonID(valitseTekija.getValue().getId());
+            kotityoKohdalla.setKotityonNimi(editNimi.getText());
+            kotityoKohdalla.setVanhenemisaika(editTextVanhenee.getText());
+        }
+    }
+
+    /**
+     * Hakee tietorakenteista kaikki kotityön suoritukset ja asettaa ne näkyville.
+     * @param kotityo jonka suoritukset haetaan
+     *                TODO SUORITUKSET ESILLE
+     */
+    private void haeKotityonSuoritukset(Kotityo kotityo) {
+      //  kotityo.getSuoritukset
     }
 
 
@@ -196,9 +227,8 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
 
     /**
      * Hakee Listchooseriin siivoustiimin kaikki kotityöt näytettäväksi.
-     * @param oletustiimi, jonka kotityöt näytetään
      */
-    private void haeKaikkiKotityot (Siivoustiimi oletustiimi) {
+    private void haeKaikkiKotityot () {
 
         for (Kotityo alkio: siivoustiimi.getKotityot()) {
             kotityoValikko.add(alkio.getKotityoNimi(), alkio);
@@ -232,7 +262,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
     public static Kotityo kysyKotityo(Stage modalityStage, Kotityo oletus, Siivoustiimi oletusTiimi) {
         return ModalController.<Kotityo, muokkaakotityoGUIController>showModal(
                 muokkaakotityoGUIController.class.getResource("muokkaakotityoGUIView.fxml"),
-                "Uusi Kotityö",
+                "Muokkaa Kotityö",
                 modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi, oletus)
         );
     }
@@ -243,9 +273,10 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
      */
     private void setSiivoustiimi(Siivoustiimi oletusTiimi, Kotityo oletus) {
         this.siivoustiimi = oletusTiimi;
+        kotityoKohdalla = oletus;
 
         naytaTiimi(oletusTiimi); //lataa vastuuhenkilö-valikkoon kaikki tiimin jäsenet.
-        haeKaikkiKotityot(oletusTiimi); //hakee Listchooseriin kaikki tiimin kotityöt.
+        haeKaikkiKotityot(); //hakee Listchooseriin kaikki tiimin kotityöt.
         valitseTekija.setValue(siivoustiimi.annaJasenIDPerusteella(oletus.getVastuuhenkilonID()));
     }
 

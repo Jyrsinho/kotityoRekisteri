@@ -210,7 +210,7 @@ public class Jasen implements Cloneable {
     }
 
 
-    //TODO viimeistele
+    //TODO VOIKO TÄHÄN TEHDÄ VAIHTOEHTOISEN TOSTRINGIN JOKA NÄKYY CHOICEBOXEISSA
     /**
      * Tulostetaan jäsenen tiedot
      */
