@@ -199,7 +199,7 @@ public class Jasenet implements Iterable<Jasen>{
      */
     public int etsiId(int id) {
         for (int i = 0; i < lkm; i++) {
-            if (id == alkiot[i].getId()) return 1;
+            if (id == alkiot[i].getId()) return i;
         }
         return -1;
     }

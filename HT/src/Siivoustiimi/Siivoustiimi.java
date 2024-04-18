@@ -201,6 +201,7 @@ public class Siivoustiimi {
     public int poista(Jasen jasen) {
         if (jasen == null) return 0;
         int ret = jasenet.poista(jasen.getId());
+        kotityot.poistaJasenenKotityot(jasen.getId());
         return ret;
     }
 

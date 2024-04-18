@@ -158,6 +158,7 @@ public class Kotityo implements Cloneable {
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot kotityolle.
      * XX ja XX arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
+     * @param id Kotityön vastuuhenkilön ID
      */
     public void taytaKotityo(int id) {
 

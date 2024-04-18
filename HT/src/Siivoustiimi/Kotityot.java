@@ -73,6 +73,40 @@ public class Kotityot implements Iterable<Kotityo> {
         }
     }
 
+    /**
+     * Poistaa kaikki jasenen kotityot kun jasen poistetaan.
+     * @param jasenId poistettavan jäsenen id
+     * @return montako poistettiin
+     * @example <pre name="test">
+     * Kotityot kotityot = new Kotityot();
+     * Kotityo imurointi21 = new Kotityo(); imurointi21.taytaKotityo(2);
+     * Kotityo imurointi11 = new Kotityo(); imurointi11.taytaKotityo(1);
+     * Kotityo imurointi22 = new Kotityo(); imurointi22.taytaKotityo(2);
+     * Kotityo imurointi12 = new Kotityo(); imurointi12.taytaKotityo(1);
+     * Kotityo imurointi23 = new Kotityo(); imurointi23.taytaKotityo(2);
+     * kotityot.lisaa(imurointi21);
+     * kotityot.lisaa(imurointi11);
+     * kotityot.lisaa(imurointi22);
+     * kotityot.lisaa(imurointi12);
+     * kotityot.lisaa(imurointi23);
+     * kotityot.poistaJasenenKotityot(2) === 3;  kotityot.getLkm() === 2;
+     * kotityot.poistaJasenenKotityot(3) === 0;  kotityot.getLkm() === 2;
+     * </pre>
+     */
+    public int poistaJasenenKotityot (int jasenId) {
+        int n = 0;
+        for (Iterator<Kotityo> it = alkiot.iterator(); it.hasNext();) {
+            Kotityo kottyo = it.next();
+            if ( kottyo.getVastuuhenkilonID() == jasenId) {
+                it.remove();
+                n++;
+            }
+        }
+        if (n > 0) muutettu = true;
+        return n;
+
+    }
+
 
     /**
      * järjestelee kaikki siivoustiimin kotityöt tehtyihin ja tekemättömiin kotitöihin

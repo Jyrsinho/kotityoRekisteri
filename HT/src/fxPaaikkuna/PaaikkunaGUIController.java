@@ -478,7 +478,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private void poistaJasen() {
         Jasen jasen = jasenKohdalla;
         if (jasen==null) return;
-        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + jasen.getNimi(), "Kyllä", "Ei") )
+        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko: " + jasen.getNimi() +" ja kaikki jäsenen kotityöt", "Kyllä", "Ei") )
             return;
         siivoustiimi.poista(jasen);
         int index = listaJasenet.getSelectedIndex();
