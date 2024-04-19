@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -114,6 +115,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         kalenteriValinta.setValue(LocalDate.now());
     }
 
+
     /**
      * Näyttää mahdollisen virheen
      * @param virhe, joka näytetään
@@ -158,6 +160,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
             optionsList.add(kotityo);
         }
         kotityoValinta.setItems(optionsList);
+
     }
 
     private void naytaKestoVaihtoehdot() {
@@ -221,6 +224,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         naytaTiimi(oletusTiimi); //lataa Tekijä-valikkoon kaikki tiimin jäsenet.
         naytaKotityot(oletusTiimi); // lataa Kotityo-valikkoon kaikki tiimin kotityöt.
         naytaKestoVaihtoehdot();
+
     }
 
 }

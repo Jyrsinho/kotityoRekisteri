@@ -354,6 +354,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             kotityo =  muokkaakotityoGUIController.kysyKotityo(null, kotityoKohdalla.clone(), siivoustiimi);
             if (kotityo== null) return;
             siivoustiimi.korvaa(kotityo);
+            naytaJasen();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
@@ -365,6 +366,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
 
     private void naytaJasen() {
+
         jasenKohdalla = listaJasenet.getSelectedObject();
 
         if (jasenKohdalla == null) {

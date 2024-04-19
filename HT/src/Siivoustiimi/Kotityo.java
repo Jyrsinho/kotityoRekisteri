@@ -203,7 +203,7 @@ public class Kotityo implements Cloneable {
      * @example
      * <pre name="test">
      *   Kotityo kotityo = new Kotityo();
-     *   kotityo.parse("1               |Imurointi                | 3                  | 20        | 7.1.2024           |    1|");
+     *   kotityo.parse("1               |Imurointi                | 3                  | 20        | 2024-01-07           |    1|");
      *   kotityo.getKotityoID() === 1;
      *   kotityo.toString().startsWith("1|Imurointi|3|") === true;
      *
@@ -222,7 +222,7 @@ public class Kotityo implements Cloneable {
         this.kotityoNimi = Mjonot.erota(sb, '|', getKotityoNimi());
         this.vanhenemisaika = Mjonot.erota(sb, '|', getVanhenemisaika());
         this.kesto = Mjonot.erota(sb,'|', getKesto());
-        this.viimeisinSuoritus = LocalDate.parse(Mjonot.erota(sb, '|', "13-12-2012"));
+        this.viimeisinSuoritus = LocalDate.parse(Mjonot.erota(sb, '|', "2012-12-13"));
         this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
     }
 

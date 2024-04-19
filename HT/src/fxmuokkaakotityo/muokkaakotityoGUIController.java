@@ -135,6 +135,7 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
     @Override
     public void setDefault(Kotityo oletus) {
         kotityoKohdalla = oletus;
+
         editTextKesto.setText(String.valueOf(oletus.getKesto()));
         editNimi.setText(oletus.getKotityoNimi());
         editTextVanhenee.setText(String.valueOf(oletus.getVanhenemisaika()));

@@ -182,6 +182,7 @@ public class Jasenet implements Iterable<Jasen>{
 
 
     /**
+     * TODO Fiksaapa tämä
      * etsii jäsenen Iideen tietokannasta
      * @param id, jota etsitään
      * @return 1 jos iidee löytyy, -1 jos ID ei löydy.
@@ -192,7 +193,7 @@ public class Jasenet implements Iterable<Jasen>{
      * timo1.rekisteroi(); timo2.rekisteroi(); timo3.rekisteroi();
      * jasenet.lisaa(timo1); jasenet.lisaa(timo2); jasenet.lisaa(timo3);
      * jasenet.getLkm() === 3;
-     * jasenet.etsiId(timo1.getId()) === 1;
+     * jasenet.etsiId(timo1.getId()) === 0;
      * jasenet.etsiId(5) === -1;
      *
      * </pre>
