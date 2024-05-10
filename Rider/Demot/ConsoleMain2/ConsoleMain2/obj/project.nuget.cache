@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "un3QyOCu8KyQ1gPxlC8070tLuAbwdumiVlHxgC/Xwa8eWJd2Ouz5gWzz91RdTNCChRzW39a8LWxwE5tHGStt/w==",
+  "success": true,
+  "projectFilePath": "/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/ConsoleMain2/ConsoleMain2/ConsoleMain2.csproj",
+  "expectedPackageFiles": [
+    "/Users/jyrihuhtala/.nuget/packages/microsoft.netcore.app.ref/7.0.14/microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "/Users/jyrihuhtala/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.14/microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "/Users/jyrihuhtala/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.14/microsoft.netcore.app.host.osx-arm64.7.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

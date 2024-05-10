@@ -1,0 +1,14 @@
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/bin/Debug/net7.0/SMTPAsiakas2
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/bin/Debug/net7.0/SMTPAsiakas2.deps.json
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/bin/Debug/net7.0/SMTPAsiakas2.runtimeconfig.json
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/bin/Debug/net7.0/SMTPAsiakas2.dll
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/bin/Debug/net7.0/SMTPAsiakas2.pdb
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.AssemblyInfoInputs.cache
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.AssemblyInfo.cs
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.csproj.CoreCompileInputs.cache
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.dll
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/refint/SMTPAsiakas2.dll
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.pdb
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/SMTPAsiakas2.genruntimeconfig.cache
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/SMTPAsiakas2/SMTPAsiakas2/obj/Debug/net7.0/ref/SMTPAsiakas2.dll

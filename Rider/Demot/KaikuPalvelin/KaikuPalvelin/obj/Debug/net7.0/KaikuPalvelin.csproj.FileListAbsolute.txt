@@ -1,0 +1,14 @@
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/bin/Debug/net7.0/KaikuPalvelin
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/bin/Debug/net7.0/KaikuPalvelin.deps.json
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/bin/Debug/net7.0/KaikuPalvelin.runtimeconfig.json
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/bin/Debug/net7.0/KaikuPalvelin.dll
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/bin/Debug/net7.0/KaikuPalvelin.pdb
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.AssemblyInfoInputs.cache
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.AssemblyInfo.cs
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.csproj.CoreCompileInputs.cache
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.dll
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/refint/KaikuPalvelin.dll
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.pdb
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/KaikuPalvelin.genruntimeconfig.cache
+/Users/jyrihuhtala/kurssit/ohj2/Rider/Demot/KaikuPalvelin/KaikuPalvelin/obj/Debug/net7.0/ref/KaikuPalvelin.dll
