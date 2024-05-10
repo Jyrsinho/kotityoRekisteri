@@ -247,6 +247,18 @@ public class Kotityo implements Cloneable {
                 getVastuuhenkilonID()   +"|";
     }
 
+
+    /**
+     * vertaa onko parametrina tuotu kotityo sama kuin kotityo johon verrataan.
+     * @param kotityo jota verrataan
+     * @return true jos on sama, false jos ei.
+     */
+    @Override
+    public boolean equals(Object kotityo) {
+        return this.toString().equals(kotityo.toString());
+    }
+
+
     /**
      * Testiohjelma jäsenelle.
      * @param args ei käytössä.

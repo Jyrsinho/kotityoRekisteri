@@ -212,6 +212,18 @@ public class Suoritus {
                 getSuorittajaID()           +"|";
     }
 
+
+    /**
+     * vertaa onko parametrina tuotu suoritus sama kuin suoritus johon verrataan.
+     * @param suoritus jota verrataan
+     * @return true jos on sama, false jos ei.
+     */
+    @Override
+    public boolean equals(Object suoritus) {
+        return this.toString().equals(suoritus.toString());
+    }
+
+
     /**
      * Testiohjelma suoritukselle.
      * @param args ei käytössä.
