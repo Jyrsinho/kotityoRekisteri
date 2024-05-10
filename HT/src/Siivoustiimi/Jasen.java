@@ -55,24 +55,60 @@ public class Jasen implements Cloneable {
        return id;
    }
 
+
     /**
      *
      * @return jasenen katuosoite
      */
    public String getKatuosoite() {return katuosoite;}
 
+    /**
+     *
+     * @return jasenen postinumero
+     */
     public String getPostinumero() {return postinumero;}
 
+    /**
+     *
+     * @return jasenen kaupunki
+     */
     public String getKaupunki() {return kaupunki;}
 
+    /**
+     *
+     * @return jasenen puhelinnumero
+     */
     public String getPuhelin() {return puhelinNumero;}
 
+
+    /**
+     * @return jasenen ika
+     */
     public int getIka() {return ika;}
+
+
+     /**
+     * Antaa tietokannan luontilausekkeen jäsentaululle
+     * @return jäsentaulun luontilauseke
+     */
+     public String annaLuontilauseke() {
+                 return "CREATE TABLE Jasenet (" +
+                         "id INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                         "sukunimi VARCHAR(20), " +
+                         "etunimi VARCHAR(20) NOT NULL, " +
+                         "katuosoite VARCHAR(100), " +
+                         "postinumero VARCHAR(5), " +
+                         "kaupunki VARCHAR(100), " +
+                         "puhelinNumero VARCHAR(100), " +
+                         "ika INTEGER, " +
+                         ")";
+
+                     }
 
     /**
      * Kloonaa jäsenen
      * @return kloonin jäsenestä
-     * @throws CloneNotSupportedException
+     * @throws CloneNotSupportedException jos kloonia ei tueta
      */
 
     public Jasen clone() throws CloneNotSupportedException {
