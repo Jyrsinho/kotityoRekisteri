@@ -210,7 +210,6 @@ public class Jasen implements Cloneable {
     }
 
 
-    //TODO VOIKO TÄHÄN TEHDÄ VAIHTOEHTOISEN TOSTRINGIN JOKA NÄKYY CHOICEBOXEISSA
     /**
      * Tulostetaan jäsenen tiedot
      */
@@ -226,8 +225,18 @@ public class Jasen implements Cloneable {
                getPuhelin()     +"|"+
                getIka()         +"|";
 
-
    }
+
+
+    /**
+     * vertaa onko parametrina tuotu jasen sama kuin jasen johon verrataan.
+     * @param jasen jota verrataan
+     * @return true jos on sama, false jos ei.
+     */
+    @Override
+    public boolean equals(Object jasen) {
+        return this.toString().equals(jasen.toString());
+    }
 
 
     /**
