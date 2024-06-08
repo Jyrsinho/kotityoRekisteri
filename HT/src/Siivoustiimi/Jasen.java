@@ -4,6 +4,10 @@ package Siivoustiimi;
 import fi.jyu.mit.ohj2.Mjonot;
 
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import static kanta.RandomNumero.arvoNumero;
 import static kanta.RandomIka.arvoIka;
 
@@ -32,12 +36,14 @@ public class Jasen implements Cloneable {
    private static int seuraavaNro    = 1;
 
     /**
-     *
      * @return jasenen etunimi
      */
    public String getEtunimi() {return etunimi;}
 
 
+    /**
+     * @return jasenen sukunimi
+     */
     public String getSukunimi() {return sukunimi;}
 
     /**
@@ -47,8 +53,8 @@ public class Jasen implements Cloneable {
        return etunimi +" "+ sukunimi;
    }
 
+
     /**
-     *
      * @return jasenen ID
      */
    public int getId() {
@@ -57,25 +63,24 @@ public class Jasen implements Cloneable {
 
 
     /**
-     *
      * @return jasenen katuosoite
      */
    public String getKatuosoite() {return katuosoite;}
 
+
     /**
-     *
      * @return jasenen postinumero
      */
     public String getPostinumero() {return postinumero;}
 
+
     /**
-     *
      * @return jasenen kaupunki
      */
     public String getKaupunki() {return kaupunki;}
 
+
     /**
-     *
      * @return jasenen puhelinnumero
      */
     public String getPuhelin() {return puhelinNumero;}
@@ -94,7 +99,7 @@ public class Jasen implements Cloneable {
      public String annaLuontilauseke() {
                  return "CREATE TABLE Jasenet (" +
                          "id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                         "sukunimi VARCHAR(20), " +
+                         "sukunimi VARCHAR(20) NOT NULL, " +
                          "etunimi VARCHAR(20) NOT NULL, " +
                          "katuosoite VARCHAR(100), " +
                          "postinumero VARCHAR(5), " +
@@ -104,6 +109,36 @@ public class Jasen implements Cloneable {
                          ")";
 
                      }
+
+
+     /**
+     * Antaa jasenen lisayslausekkeen
+     * @param con tietokantayhteys
+     * @return jasenen lisayslauseke
+     * @throws SQLException Jos lausekkeen luonnissa on ongelmia
+     */
+    public PreparedStatement annaLisayslauseke(Connection con)
+            throws SQLException {
+        PreparedStatement sql = con.prepareStatement("INSERT INTO Jasenet" +
+                "(id, sukunimi, etunimi, katuosoite, postinumero, kaupunki, " +
+                "puhelinnumero, ika) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        // Sy�tet��n kent�t n�in v�ltt��ksemme SQL injektiot.
+        // K�ytt�j�n sy�tteit� ei ikin� vain kirjoiteta kysely
+        // merkkijonoon tarkistamatta niit� SQL injektioiden varalta!
+        if ( id != 0 ) sql.setInt(1, id); else sql.setString(1, null);
+        sql.setString(2, sukunimi);
+        sql.setString(3, etunimi);
+        sql.setString(4, katuosoite);
+        sql.setString(5, postinumero);
+        sql.setString(6, kaupunki);
+        sql.setString(7, puhelinNumero);
+        sql.setInt(8, ika);
+
+        return sql;
+    }
+
 
     /**
      * Kloonaa jäsenen
