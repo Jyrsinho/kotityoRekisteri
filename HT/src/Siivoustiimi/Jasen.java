@@ -159,12 +159,12 @@ public class Jasen implements Cloneable {
      * @return kloonin jäsenestä
      * @throws CloneNotSupportedException jos kloonia ei tueta
      */
-
     public Jasen clone() throws CloneNotSupportedException {
        Jasen uusi;
        uusi = (Jasen) super.clone();
        return uusi;
     }
+
 
     /**
      * Antaa jäsenelle seuraavan Id:n.
@@ -198,19 +198,24 @@ public class Jasen implements Cloneable {
         return null;
     }
 
+
     public String setSukunimi(String sukunimi) {
         this.sukunimi = sukunimi;
         return null;
     }
+
+
    public String setKatuosoite (String katuosoite) {
        this.katuosoite = katuosoite;
        return null;
    }
 
+
     public String setKaupunki (String kaupunki) {
        this.kaupunki = kaupunki;
        return null;
     }
+
 
     public String setPostinumero (String postinumero) {
        if (!postinumero.matches(("[0-9]*"))) return "Postinumeron on oltava numero";
@@ -218,17 +223,20 @@ public class Jasen implements Cloneable {
        return null;
     }
 
+
     public String setIka (String ika) {
        if (!ika.matches(("[0-9]*"))) return "Iän on oltava numero";
        this.ika = Integer.parseInt(ika);
        return null;
     }
 
+
     public String setPuhelin (String puhelin) {
        if (!puhelin.matches(("[0-9]*"))) return "puhelinnumeron on oltava numero";
        this.puhelinNumero = puhelin;
        return null;
     }
+
 
     /**
      * Selvittää jäsenen tiedot | erotellusta merkkijonosta
@@ -248,7 +256,6 @@ public class Jasen implements Cloneable {
      *   jasen.getId() === n+20+1;
      * </pre>
      */
-
     public void parse(String s) {
         StringBuilder sb = new StringBuilder(s);
         setId(Mjonot.erota(sb, '|', getId()));
@@ -260,6 +267,23 @@ public class Jasen implements Cloneable {
         this.puhelinNumero = Mjonot.erota(sb,'|', getPuhelin());
         this.ika = Mjonot.erota(sb,'|', getIka());
     }
+
+
+    /**
+     * Ottaa jäsenen tiedot ResultSetistä
+     * @param tulokset mistä tiedot otetaan
+     * @throws SQLException jos jokin menee väärin
+     */
+     public void parse(ResultSet tulokset) throws SQLException {
+               setId(tulokset.getInt("jasenID"));
+               sukunimi = tulokset.getString("sukunimi");
+               etunimi = tulokset.getString("etunimi");
+               katuosoite = tulokset.getString("katuosoite");
+               postinumero = tulokset.getString("postinumero");
+               kaupunki = tulokset.getString("postiosoite");
+               puhelinNumero =tulokset.getString("puhelinNumero");
+               ika = tulokset.getInt("ika");
+           }
 
 
     /**
