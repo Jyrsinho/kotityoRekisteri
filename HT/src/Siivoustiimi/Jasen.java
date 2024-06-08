@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 import static kanta.RandomNumero.arvoNumero;
 import static kanta.RandomIka.arvoIka;
@@ -138,6 +139,19 @@ public class Jasen implements Cloneable {
 
         return sql;
     }
+
+
+    /**
+     * Tarkistetaan onko id muuttunut lisäyksessä
+     * @param rs lisäyslauseen ResultSet
+     * @throws SQLException jos tulee jotakin vikaa
+     */
+    public void tarkistaId(ResultSet rs) throws SQLException {
+        if ( !rs.next() ) return;
+        int jasenId = rs.getInt(1);
+        if ( jasenId == id ) return;
+        setId(jasenId);
+     }
 
 
     /**
