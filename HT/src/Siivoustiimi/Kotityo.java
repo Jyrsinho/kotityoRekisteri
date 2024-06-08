@@ -85,6 +85,28 @@ public class Kotityo implements Cloneable {
     public int getVanhenemisaika() {return vanhenemisaika;}
 
 
+    public String toString() {
+        return ""+
+                getKotityoID()          +"|"+
+                getKotityoNimi()        +"|"+
+                getVanhenemisaika()     +"|"+
+                getKesto()              +"|"+
+                getViimeisinSuoritus()  +"|"+
+                getVastuuhenkilonID()   +"|";
+    }
+
+
+    /**
+     * vertaa onko parametrina tuotu kotityo sama kuin kotityo johon verrataan.
+     * @param kotityo jota verrataan
+     * @return true jos on sama, false jos ei.
+     */
+    @Override
+    public boolean equals(Object kotityo) {
+        return this.toString().equals(kotityo.toString());
+    }
+
+
     public String setKotityonNimi(String uusiNimi) {
         if (uusiNimi.isEmpty()) return "Nimi ei voi olla tyhjä";
         this.kotityoNimi = uusiNimi;
@@ -227,7 +249,6 @@ public class Kotityo implements Cloneable {
     }
 
 
-
     /**
      * Tulostetaan jäsenen tiedot
      * @param os tietovirta johon tulostetaan
@@ -237,25 +258,20 @@ public class Kotityo implements Cloneable {
     }
 
 
-    public String toString() {
-        return ""+
-                getKotityoID()          +"|"+
-                getKotityoNimi()        +"|"+
-                getVanhenemisaika()     +"|"+
-                getKesto()              +"|"+
-                getViimeisinSuoritus()  +"|"+
-                getVastuuhenkilonID()   +"|";
-    }
-
-
     /**
-     * vertaa onko parametrina tuotu kotityo sama kuin kotityo johon verrataan.
-     * @param kotityo jota verrataan
-     * @return true jos on sama, false jos ei.
+     * * Antaa tietokannan luontilausekkeen kotityotaululle
+     * @return kotityotaulun luontilauseke
      */
-    @Override
-    public boolean equals(Object kotityo) {
-        return this.toString().equals(kotityo.toString());
+    public String annaLuontilauseke()  {
+            return "CREATE TABLE Kotityot (" +
+                                "kotityoId INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                                "kotityoNimi VARCHAR(100) NOT NULL, " +
+                                "vanhenemisaika INTEGER, " +
+                                "kesto INTEGER, " +
+                                "viimeisinSuoritus DATE, " +
+                                "vastuuHenkilonId INTEGER, " +
+                                "FOREIGN KEY (vastuuHenkilonId) REFERENCES Jasenet(id)" +
+                                ")";
     }
 
 
