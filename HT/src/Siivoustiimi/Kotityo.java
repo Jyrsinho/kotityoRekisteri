@@ -5,6 +5,10 @@ import kanta.RandomIka;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -273,6 +277,33 @@ public class Kotityo implements Cloneable {
                                 "FOREIGN KEY (vastuuHenkilonId) REFERENCES Jasenet(id)" +
                                 ")";
     }
+
+
+    /**
+     * Antaa kotityon lisäyslausekkeen
+     * @param con tietokantayhteys
+     * @return kotityon lisäyslauseke
+     * @throws SQLException Jos lausekkeen luonnissa on ongelmia
+     */
+    public PreparedStatement annaLisayslauseke(Connection con)
+             throws SQLException {
+                PreparedStatement sql = con.prepareStatement(
+                                 "INSERT INTO Kotityot (kotityoId, kotityoNimi, vanhenemisaika, " +
+                                       "kesto, viimeisinSuoritus, vastuuhenkilonID) VALUES (?, ?, ?, ?, ?, ?)");
+
+                // Syötetään kentät näin välttääksemme SQL injektiot.
+                // Käyttäjän syötteitä ei ikinä vain kirjoiteta kysely
+                // merkkijonoon tarkistamatta niitä SQL injektioiden varalta!
+                if ( kotityoId != 0 ) sql.setInt(1, kotityoId); else sql.setString(1, null);
+                sql.setString(2, kotityoNimi);
+                sql.setInt(3, vanhenemisaika);
+                sql.setInt(4, kesto);
+                sql.setDate(5, Date.valueOf(viimeisinSuoritus));
+                sql.setInt(6, vastuuhenkilonID);
+
+                return sql;
+            }
+
 
 
     /**
