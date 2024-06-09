@@ -218,7 +218,6 @@ public class Kotityo implements Cloneable {
     }
 
 
-
     /**
      * Selvittää kotityön tiedot | erotellusta merkkijonosta
      * Pitää huolen että seuraavaKotityoNro on suurempi kuin tuleva kotityoId.
@@ -247,6 +246,21 @@ public class Kotityo implements Cloneable {
         this.kesto = Mjonot.erota(sb,'|', getKesto());
         this.viimeisinSuoritus = LocalDate.parse(Mjonot.erota(sb, '|', "2012-12-13"));
         this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
+    }
+
+
+    /**
+     * Otetaan tiedot ResultSetistä
+     * @param tulokset mistä tiedot otetaan
+     * @throws SQLException Jos jokin menee vikaan
+     */
+    public void parse(ResultSet tulokset) throws SQLException {
+        setKotityoID(tulokset.getInt("kotityoId"));
+        kotityoNimi = tulokset.getString("kotityoNimi");
+        vanhenemisaika = tulokset.getInt("vanhenemisaika");
+        kesto = tulokset.getInt("kesto");
+        viimeisinSuoritus = tulokset.getDate("viimeisinSuoritus").toLocalDate();
+        vastuuhenkilonID = tulokset.getInt("vastuuhenkilonId");
     }
 
 
