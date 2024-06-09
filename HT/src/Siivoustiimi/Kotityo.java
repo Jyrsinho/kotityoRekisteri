@@ -5,10 +5,7 @@ import kanta.RandomIka;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 
 /**
@@ -304,6 +301,18 @@ public class Kotityo implements Cloneable {
                 return sql;
             }
 
+
+    /**
+     * Tarkistetaan onko id muuttunut lisäyksessä
+     * @param rs lisäyslauseen ResultSet
+     * @throws SQLException jos tulee jotakin vikaa
+     */
+    public void tarkistaId(ResultSet rs) throws SQLException {
+        if ( !rs.next() ) return;
+        int id = rs.getInt(1);
+        if ( id == kotityoId ) return;
+        setKotityoID(id);
+    }
 
 
     /**
