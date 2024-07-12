@@ -286,6 +286,37 @@ public class Jasen implements Cloneable {
 
 
     /**
+     * Palauttaa k:tta jasenen kenttaa vastaavan kysymyksen
+     * @param k kuinka monennen kentan kysymys palautetaan (0-alkuinen)
+     * @return k:netta kenttaa vastaava kysymys
+     */
+    public String getKysymys(int k) {
+        switch ( k ) {
+            case 0: return "id";
+            case 1: return "sukunimi";
+            case 2: return "etunimi";
+            case 3: return "katuosoite";
+            case 4: return "postinumero";
+            case 5: return "kaupunki";
+            case 6: return "puhelinnumero";
+            case 7: return "ika";
+            default: return "AALIO";
+        }
+    }
+
+    /*
+        private int id;
+        private String sukunimi;
+        private String etunimi;
+        private String katuosoite;
+        private String postinumero;
+        private String kaupunki;
+        private String puhelinNumero;
+        private int ika;
+     */
+
+
+    /**
      * Apumetodi, jolla saadaan täytettyä testiarvot jäsenelle.
      * Ikä ja puhelinnumero arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
      */

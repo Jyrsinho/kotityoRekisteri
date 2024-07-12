@@ -5,9 +5,7 @@ import static Siivoustiimi.Kanta.alustaKanta;
 
 import java.io.*;
 import java.sql.*;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * pitää yllä varsinaista jäsenrekisteriä, eli osaa
@@ -67,6 +65,37 @@ public class Jasenet  {
             }
 
         } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Palauttaa j�senet listassa
+     * @param hakuehto hakuehto
+     * @param k etsittavan kentan indeksi
+     * @return jasenet listassa
+     * @throws SailoException jos tietokannan kanssa ongelmia
+     */
+    public Collection<Jasen> etsi(String hakuehto, int k) throws SailoException {
+        String ehto = hakuehto;
+        String kysymys = apujasen.getKysymys(k);
+        if ( k < 0 ) { kysymys = apujasen.getKysymys(0); ehto = ""; }
+        // Avataan yhteys tietokantaan try .. with lohkossa.
+        try ( Connection con = kanta.annaKantayhteys();
+              PreparedStatement sql = con.prepareStatement("SELECT * FROM Jasenet WHERE " + kysymys + " LIKE ?") ) {
+            ArrayList<Jasen> loytyneet = new ArrayList<Jasen>();
+
+            sql.setString(1, "%" + ehto + "%");
+            try ( ResultSet tulokset = sql.executeQuery() ) {
+                while ( tulokset.next() ) {
+                    Jasen j = new Jasen();
+                    j.parse(tulokset);
+                    loytyneet.add(j);
+                }
+            }
+            return loytyneet;
+        } catch ( SQLException e ) {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
         }
     }
