@@ -86,33 +86,12 @@ public class Kotityo implements Cloneable {
     public int getVanhenemisaika() {return vanhenemisaika;}
 
 
-    public String toString() {
-        return ""+
-                getKotityoID()          +"|"+
-                getKotityoNimi()        +"|"+
-                getVanhenemisaika()     +"|"+
-                getKesto()              +"|"+
-                getViimeisinSuoritus()  +"|"+
-                getVastuuhenkilonID()   +"|";
-    }
-
-
-    /**
-     * vertaa onko parametrina tuotu kotityo sama kuin kotityo johon verrataan.
-     * @param kotityo jota verrataan
-     * @return true jos on sama, false jos ei.
-     */
-    @Override
-    public boolean equals(Object kotityo) {
-        return this.toString().equals(kotityo.toString());
-    }
-
-
     public String setKotityonNimi(String uusiNimi) {
         if (uusiNimi.isEmpty()) return "Nimi ei voi olla tyhjä";
         this.kotityoNimi = uusiNimi;
         return null;
     }
+
 
     public String setVanhenemisaika(String uusiVanhenemisAika) {
         if (uusiVanhenemisAika.isEmpty()) return "Vanhenemisaika ei voi olla tyhjä";
@@ -121,6 +100,7 @@ public class Kotityo implements Cloneable {
         return null;
     }
 
+
     public String setKesto (String uusiKesto) {
         if (uusiKesto.isEmpty()) return "Kesto ei voi olla tyhjä";
         if (!uusiKesto.matches(("[0-9]*"))) return "Keston on oltava numero";
@@ -128,14 +108,17 @@ public class Kotityo implements Cloneable {
         return null;
     }
 
+
     public String setVastuuhenkilonID(int uusiID) {
         this.vastuuhenkilonID = uusiID;
         return null;
     }
 
+
     public void setViimeisinSuoritus (LocalDate viimeisinSuoritus) {
         this.viimeisinSuoritus = viimeisinSuoritus;
     }
+
 
     public Kotityo clone() throws CloneNotSupportedException {
         Kotityo uusi;
@@ -187,25 +170,25 @@ public class Kotityo implements Cloneable {
 
         this.kotityoNimi = "Imurointi";
         this.vastuuhenkilonID = id;
-        this.viimeisinSuoritus = LocalDate.of(2024, 4, 01);
+        this.viimeisinSuoritus = LocalDate.of(2024, 4, 1);
         this.kesto = RandomIka.arvoIka( 0, 60);
         this.vanhenemisaika = RandomIka.arvoIka(1,30);
-
     }
+
 
     /**
      * Tulostetaan kotityon tiedot
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
-        out.println(String.format("%03d", kotityoId));
+        out.printf("%03d%n", kotityoId);
         out.println(kotityoNimi);
         out.println(kesto);
         out.println(vanhenemisaika);
         out.println(viimeisinSuoritus);
         out.println(vastuuhenkilonID);
-
     }
+
 
      /**
       * Asettaa kotityöId:n ja samalla varmistaa että
@@ -228,7 +211,6 @@ public class Kotityo implements Cloneable {
      *   kotityo.parse("1               |Imurointi                | 3                  | 20        | 2024-01-07           |    1|");
      *   kotityo.getKotityoID() === 1;
      *   kotityo.toString().startsWith("1|Imurointi|3|") === true;
-     *
      *   kotityo.rekisteroi();
      *   int n = kotityo.getKotityoID();
      *   kotityo.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
@@ -236,7 +218,6 @@ public class Kotityo implements Cloneable {
      *   kotityo.getKotityoID() === n+20+1;
      * </pre>
      */
-
     public void parse(String s)  {
         StringBuilder sb = new StringBuilder(s);
         setKotityoID(Mjonot.erota(sb, '|', getKotityoID()));
@@ -329,11 +310,32 @@ public class Kotityo implements Cloneable {
     }
 
 
+    @Override
+    public String toString() {
+        return  getKotityoID()          +"|"+
+                getKotityoNimi()        +"|"+
+                getVanhenemisaika()     +"|"+
+                getKesto()              +"|"+
+                getViimeisinSuoritus()  +"|"+
+                getVastuuhenkilonID()   +"|";
+    }
+
+    /**
+     * vertaa onko parametrina tuotu kotityo sama kuin kotityo johon verrataan.
+     * @param kotityo jota verrataan
+     * @return true jos on sama, false jos ei.
+     */
+    @Override
+    public boolean equals(Object kotityo) {
+        return this.toString().equals(kotityo.toString());
+    }
+
+
     /**
      * Testiohjelma jäsenelle.
      * @param args ei käytössä.
      */
-    public static void main (String args[] ) {
+    public static void main (String[] args) {
 
         Kotityo imurointi = new Kotityo();
         Kotityo imurointi2 = new Kotityo();

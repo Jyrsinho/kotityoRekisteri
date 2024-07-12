@@ -93,6 +93,56 @@ public class Jasen implements Cloneable {
     public int getIka() {return ika;}
 
 
+    public void setId(int numero) {
+        this.id = numero;
+        if (id >= seuraavaNro) seuraavaNro = id+1;
+    }
+
+
+    public String setEtunimi(String etunimi) {
+        this.etunimi = etunimi;
+        return null;
+    }
+
+
+    public String setSukunimi(String sukunimi) {
+        this.sukunimi = sukunimi;
+        return null;
+    }
+
+
+    public String setKatuosoite (String katuosoite) {
+        this.katuosoite = katuosoite;
+        return null;
+    }
+
+
+    public String setKaupunki (String kaupunki) {
+        this.kaupunki = kaupunki;
+        return null;
+    }
+
+
+    public String setPostinumero (String postinumero) {
+        if (!postinumero.matches(("[0-9]*"))) return "Postinumeron on oltava numero";
+        this.postinumero = postinumero;
+        return null;
+    }
+
+
+    public String setIka (String ika) {
+        if (!ika.matches(("[0-9]*"))) return "Iän on oltava numero";
+        this.ika = Integer.parseInt(ika);
+        return null;
+    }
+
+
+    public String setPuhelin (String puhelin) {
+        if (!puhelin.matches(("[0-9]*"))) return "puhelinnumeron on oltava numero";
+        this.puhelinNumero = puhelin;
+        return null;
+    }
+
      /**
      * Antaa tietokannan luontilausekkeen jäsentaululle
      * @return jäsentaulun luontilauseke
@@ -125,9 +175,9 @@ public class Jasen implements Cloneable {
                 "puhelinnumero, ika) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        // Sy�tet��n kent�t n�in v�ltt��ksemme SQL injektiot.
-        // K�ytt�j�n sy�tteit� ei ikin� vain kirjoiteta kysely
-        // merkkijonoon tarkistamatta niit� SQL injektioiden varalta!
+        // Syotetaan kentat nain valttaaksemme SQL injektiot.
+        // Kayttajin syotteita ei ikina vain kirjoiteta kysely
+        // merkkijonoon tarkistamatta niita SQL injektioiden varalta!
         if ( id != 0 ) sql.setInt(1, id); else sql.setString(1, null);
         sql.setString(2, sukunimi);
         sql.setString(3, etunimi);
@@ -180,62 +230,12 @@ public class Jasen implements Cloneable {
      * n1 === n2-1;
      * </pre>
      */
-   public int  rekisteroi() {
+   public int rekisteroi() {
        this.id= seuraavaNro;
        seuraavaNro ++;
        return this.id;
    }
 
-
-   public void setId(int numero) {
-       this.id = numero;
-       if (id >= seuraavaNro) seuraavaNro = id+1;
-   }
-
-
-    public String setEtunimi(String etunimi) {
-        this.etunimi = etunimi;
-        return null;
-    }
-
-
-    public String setSukunimi(String sukunimi) {
-        this.sukunimi = sukunimi;
-        return null;
-    }
-
-
-   public String setKatuosoite (String katuosoite) {
-       this.katuosoite = katuosoite;
-       return null;
-   }
-
-
-    public String setKaupunki (String kaupunki) {
-       this.kaupunki = kaupunki;
-       return null;
-    }
-
-
-    public String setPostinumero (String postinumero) {
-       if (!postinumero.matches(("[0-9]*"))) return "Postinumeron on oltava numero";
-       this.postinumero = postinumero;
-       return null;
-    }
-
-
-    public String setIka (String ika) {
-       if (!ika.matches(("[0-9]*"))) return "Iän on oltava numero";
-       this.ika = Integer.parseInt(ika);
-       return null;
-    }
-
-
-    public String setPuhelin (String puhelin) {
-       if (!puhelin.matches(("[0-9]*"))) return "puhelinnumeron on oltava numero";
-       this.puhelinNumero = puhelin;
-       return null;
-    }
 
 
     /**
@@ -248,7 +248,6 @@ public class Jasen implements Cloneable {
      *   jasen.parse("5    |     Timo |  Kekkila     |Talvitie 4    |   11600   |    Vantaa   |   05013899304   |   41   |");
      *   jasen.getId() === 5;
      *   jasen.toString().startsWith("5|Timo|Kekkila|Talvitie 4|") === true;
-     *
      *   jasen.rekisteroi();
      *   int n = jasen.getId();
      *   jasen.parse(""+(n+20));       // Otetaan merkkijonosta vain jasenen ID
@@ -275,7 +274,7 @@ public class Jasen implements Cloneable {
      * @throws SQLException jos jokin menee väärin
      */
      public void parse(ResultSet tulokset) throws SQLException {
-               setId(tulokset.getInt("jasenID"));
+               setId(tulokset.getInt("id"));
                sukunimi = tulokset.getString("sukunimi");
                etunimi = tulokset.getString("etunimi");
                katuosoite = tulokset.getString("katuosoite");
@@ -324,8 +323,7 @@ public class Jasen implements Cloneable {
      */
    public String toString() {
 
-       return ""+
-               getId()          +"|"+
+       return  getId()          +"|"+
                getEtunimi()     +"|"+
                getSukunimi()    +"|"+
                getKatuosoite()  +"|"+
@@ -352,7 +350,7 @@ public class Jasen implements Cloneable {
      * Testiohjelma jäsenelle.
      * @param args ei käytössä.
      */
-    public static void main (String args[]) {
+    public static void main (String[] args) {
 
     Jasen timo = new Jasen();
     Jasen timo2 = new Jasen();
