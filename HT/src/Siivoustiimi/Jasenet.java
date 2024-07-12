@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @author jyrihuhtala
  * version 9.6.2024
  */
-public class Jasenet implements Iterable<Jasen> {
+public class Jasenet  {
 
 
     private Kanta kanta;
@@ -69,81 +69,6 @@ public class Jasenet implements Iterable<Jasen> {
         } catch (SQLException e) {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
         }
-    }
-
-
-
-    /**
-     * Iteraattori kaikkien jasenten lapikaymiseen
-     * @return jaseniteraattori
-     *
-     * @example
-     * <pre name="test">
-     * #PACKAGEIMPORT
-     * #import java.util.*;
-     *
-     *  Jasenet jasenet = new Jasenet();
-     *  Jasen timo1 = new Jasen(); jasenet.lisaa(timo1);
-     *  Jasen timo2 = new Jasen(); jasenet.lisaa(timo2);
-     *  Jasen timo3 = new Jasen(); jasenet.lisaa(timo3);
-     *  Jasen timo4 = new Jasen(); jasenet.lisaa(timo4);
-     *  Jasen timo5 = new Jasen(); jasenet.lisaa(timo5);
-     *
-     *  Iterator<Jasen> i2=jasenet.iterator();
-     *  i2.next() === timo1;
-     *  i2.next() === timo2;
-     *  i2.next() === timo3;
-     *  i2.next() === timo4;
-     *  i2.next() === timo5;
-     * </pre>
-     */
-    public class JasenetIterator implements Iterator<Jasen> {
-        private int kohdalla = 0;
-
-
-        /**
-         * Onko olemassa vielä seuraavaa jäsentä
-         * @see java.util.Iterator#hasNext()
-         * @return true jos on vielä jäseniä
-         */
-        @Override
-        public boolean hasNext() {
-            return kohdalla < getLkm();
-        }
-
-
-        /**
-         * Annetaan seuraava jäsen
-         * @return seuraava jäsen
-         * @throws NoSuchElementException jos seuraava alkiota ei enää ole
-         * @see java.util.Iterator#next()
-         */
-        @Override
-        public Jasen next() throws NoSuchElementException {
-            if ( !hasNext() ) throw new NoSuchElementException("Ei oo");
-            return anna(kohdalla++);
-        }
-
-
-        /**
-         * Tuhoamista ei ole toteutettu
-         * @throws UnsupportedOperationException aina
-         * @see java.util.Iterator#remove()
-         */
-        @Override
-        public void remove() throws UnsupportedOperationException {
-            throw new UnsupportedOperationException("Me ei poisteta");
-        }
-    }
-
-
-    /**
-     * Palautetaan iteraattori jäsenistään.
-     * @return jäsen iteraattori
-     */
-    @Override
-    public Iterator<Jasen> iterator() {
-        return new JasenetIterator();
     }
 
 
