@@ -1,10 +1,9 @@
 package Siivoustiimi;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * huolehtii Jäsenet ja Kotityöt - luokkien välisestä yhteistyöstä ja välittää näitä tietoja pyydettäessä.
@@ -14,67 +13,67 @@ import java.util.Collection;
  */
 public class Siivoustiimi {
 
-    Jasenet jasenet = new Jasenet();
-    Kotityot kotityot = new Kotityot();
-    Suoritukset suoritukset = new Suoritukset();
+    private Jasenet jasenet;
+    private Kotityot kotityot;
+    private Suoritukset suoritukset;
 
 
 
     /**
-     * palauttaa siivoustiimin jäsenmäärän
-     * @return jäsenmäärä
+     * Poistaa jasenistosta ja kotitoista ne joilla on nro. Kesken.
+     * @param nro viitenumero, jonka mukaan poistetaan
+     * @return montako j�sent� poistettiin
      */
-    public int getJasenia() {
-        return jasenet.getLkm();
+    public int poista(@SuppressWarnings("unused") int nro) {
+        return 0;
     }
 
 
     /**
-     * Palauttaa listan siivoustiimin jäsenistä.
-     * @return Palauttaa listan siivoustiimin jäsenistä.
+     * Lisaa Siivoustiimiin uuden jasenen
+     * @param jasen lisattava jasen
+     * @throws SailoException jos lisaysta ei voida tehda
      */
-    public Jasen[] getJasenet() {return jasenet.getJasenet();}
-
-
-    /**
-     * Palauttaa listan siivoustiimin kotitöistä
-     * @return Arraylist, joka sisältää siivoustiimin kotityöt
-     */
-    public Collection<Kotityo> getKotityot() {
-       return kotityot.getKotityot();
+    public void lisaa(Jasen jasen) throws SailoException {
+        jasenet.lisaa(jasen);
     }
 
-
-
     /**
-     * Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
-     * @param i taulukon indeksi, josta haluttua jäsentä etsitään
-     * @return Palauttaa halutun indeksin paikalla taulukossa olevan jäsenen tiedot.
-     * @throws IndexOutOfBoundsException jos indeksi on liian iso.
+     * Lisaa uuden kotityon tietorakenteeseen.
+     * @param kotityo lisattava kotityo
      */
-    public Jasen annaJasen(int i) throws IndexOutOfBoundsException {
-        return jasenet.anna(i);
+    public void lisaa (Kotityo kotityo) throws SailoException {
+        kotityot.lisaa(kotityo);
     }
 
 
     /**
-     * Palauttaa jäsenIDtä vastaavan jäsenen.
-     * @param jasenID ID, jonka perusteella jäsentä etsitään.
-     * @return jäsenIDtä vastaavan jäsenen.
+     * Lisaa uuden suorituksen tietorakenteeseen.
+     * @param suoritus lisattava suoritus
      */
-    public Jasen annaJasenIDPerusteella (int jasenID){
-        return jasenet.annaJasenIDPerusteella(jasenID);
+    public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
 
+
+    /**
+     * Palauttaa jasenet listassa
+     * @param hakuehto hakuehto
+     * @param k etsittavan kentan indeksi
+     * @return jasenet listassa
+     * @throws SailoException jos tietokannan kanssa ongelmia
+     * @example
+    */
+    public Collection<Jasen> etsi(String hakuehto, int k) throws SailoException {
+        return jasenet.etsi(hakuehto,k);
     }
 
 
     /**
      * Palauttaa tiettyä jäsenIdtä vastaavan jäsenen kaikki kotityöt.
-     * @param jasenId jäsen, jonka kotitöitä haetaan.
+     * @param jasen jjäsen, jonka kotitöitä haetaan.
      * @return tiettyä jäsenIdtä vastaavan jäsenen kaikki kotityöt.
      */
-    public ArrayList<Kotityo> annaKotityot(int jasenId) {
-        return kotityot.annaKotityot(jasenId);
+    public ArrayList<Kotityo> annaKotityot(Jasen jasen) throws SailoException {
+        return kotityot.annaKotityot(jasen.getId());
     }
 
 
@@ -90,178 +89,25 @@ public class Siivoustiimi {
 
 
     /**
-     * Etsii annettua merkkijonoa vastaavan jäsenen ID:n
+     * Luo tietokannan. Jos annettu tiedosto on jo olemassa ja
+     * sisaltaa tarvitut taulut, ei luoda mitaan
+     * @param nimi tietokannan nimi
+     * @throws SailoException jos tietokannan luominen ep�onnistuu
      */
-    public int etsiJasenenID (String jasenenNimi) {
-        return jasenet.annaJasenenId(jasenenNimi);
+    public void lueTiedostosta(String nimi) throws SailoException {
+        jasenet = new Jasenet(nimi);
+        kotityot = new Kotityot(nimi);
     }
 
 
     /**
-     * Etsii kaikki annetun merkkijonon sisältävät kotityöt.
-     * @param text merkkijono, jonka perusteella kotitöitä etsitään.
-     * @return kaikki kotityöt, jotka sisältävät annetun merkkijonon.
+     * Tallentaa kerhon tiedot tiedostoon.
+     * T�ss� tietokantaversiossa ei tarvitse tehd� mit��n
+     * @throws SailoException jos tallettamisessa ongelmia, nyt ei siis k�yt�nn�ss� heit� koskaan
      */
-    public Collection<Kotityo> etsiKotityot(String text) {
-        return kotityot.etsiKotityot(text);
+    public void tallenna() throws SailoException {
+        return;
     }
-
-
-    /**
-     * Asettaa tiedostojen perusnimet
-     * @param nimi uusi nimi
-     */
-    public void setTiedosto(String nimi) {
-        File dir = new File(nimi);
-        dir.mkdirs();
-        String hakemistonNimi = "";
-        if ( !nimi.isEmpty() ) hakemistonNimi = nimi +"/";
-        jasenet.setTiedostonPerusNimi(hakemistonNimi + "nimet");
-        kotityot.setTiedostonPerusNimi(hakemistonNimi + "kotityot");
-        suoritukset.setTiedostonPerusNimi(hakemistonNimi + "suoritukset");
-    }
-
-
-    /**
-     * Lisätään uusi jäsen
-     * @param jasen lisättävä jäsen
-     * @throws SailoException jos lisääminen ei onnistu
-     * @example <pre name="test">
-     * #THROWS SailoException
-     * Siivoustiimi siivoustiimi = new Siivoustiimi();
-     * Jasen timo1 = new Jasen();
-     * Jasen timo2 = new Jasen();
-     * timo1.rekisteroi(); timo2.rekisteroi();
-     * siivoustiimi.getJasenia() === 0;
-     * siivoustiimi.lisaa(timo1); siivoustiimi.getJasenia() ===1;
-     * siivoustiimi.lisaa(timo2); siivoustiimi.getJasenia() ===2;
-     * siivoustiimi.lisaa(timo1); siivoustiimi.getJasenia() ===3;
-     * siivoustiimi.annaJasen(0) === timo1;
-     * siivoustiimi.annaJasen(1) === timo2;
-     * siivoustiimi.annaJasen(2) === timo1;
-     * siivoustiimi.annaJasen(3) === timo1; #THROWS IndexOutOfBoundsException
-     * siivoustiimi.lisaa(timo1); siivoustiimi.getJasenia() === 4;
-     * siivoustiimi.lisaa(timo1); siivoustiimi.getJasenia() ===5;
-     * </pre>
-     */
-    public void lisaa(Jasen jasen) throws SailoException {
-        jasenet.lisaa(jasen);
-    }
-
-
-    /**
-     * Lisaa uuden kotityon tietorakenteeseen.
-     *
-     * @param kotityo lisattava kotityo
-     */
-    public void lisaa (Kotityo kotityo) {
-        kotityot.lisaa(kotityo);
-    }
-
-
-    /**
-     * Lisaa uuden suorituksen tietorakenteeseen.
-     *
-     * @param suoritus lisattava suoritus
-     */
-    public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
-
-
-    /**
-     * Korvaa jäsenen tietorakenteessa.  Ottaa jäsenen omistukseensa.
-     * Etsitään samalla tunnusnumerolla oleva jäsen.  Jos ei löydy,
-     * niin lisätään uutena jäsenenä.
-     * @param jasen lisättävän jäsenen viite.  Huom tietorakenne muuttuu omistajaksi
-     * @throws SailoException jos tietorakenne on jo täynnä
-     */
-    public void korvaaTaiLisaa(Jasen jasen) throws SailoException {
-        jasenet.korvaaTaiLisaa(jasen);
-    }
-
-    /**
-     * Korvaa kotityön tietorakenteessa.
-     * Etsitään samalla tunnusluvulla oleva kotityö.
-     * @param kotityo lisättävän kotityön viite.
-     */
-    public void korvaa(Kotityo kotityo) {
-        kotityot.korvaa(kotityo);
-    }
-
-
-    /**
-     * Poistaa jäsenen tietorakenteesta.
-     * @param jasen poistettava jäsen
-     * @return 1 jos poistaminen onnistuu. 0 jos poistaminen ei onnistu.
-     * Siivoustiimi siivoustiimi = new Siivoustiimi();
-     * Jasen jasen1 = new Jasen(); Jasen jasen2 = new Jasen();
-     * siivoustiimi.getJasenia() == 2;
-     * siivoustiimi.poista(jasen2);
-     * siivoustiimi.getJasenia() ==1;
-     */
-    public int poista(Jasen jasen) {
-        if (jasen == null) return 0;
-        int ret = jasenet.poista(jasen.getId());
-        kotityot.poistaJasenenKotityot(jasen.getId());
-        return ret;
-    }
-
-    /**
-     * Poistaa kotityön tietorakenteesta
-     * @param kotityo poistettava kotityö
-     */
-    public void poistaKotityo(Kotityo kotityo) {
-        if (kotityo ==null) return;
-        kotityot.poista(kotityo);
-    }
-
-
-
-    /**
-     * Lukee siivoustiimin tiedot tiedostosta
-     * @param nimi jota käyteään lukemisessa
-     * @throws SailoException jos lukeminen epäonnistuu
-     */
-
-    public void lueTiedostosta(String nimi) throws SailoException, FileNotFoundException {
-        jasenet = new Jasenet();
-        kotityot = new Kotityot();
-        suoritukset = new Suoritukset();
-
-        setTiedosto(nimi);
-        jasenet.lueTiedostosta();
-        kotityot.lueTiedostosta();
-        suoritukset.lueTiedostosta();
-    }
-
-
-    /**
-     * Tallentaa siivoustiimin suoritukset, kotityöt ja jäsenet kaikki omiin tiedostoihinsa.
-     * @throws SailoException
-     * @throws FileNotFoundException
-     */
-    public void tallenna() throws SailoException, FileNotFoundException {
-        String virhe = "";
-        try {
-            jasenet.tallenna();
-        } catch ( SailoException ex ) {
-            virhe = ex.getMessage();
-        }
-
-        try {
-            kotityot.tallenna();
-        } catch ( SailoException ex ) {
-            virhe += ex.getMessage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            suoritukset.tallenna();
-        }catch (SailoException | IOException e) {
-            virhe = e.getMessage();
-        }   if ( !"".equals(virhe) ) throw new SailoException(virhe);
-    }
-
 
 
     /**
@@ -270,31 +116,43 @@ public class Siivoustiimi {
      */
     public static void main(String[] args) {
 
-        Siivoustiimi siivoustiimi = new Siivoustiimi();
-
         try {
-            Jasen timo1 = new Jasen();
-            Jasen timo2 = new Jasen();
-            timo1.rekisteroi();
-            timo1.taytaJasen();
-            timo2.rekisteroi();
-            timo2.taytaJasen();
+            new File("testi.db").delete();
+            Siivoustiimi siivoustiimi = new Siivoustiimi();
+            siivoustiimi.lueTiedostosta("testi");
 
-            siivoustiimi.lisaa(timo1);
-            siivoustiimi.lisaa(timo2);
+            Jasen aku1 = new Jasen(), aku2 = new Jasen();
+            aku1.taytaJasen();
+            aku2.taytaJasen();
 
-            System.out.println("============= Siivoustiimi testi =================");
+            siivoustiimi.lisaa(aku1);
+            siivoustiimi.lisaa(aku2);
+            int id1 = aku1.getId();
+            int id2 = aku2.getId();
+            Kotityo imurointi11 = new Kotityo(id1); imurointi11.taytaKotityo(id1);  siivoustiimi.lisaa(imurointi11);
+            Kotityo imurointi12 = new Kotityo(id1); imurointi12.taytaKotityo(id1);  siivoustiimi.lisaa(imurointi12);
+            Kotityo imurointi21 = new Kotityo(id2); imurointi21.taytaKotityo(id2);  siivoustiimi.lisaa(imurointi21);
+            Kotityo imurointi22 = new Kotityo(id2); imurointi22.taytaKotityo(id2);  siivoustiimi.lisaa(imurointi22);
+            Kotityo imurointi23 = new Kotityo(id2); imurointi23.taytaKotityo(id2);  siivoustiimi.lisaa(imurointi23);
 
-            for (int i = 0; i<siivoustiimi.getJasenia(); i++) {
-                Jasen jasen = siivoustiimi.annaJasen(i);
-                System.out.println("Jäsen paikassa: " + i);
+            System.out.println("============= Kerhon testi =================");
+
+            Collection<Jasen> jasenet = siivoustiimi.etsi("", -1);
+            int i = 0;
+            for (Jasen jasen : jasenet) {
+                System.out.println("J�sen paikassa: " + i);
                 jasen.tulosta(System.out);
-                System.out.println();
+                List<Kotityo> loytyneet = siivoustiimi.annaKotityot(jasen);
+                for (Kotityo kotityo : loytyneet)
+                    kotityo.tulosta(System.out);
+                i++;
             }
 
-        } catch (SailoException e) {
-            System.out.println(e.getMessage());
+        } catch ( SailoException ex ) {
+            System.out.println(ex.getMessage());
         }
+
+        new File("kokeilu.db").delete();
     }
 
 }

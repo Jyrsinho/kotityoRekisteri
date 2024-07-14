@@ -91,7 +91,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      *
      * @param event
      */
-    @FXML void lisaaKotityklikkaus(MouseEvent event) {
+    @FXML void lisaaKotityklikkaus(MouseEvent event) throws SailoException {
         uusiKotityo();
     }
 
@@ -142,7 +142,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         uusiJasen();
     }
 
-    @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) {
+    @FXML void menuKlikkaaLisaaKotityo(ActionEvent event) throws SailoException {
        uusiKotityo();
     }
 
@@ -227,7 +227,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     /**
      * Alustaa siivoustiimin lukemalla sen valitun nimisestä tiedostosta
-     *
      * @param nimi tiedosto josta kerhon tiedot luetaan
      * @return null jos onnistuu, muuten virhe tekstinä
      */
@@ -242,8 +241,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             String virhe = e.getMessage();
             if (virhe != null) Dialogs.showMessageDialog(virhe);
             return virhe;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -324,47 +321,11 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         naytaJasen();
     }
 
-    /**
-     * Avaa ikkunan, jossa jäseneen asetetaan uudet tiedot
-     */
-    private void muokkaaJasen(){
-        if (jasenKohdalla == null) return;
-        try {
-            Jasen jasen;
-            jasen = MuokkaaJasenGUIController.kysyJasen(null, jasenKohdalla.clone(), siivoustiimi);
-            if (jasen == null) return;
-            siivoustiimi.korvaaTaiLisaa(jasen);
-            hae(jasen.getId());
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }catch (SailoException e) {
-            Dialogs.showMessageDialog(e.getMessage());
-        }
-    }
-
-    /**
-     * Avaa ikkunan, jossa kotityöhön asetetaan uudet tiedot
-     */
-    private void muokkaaKotityo(){
-        if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
-        if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
-        if (kotityoKohdalla == null) return;
-        try {
-            Kotityo kotityo;
-            kotityo =  muokkaakotityoGUIController.kysyKotityo(null, kotityoKohdalla.clone(), siivoustiimi);
-            if (kotityo== null) return;
-            siivoustiimi.korvaa(kotityo);
-            naytaJasen();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     /**
      * Näyttää listasta valitun jäsenen kotityöt.
      */
-
     private void naytaJasen() {
 
         jasenKohdalla = listaJasenet.getSelectedObject();
@@ -435,7 +396,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     /**
      * Luo uuden kotityon
      */
-    private void uusiKotityo() {
+    private void uusiKotityo() throws SailoException {
         Kotityo kottyo = new Kotityo();
         kottyo = LisaaKotityoGUIController.kysyKotityo(null, kottyo, siivoustiimi);
         if (kottyo == null) return;

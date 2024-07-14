@@ -156,7 +156,7 @@ public class Jasen implements Cloneable {
                          "postinumero VARCHAR(5), " +
                          "kaupunki VARCHAR(100), " +
                          "puhelinNumero VARCHAR(100), " +
-                         "ika INTEGER, " +
+                         "ika INTEGER " +
                          ")";
 
                      }
@@ -173,7 +173,7 @@ public class Jasen implements Cloneable {
         PreparedStatement sql = con.prepareStatement("INSERT INTO Jasenet" +
                 "(id, sukunimi, etunimi, katuosoite, postinumero, kaupunki, " +
                 "puhelinnumero, ika) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         // Syotetaan kentat nain valttaaksemme SQL injektiot.
         // Kayttajin syotteita ei ikina vain kirjoiteta kysely
@@ -279,7 +279,7 @@ public class Jasen implements Cloneable {
                etunimi = tulokset.getString("etunimi");
                katuosoite = tulokset.getString("katuosoite");
                postinumero = tulokset.getString("postinumero");
-               kaupunki = tulokset.getString("postiosoite");
+               kaupunki = tulokset.getString("kaupunki");
                puhelinNumero =tulokset.getString("puhelinNumero");
                ika = tulokset.getInt("ika");
            }

@@ -42,6 +42,8 @@ public class Kanta {
         if ( kannat.containsKey(nimi) ) return kannat.get(nimi);
         Kanta uusi = new Kanta(nimi);
         kannat.put(nimi, uusi);
+
+        System.out.println("alustetaan tietokanta nimeltä " +nimi );
         return uusi;
     }
 

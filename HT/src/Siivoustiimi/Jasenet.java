@@ -13,7 +13,7 @@ import java.util.*;
  * lukee ja kirjoittaa jäsenistön tiedostoon
  * osaa etsiä ja lajitella.
  * @author jyrihuhtala
- * version 9.6.2024
+ * version 12.7.2024
  */
 public class Jasenet  {
 
@@ -102,10 +102,32 @@ public class Jasenet  {
 
 
     /**
-     *
-     * @param args ei köytössä
+     * Testiohjelma jasenistolle
+     * @param args ei kaytossa
      */
-    public static void main (String []args) {
+    public static void main(String args[])  {
+        try {
+            new File("kokeilu.db").delete();
+            Jasenet jasenet = new Jasenet("kokeilu");
+            Jasen aku = new Jasen(), aku2 = new Jasen();
+            aku.taytaJasen();
+            //aku2.rekisteroi();
+            aku2.taytaJasen();
+            jasenet.lisaa(aku);
+            jasenet.lisaa(aku2);
+            aku2.tulosta(System.out);
+            System.out.println("============= J�senet testi =================");
+            int i = 0;
+            for (Jasen jasen:jasenet.etsi("", -1)) {
+                System.out.println("J�sen nro: " + i++);
+                jasen.tulosta(System.out);
+            }
+            new File("kokeilu.db").delete();
+        } catch ( SailoException ex ) {
+            System.out.println(ex.getMessage());
+        }
+        }
+
     }
 
-}
+

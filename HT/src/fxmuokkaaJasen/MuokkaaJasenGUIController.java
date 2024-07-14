@@ -20,10 +20,6 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-/**
- * @author jyrihuhtala
- * @version 10.2.2024
- */
 
 /**
  * Ikkunassa voidaan muokata jäsenten tietoja.
@@ -203,9 +199,9 @@ import java.util.ResourceBundle;
      * Näyttää kaikki jäsenen kotityöt listassa
      * @param jasen, jonka kotityöt näytetään
      */
-    public void naytaKotityot(Jasen jasen) {
+    public void naytaKotityot(Jasen jasen) throws SailoException {
         listaKotityo.clear();
-        ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasen.getId());
+        ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasen);
 
         for (Kotityo alkio : kotityolista) {
             listaKotityo.add(alkio.getKotityoNimi(), alkio);
@@ -224,11 +220,17 @@ import java.util.ResourceBundle;
         return ModalController.<Jasen, MuokkaaJasenGUIController>showModal(
                 MuokkaaJasenGUIController.class.getResource("MuokkaaJasenGUIView.fxml"),
                 oletus.getEtunimi()+" " +oletus.getSukunimi(),
-                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
+                modalityStage, oletus, ctrl-> {
+                    try {
+                        ctrl.setSiivoustiimi(oletusTiimi);
+                    } catch (SailoException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
         );
     }
 
-    private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
+    private void setSiivoustiimi(Siivoustiimi oletusTiimi) throws SailoException {
         this.siivoustiimi = oletusTiimi;
         naytaKotityot(jasenKohdalla);
     }
