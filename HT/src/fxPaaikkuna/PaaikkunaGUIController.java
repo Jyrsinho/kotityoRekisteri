@@ -178,7 +178,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML
-    void menuklikkaaTAllenna(ActionEvent event) throws FileNotFoundException {
+    void menuklikkaaTAllenna(ActionEvent event) {
         tallenna();
     }
 
@@ -238,7 +238,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @return null jos onnistuu, muuten virhe tekstinä
      */
 
-    protected String lueTiedosto(String nimi) throws SailoException {
+    protected String lueTiedosto(String nimi) {
 
         try {
             siivoustiimi.lueTiedostosta(nimi);
@@ -342,7 +342,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         Collection<Jasen> kaikkiJasenet = siivoustiimi.etsi("", 1);
 
         for (Jasen jasen : kaikkiJasenet) {
-            listaJasenet.add(jasen);
+            listaJasenet.add(jasen.getNimi(), jasen);
         }
     }
 
@@ -381,7 +381,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             hae();
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-            return;
+
         }
     }
 
