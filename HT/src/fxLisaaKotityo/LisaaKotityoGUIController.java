@@ -1,21 +1,19 @@
 package fxLisaaKotityo;
 import Siivoustiimi.Kotityo;
 import Siivoustiimi.Siivoustiimi;
+import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import Siivoustiimi.SailoException;
+import Siivoustiimi.Jasen;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -38,7 +36,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     private Button buttonOK;
 
     @FXML
-    private ChoiceBox<String> selectVastuuhenkilo;
+    private ComboBoxChooser<Jasen> selectVastuuhenkilo;
 
     /**
      * Peruuttaa kotityön lisäämisen ja ohjelma palaa päävalikkoon.
@@ -61,7 +59,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     @FXML
     void klikkaaOK(MouseEvent event) {
 
-        String valittuVastuuHenkilo = selectVastuuhenkilo.getValue();
+        Jasen valittuVastuuHenkilo = selectVastuuhenkilo.getValue().getObject();
         lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
         lisaaKotityolleAlustavaEdellinenSuoritus();
 
@@ -146,20 +144,20 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     }
 
     /**
-     * Luodaan lista näytettäväksi Choiceboxissa. Lisätään choiceboxiin siivousttiimin jäsenten
-     * nimet.
+     * Luodaan lista näytettäväksi Comboboxissa. Lisätään comboboxiin siivoustiimin jäsenet
      * @param oletustiimi siivoustiimi, jonka jäsenet näytetään choiceboxissa.
      */
-    private void naytaTiimi(Siivoustiimi oletustiimi) {
+    private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
-        ObservableList<String> optionsList = FXCollections.observableArrayList();
+        // TODO Korjataan tämä databaseversioon
+        // Kysytään siivoustiimiltä paljonko sulla on jäseniä
+        // Lisätään siivoustiimin jokainen jäsen comboboxiin selectVastuuhenkilo
 
-        for (int i = 0; i < oletustiimi.getJasenia(); i++) {
-            optionsList.add(oletustiimi.annaJasen(i).getNimi());
+        Collection<Jasen> kaikkiJasenet = oletustiimi.etsi("",1);
+
+        for (Jasen jasen : kaikkiJasenet) {
+            selectVastuuhenkilo.add(jasen.getNimi(), jasen);
         }
-
-        // Create a ChoiceBox and set its items
-        selectVastuuhenkilo.setItems(optionsList);
 
     }
 
@@ -199,9 +197,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      * vastaava ID.
      * @param vastuuhenkilo
      */
-    public void lisaaKotityolleVastuuhenkilo(String vastuuhenkilo) {
-            int vastuuhenkilonID = siivoustiimi.etsiJasenenID(vastuuhenkilo);
-            uusikotityo.setVastuuhenkilonID(vastuuhenkilonID);
+    public void lisaaKotityolleVastuuhenkilo(Jasen vastuuhenkilo) {
+            uusikotityo.setVastuuhenkilonID(vastuuhenkilo.getId());
         }
 
     /**
@@ -234,8 +231,11 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      */
     private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
         this.siivoustiimi = oletusTiimi;
-
-        naytaTiimi(oletusTiimi); //lataa vastuuhenkilö-valikkoon kaikki tiimin jäsenet.
+        try {
+            naytaTiimi(oletusTiimi);
+        } catch (SailoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

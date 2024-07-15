@@ -67,6 +67,7 @@ public class Siivoustiimi {
     }
 
 
+
     /**
      * Palauttaa tiettyä jäsenIdtä vastaavan jäsenen kaikki kotityöt.
      * @param jasen jjäsen, jonka kotitöitä haetaan.

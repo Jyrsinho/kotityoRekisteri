@@ -3,7 +3,8 @@ package fxPaaikkuna;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.*;
 import fxAloitusnakyma.AloitusnakymaGUIController;
-//import fxLisaaKotityo.LisaaKotityoGUIController;
+import fxLisaaKotityo.LisaaKotityoGUIController;
+import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
 //import fxlisaaSuoritus.lisaaSuoritusGUIController;
 // import fxmuokkaakotityo.muokkaakotityoGUIController;
@@ -17,7 +18,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -217,9 +217,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     protected void alusta() {
 
         aikaNyt.setText(String.valueOf(LocalDate.now()));
-
         listaJasenet.clear();
-
         listaJasenet.addSelectionListener(e -> {
             try {
                 naytaJasen();
@@ -227,8 +225,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
                 throw new RuntimeException(ex);
             }
         });
-
-
     }
 
 
@@ -237,7 +233,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @param nimi tiedosto josta kerhon tiedot luetaan
      * @return null jos onnistuu, muuten virhe tekstinä
      */
-
     protected String lueTiedosto(String nimi) {
 
         try {
@@ -266,7 +261,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     /**
      * @return false jos painetaan cancel.
      */
-    public boolean avaa() throws SailoException {
+    public boolean avaa() {
 
         String uusinimi = AloitusnakymaGUIController.kysyNimi(null, "siivousperhe");
         if (uusinimi == null) return false;
@@ -300,7 +295,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             URI uri = new URI("https://tim.jyu.fi/view/kurssit/tie/ohj2/2024k/ht/huhtjyil");
             desktop.browse(uri);
         } catch (URISyntaxException | IOException e) {
-            return;
+            Dialogs.showMessageDialog("Verkkosivua ei löydy! " + e.getMessage());
         }
     }
 
@@ -308,7 +303,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @param siivoustiimi siivoustiimi jota käytetään tässä käyttöliittymässä
      */
 
-    public void setSiivoustiimi(Siivoustiimi siivoustiimi) throws SailoException {
+    public void setSiivoustiimi(Siivoustiimi siivoustiimi) {
         this.siivoustiimi = siivoustiimi;
     }
 
@@ -336,7 +331,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         listaTekematta.clear();
         listaTehty.clear();
 
-        // Luodaan jonkinlainen tilapäinen Collection johon haetaan tietokannasta
+        // Luodaan  Collection johon haetaan tietokannasta
         // kaikki jasentaulukon oliot.
 
         Collection<Jasen> kaikkiJasenet = siivoustiimi.etsi("", 1);
@@ -389,17 +384,13 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Luo uuden kotityon
      */
     private void uusiKotityo() throws SailoException {
-        /*
+
         Kotityo kottyo = new Kotityo();
         kottyo = LisaaKotityoGUIController.kysyKotityo(null, kottyo, siivoustiimi);
         if (kottyo == null) return;
         kottyo.rekisteroi();
         siivoustiimi.lisaa(kottyo);
-        naytaJasen();
-        haeJasenenKotityot(jasenKohdalla);
 
-
-         */
     }
 
 
