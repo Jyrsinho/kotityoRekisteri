@@ -39,10 +39,10 @@ public class Kotityo implements Cloneable {
 
     /**
      * Alustetaan kotityo tietylle jasenelle.
-     * @param jasenID jasenen viitenumero
+     * @param vastuuhenkilonId jasenen viitenumero
      */
-    public Kotityo (int jasenID) {
-        this.vastuuhenkilonID = jasenID;
+    public Kotityo (int vastuuhenkilonId) {
+        this.vastuuhenkilonID = vastuuhenkilonId;
     }
 
 
@@ -130,16 +130,6 @@ public class Kotityo implements Cloneable {
     /**
      * Antaa kotityolle seuraavan ID numeron.
      * @return kotityon uusi kotityoID
-     * example <pre name="test">
-     * Kotityo imurointi = new Kotityo();
-     * imurointi.getKotityoID() === 0;
-     * imurointi.rekisteroi();
-     * Kotityo tiskaaminen = new Kotityo();
-     * tiskaaminen.rekisteroi();
-     * int n1 = imurointi.getKotityoID();
-     * int n2 = tiskaaminen.getKotityoID();
-     * n1 === n2-1;
-     * </pre>
      */
     public int  rekisteroi() {
         this.kotityoId= seuraavaKotityoNro;

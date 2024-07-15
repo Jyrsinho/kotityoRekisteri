@@ -28,9 +28,9 @@ public class Kotityot {
         kanta = alustaKanta(nimi);
         try ( Connection con = kanta.annaKantayhteys() ) {
             DatabaseMetaData meta = con.getMetaData();
-            try ( ResultSet taulu = meta.getTables(null, null, "Harrastukset", null) ) {
+            try ( ResultSet taulu = meta.getTables(null, null, "Kotityot", null) ) {
                 if ( !taulu.next() ) {
-                    // Luodaan harrastukset taulu
+                    // Luodaan kotityot taulu
                     try ( PreparedStatement sql = con.prepareStatement(apuKotityo.annaLuontilauseke()) ) {
                         sql.execute();
                     }
@@ -73,7 +73,7 @@ public class Kotityot {
         ArrayList<Kotityo> loydetyt = new ArrayList<>();
 
         try ( Connection con = kanta.annaKantayhteys();
-              PreparedStatement sql = con.prepareStatement("SELECT * FROM Harrastukset WHERE jasenID = ?")
+              PreparedStatement sql = con.prepareStatement("SELECT * FROM Kotityot WHERE vastuuHenkilonID = ?")
         ) {
             sql.setInt(1, tunnusnro);
             try ( ResultSet tulokset = sql.executeQuery() )  {

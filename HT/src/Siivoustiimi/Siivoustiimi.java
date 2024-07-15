@@ -102,8 +102,8 @@ public class Siivoustiimi {
 
     /**
      * Tallentaa kerhon tiedot tiedostoon.
-     * T�ss� tietokantaversiossa ei tarvitse tehd� mit��n
-     * @throws SailoException jos tallettamisessa ongelmia, nyt ei siis k�yt�nn�ss� heit� koskaan
+     * Tassa tietokantaversiossa ei tarvitse tehda mitaan
+     * @throws SailoException jos tallettamisessa ongelmia, nyt ei siis kaytannossa heita koskaan
      */
     public void tallenna() throws SailoException {
         return;
@@ -140,7 +140,7 @@ public class Siivoustiimi {
             Collection<Jasen> jasenet = siivoustiimi.etsi("", -1);
             int i = 0;
             for (Jasen jasen : jasenet) {
-                System.out.println("J�sen paikassa: " + i);
+                System.out.println("Jasen paikassa: " + i);
                 jasen.tulosta(System.out);
                 List<Kotityo> loytyneet = siivoustiimi.annaKotityot(jasen);
                 for (Kotityo kotityo : loytyneet)

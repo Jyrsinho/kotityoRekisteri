@@ -71,7 +71,7 @@ public class Jasenet  {
 
 
     /**
-     * Palauttaa j�senet listassa
+     * Palauttaa jasenet listassa
      * @param hakuehto hakuehto
      * @param k etsittavan kentan indeksi
      * @return jasenet listassa

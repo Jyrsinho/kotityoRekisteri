@@ -76,8 +76,6 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
             siivoustiimi.tallenna();
         } catch (SailoException ex) {
             Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
         ModalController.closeStage(labelVirhe);
 

@@ -79,8 +79,6 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
             siivoustiimi.tallenna();
         } catch (SailoException ex) {
             Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
         ModalController.closeStage(labelVirhe);
 
@@ -214,11 +212,11 @@ public class muokkaakotityoGUIController implements ModalControllerInterface<Kot
      * nimet.
      * @param oletustiimi siivoustiimi, jonka jäsenet näytetään choiceboxissa.
      */
-    private void naytaTiimi(Siivoustiimi oletustiimi) {
+    private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
         ObservableList<Jasen> optionsList = FXCollections.observableArrayList();
 
-        for (int i = 0; i < oletustiimi.getJasenia(); i++) {
+        for (int i = 0; i < oletustiimi.etsi("",1); i++) {
             optionsList.add(oletustiimi.annaJasen(i));
         }
 

@@ -78,8 +78,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
             siivoustiimi.tallenna();
         } catch (SailoException ex) {
             Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
         ModalController.closeStage(labelVirhe);
 
