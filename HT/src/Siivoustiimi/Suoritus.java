@@ -3,6 +3,10 @@ package Siivoustiimi;
 import fi.jyu.mit.ohj2.Mjonot;
 
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static kanta.RandomNumero.rand;
 
@@ -83,6 +87,59 @@ public class Suoritus {
 
 
     /**
+     * Antaa tietokannan luontilausekkeen suoritustaululle
+     * @return suoritustaulun luontilauseke
+     */
+    public String annaLuontiLauseke() {
+        return "CREATE TABLE Suoritukset (" +
+                "suoritusID INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                "suoritusAika INTEGER, " +
+                "suoritusPvm DATE, " +
+                "kotityoID INTEGER, " +
+                "suorittajaID INTEGER, " +
+                "FOREIGN KEY (kotityoID) REFERENCES Kotityot(kotityoID)" +
+                "FOREIGN KEY (suorittajaID) REFERENCES Jasenet(jasenId)" +
+                ")";
+
+    }
+
+    /**
+     * Antaa suorituksen lisayslausekkeen
+     * @param con tietokantayhteys
+     * @return suorituksen lisayslauseke
+     * @throws SQLException Jos lausekkeen luonnnissa on ongelmia
+    */
+    public PreparedStatement annaLisayslauseke (Connection con) throws SQLException {
+        PreparedStatement sql = con.prepareStatement(
+                "INSERT INTO Suoritukset (suoritusID, suoritusAika, suoritusPvm," +
+                    "kotityoID, suorittajaID) VALUES (?,?,?,?,?)");
+
+        if (suoritusID != 0) sql.setInt(1, suoritusID);
+        else sql.setString(1, null);
+        sql.setInt(2, suoritusAika);
+        sql.setString(3, suoritusPvm);
+        sql.setInt(4, kotityoID);
+        sql.setInt(5, suorittajaID);
+
+        return sql;
+
+    }
+
+
+    /**
+     * Tarkistetaan onko id muuttunut lisayksessa
+     * @param rs lisayslausekkeen ResultSet
+     * @throws SQLException jos tulee jotakin vikaa
+     */
+    public void tarkistaId (ResultSet rs) throws SQLException {
+        if (!rs.next()) return;
+        int id = rs.getInt(1);
+        if (id == suoritusID) return;
+        setSuoritusID(id);
+    }
+
+
+    /**
      * Antaa suoritukselle seuraavan tunnusnumeron.
      * @return suorituksen uusi tunnusnumero
      * @example <pre name="test">
@@ -144,6 +201,21 @@ public class Suoritus {
         this.suorittajaID = Mjonot.erota(sb, '|', getSuorittajaID());
 
     }
+
+
+    /**
+     * Otetaan tiedot ResultSetista
+     * @param tulokset mistä tiedot otetaan
+     * @throws SQLException Jos jokin menee vikaan
+     */
+    public void parse(ResultSet tulokset) throws SQLException {
+        setSuoritusID(tulokset.getInt(suoritusID));
+        this.suoritusAika = tulokset.getInt(suoritusAika);
+        this.suoritusPvm = tulokset.getString(suoritusPvm);
+        this.kotityoID = tulokset.getInt(kotityoID);
+        this.suorittajaID = tulokset.getInt(suorittajaID);
+    }
+
 
     /**
      * Asettaa suoritusId:n ja samalla varmistaa että

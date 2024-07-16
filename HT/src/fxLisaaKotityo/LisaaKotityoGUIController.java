@@ -40,7 +40,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
 
     /**
      * Peruuttaa kotityön lisäämisen ja ohjelma palaa päävalikkoon.
-     *
      * @param event
      */
     @FXML
