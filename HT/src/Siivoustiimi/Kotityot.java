@@ -89,6 +89,7 @@ public class Kotityot {
     }
 
 
+    //TODO TARVITAANKO TÄHÄN ERIKSEEN OMAA METODIA. VOISIKO YLEISEN ANNAKOTITYÖT METODIN MUOKATA TARVITTAESSA PALAUTTAMAAN KAIKKI TIIMIN KOTITYÖT.
     /**
      * Haetaan kaikki  kotityot
      * @return tietorakenne jossa viiteet loydettyihin kotitoihin

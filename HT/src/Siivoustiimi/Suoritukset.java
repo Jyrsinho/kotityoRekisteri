@@ -85,6 +85,32 @@ public class Suoritukset  {
     }
 
 
+    /**
+     * Palauttaa kaikki suoritukset
+     * @return Arraylist tietorakenne, jossa viitteet kaikkiin suorituksiin.
+     * @throws SailoException jos suoritusten hakeminen tietokannasta epaonnistuu
+     * @throws SQLException jos suoritusten hakeminen tietokannasta epaonnistuu
+     */
+    public ArrayList<Suoritus> annaSuoritukset() throws SailoException, SQLException {
+        ArrayList<Suoritus> loydetyt = new ArrayList<>();
+
+        try (Connection con = kanta.annaKantayhteys();
+            PreparedStatement sql  = con.prepareStatement("SELECT * FROM Suoritukset")
+        ) {
+            try (ResultSet tulokset = sql.executeQuery() ) {
+                while (tulokset.next()) {
+                    Suoritus suoritus = new Suoritus();
+                    suoritus.parse(tulokset);
+                    loydetyt.add(suoritus);
+                }
+            }
+        } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
+        }
+            return loydetyt;
+    }
+
+
 
     /**
      * Testiohjelma suorituksille
