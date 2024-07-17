@@ -153,7 +153,7 @@ public class Kotityo implements Cloneable {
 
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot kotityolle.
-     * XX ja XX arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
+     * kesto ja vanhenemisaika arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
      * @param id Kotityön vastuuhenkilön ID
      */
     public void taytaKotityo(int id) {
@@ -280,7 +280,7 @@ public class Kotityo implements Cloneable {
                 sql.setString(2, kotityoNimi);
                 sql.setInt(3, vanhenemisaika);
                 sql.setInt(4, kesto);
-                sql.setDate(5, Date.valueOf(viimeisinSuoritus));
+                sql.setDate(5, Date.valueOf((viimeisinSuoritus)));
                 sql.setInt(6, vastuuhenkilonID);
 
                 return sql;

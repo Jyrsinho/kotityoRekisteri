@@ -3,10 +3,9 @@ package Siivoustiimi;
 import fi.jyu.mit.ohj2.Mjonot;
 
 import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static kanta.RandomNumero.rand;
 
@@ -25,7 +24,7 @@ public class Suoritus {
 
     private int suoritusID;
     private int suoritusAika;
-    private String suoritusPvm;
+    private LocalDate suoritusPvm;
     private int kotityoID;
     private int suorittajaID;
 
@@ -79,10 +78,47 @@ public class Suoritus {
 
     /**
      * Palauttaa viimeisimmän suorituksen päivämäärän merkkijonona.
+     *
      * @return Palauttaa viimeisimmän suorituksen päivämäärän merkkijonona.
      */
-    public String getViimeisinSuoritus() {
+    public LocalDate getViimeisinSuoritus() {
         return suoritusPvm;
+    }
+
+
+    /**
+     * Asettaa suoritukselle parametrina annetun tekijän ID:n
+     * @param suorittajaID suorituksen tehneen jäsenen ID
+     */
+    public void setSuorittajaID(int suorittajaID) {
+        this.suorittajaID = suorittajaID;
+    }
+
+
+    /**
+     * Asettaa suoritukselle parametrina annetun kotityön ID:n
+     * @param kotityoID suoritusta koskevan kotityön ID.
+     */
+    public void setKotityoID (int kotityoID) {
+        this.kotityoID = kotityoID;
+    }
+
+
+    /**
+     * Asettaa suoritukselle suorituksen ajankohdan päivämäärän merkkijonoarvona
+     * @param suoritusPvm suoritusta koskeva päivämäärä merkkijonona.
+     */
+    public void setTekoaika (LocalDate suoritusPvm) {
+        this.suoritusPvm = suoritusPvm;
+    }
+
+
+    /**
+     *
+     * @param kesto
+     */
+    public void setKesto (int kesto) {
+        this.suoritusAika = kesto;
     }
 
 
@@ -97,7 +133,7 @@ public class Suoritus {
                 "suoritusPvm DATE, " +
                 "kotityoID INTEGER, " +
                 "suorittajaID INTEGER, " +
-                "FOREIGN KEY (kotityoID) REFERENCES Kotityot(kotityoID)" +
+                "FOREIGN KEY (kotityoID) REFERENCES Kotityot(kotityoID), " +
                 "FOREIGN KEY (suorittajaID) REFERENCES Jasenet(jasenId)" +
                 ")";
 
@@ -117,7 +153,7 @@ public class Suoritus {
         if (suoritusID != 0) sql.setInt(1, suoritusID);
         else sql.setString(1, null);
         sql.setInt(2, suoritusAika);
-        sql.setString(3, suoritusPvm);
+        sql.setDate(3, Date.valueOf(suoritusPvm));
         sql.setInt(4, kotityoID);
         sql.setInt(5, suorittajaID);
 
@@ -168,7 +204,7 @@ public class Suoritus {
      */
     public void taytaSuoritus(int tekijanId, int kotityontunnusnumero) {
         suoritusAika = rand(10,50);
-        suoritusPvm = "12-12-2022";
+        suoritusPvm = LocalDate.of(2023,7,5);
         kotityoID = kotityontunnusnumero;
         suorittajaID = tekijanId;
     }
@@ -194,9 +230,9 @@ public class Suoritus {
     public void parse(String s)  {
         StringBuilder sb = new StringBuilder(s);
         setSuoritusID(Mjonot.erota(sb, '|', getKotityoID()));
-
         this.suoritusAika = Mjonot.erota(sb, '|', getsuoritusAika());
-        this.suoritusPvm = Mjonot.erota(sb, '|', getViimeisinSuoritus());
+        String dateStr = Mjonot.erota(sb, '|',"");
+        this.suoritusPvm = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.kotityoID = Mjonot.erota(sb,'|', getKotityoID());
         this.suorittajaID = Mjonot.erota(sb, '|', getSuorittajaID());
 
@@ -209,11 +245,11 @@ public class Suoritus {
      * @throws SQLException Jos jokin menee vikaan
      */
     public void parse(ResultSet tulokset) throws SQLException {
-        setSuoritusID(tulokset.getInt(suoritusID));
-        this.suoritusAika = tulokset.getInt(suoritusAika);
-        this.suoritusPvm = tulokset.getString(suoritusPvm);
-        this.kotityoID = tulokset.getInt(kotityoID);
-        this.suorittajaID = tulokset.getInt(suorittajaID);
+        setSuoritusID(tulokset.getInt("suoritusID"));
+        this.suoritusAika = tulokset.getInt("suoritusAika");
+        this.suoritusPvm = tulokset.getDate("suoritusPvm").toLocalDate();
+        this.kotityoID = tulokset.getInt("kotityoID");
+        this.suorittajaID = tulokset.getInt("suorittajaID");
     }
 
 
@@ -225,39 +261,6 @@ public class Suoritus {
     private void setSuoritusID(int nro) {
         this.suoritusID = nro;
         if (suoritusID >= seuraavaSuoritusNro) seuraavaSuoritusNro = suoritusID +1;
-    }
-
-
-    /**
-     * Asettaa suoritukselle parametrina annetun tekijän ID:n
-     * @param suorittajaID suorituksen tehneen jäsenen ID
-     */
-    public void setSuorittajaID(int suorittajaID) {
-        this.suorittajaID = suorittajaID;
-    }
-
-    /**
-     * Asettaa suoritukselle parametrina annetun kotityön ID:n
-     * @param kotityoID suoritusta koskevan kotityön ID.
-     */
-    public void setKotityoID (int kotityoID) {
-        this.kotityoID = kotityoID;
-    }
-
-    /**
-     * Asettaa suoritukselle suorituksen ajankohdan päivämäärän merkkijonoarvona
-     * @param suoritusPvm suoritusta koskeva päivämäärä merkkijonona.
-     */
-    public void setTekoaika (String suoritusPvm) {
-        this.suoritusPvm = suoritusPvm;
-    }
-
-    /**
-     * 
-     * @param kesto
-     */
-    public void setKesto (int kesto) {
-        this.suoritusAika = kesto;
     }
 
 
@@ -301,6 +304,7 @@ public class Suoritus {
      * @param args ei käytössä.
      */
     public static void main (String args[]) {
+
 
         Suoritus suoritus1 = new Suoritus();
         Suoritus suoritus2 = new Suoritus();

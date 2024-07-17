@@ -1,6 +1,7 @@
 package Siivoustiimi;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -51,7 +52,7 @@ public class Siivoustiimi {
      * Lisaa uuden suorituksen tietorakenteeseen.
      * @param suoritus lisattava suoritus
      */
-    public void lisaa (Suoritus suoritus) {suoritukset.lisaa(suoritus);}
+    public void lisaa (Suoritus suoritus) throws SailoException {suoritukset.lisaa(suoritus);}
 
 
     /**
@@ -83,7 +84,7 @@ public class Siivoustiimi {
      * @param kotityoID kotityö, jonka suorituksia haetaan.
      * @return tiettyä kotityöIDtä vastaavan kotityön kaikki suoritukset.
      */
-    public ArrayList<Suoritus> annaSuoritukset(int kotityoID) {
+    public ArrayList<Suoritus> annaSuoritukset(int kotityoID) throws SailoException {
 
         return suoritukset.annaSuoritukset(kotityoID);
     }
@@ -95,9 +96,10 @@ public class Siivoustiimi {
      * @param nimi tietokannan nimi
      * @throws SailoException jos tietokannan luominen ep�onnistuu
      */
-    public void lueTiedostosta(String nimi) throws SailoException {
+    public void lueTiedostosta(String nimi) throws SailoException, SQLException {
         jasenet = new Jasenet(nimi);
         kotityot = new Kotityot(nimi);
+        suoritukset = new Suoritukset(nimi);
     }
 
 
@@ -115,7 +117,7 @@ public class Siivoustiimi {
      * testiohjelma
      * @param args ei käytössä
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SailoException {
 
         try {
             new File("testi.db").delete();
@@ -136,6 +138,10 @@ public class Siivoustiimi {
             Kotityo imurointi22 = new Kotityo(id2); imurointi22.taytaKotityo(id2);  siivoustiimi.lisaa(imurointi22);
             Kotityo imurointi23 = new Kotityo(id2); imurointi23.taytaKotityo(id2);  siivoustiimi.lisaa(imurointi23);
 
+            Suoritus imurointi3 = new Suoritus();
+            imurointi3.taytaSuoritus(2,1);
+            siivoustiimi.lisaa(imurointi3);
+
             System.out.println("============= Kerhon testi =================");
 
             Collection<Jasen> jasenet = siivoustiimi.etsi("", -1);
@@ -149,7 +155,7 @@ public class Siivoustiimi {
                 i++;
             }
 
-        } catch ( SailoException ex ) {
+        } catch (SailoException | SQLException ex ) {
             System.out.println(ex.getMessage());
         }
 

@@ -3,8 +3,6 @@ package Siivoustiimi;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 import static Siivoustiimi.Kanta.alustaKanta;
 
@@ -25,7 +23,7 @@ public class Suoritukset  {
      * @param nimi tietokannan nimi
      * @throws SailoException jos jokin menee pieleen
      */
-    public Suoritukset(String nimi) throws SailoException, SQLException {
+    public Suoritukset(String nimi) throws SailoException {
         kanta = alustaKanta(nimi);
         try (Connection con = kanta.annaKantayhteys() ) {
             DatabaseMetaData meta = con.getMetaData();
@@ -40,6 +38,7 @@ public class Suoritukset  {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
         }
     }
+
 
     /**
      * Lisataan uusi suoritus siivoustiimiin
@@ -123,8 +122,6 @@ public class Suoritukset  {
             new File("kokeilu.db").delete();
         } catch (SailoException ex) {
             System.out.println(ex.getMessage());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 }

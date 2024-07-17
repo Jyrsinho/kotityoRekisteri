@@ -61,8 +61,6 @@ public class Kotityot {
     }
 
 
-
-
     /**
      * Haetaan kaikki jasenen kotityot
      * @param tunnusnro jasenen tunnusnumero jonka perusteella kotitoita haetaan
@@ -76,6 +74,32 @@ public class Kotityot {
               PreparedStatement sql = con.prepareStatement("SELECT * FROM Kotityot WHERE vastuuHenkilonID = ?")
         ) {
             sql.setInt(1, tunnusnro);
+            try ( ResultSet tulokset = sql.executeQuery() )  {
+                while ( tulokset.next() ) {
+                    Kotityo kottyo = new Kotityo();
+                    kottyo.parse(tulokset);
+                    loydetyt.add(kottyo);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
+        }
+        return loydetyt;
+    }
+
+
+    /**
+     * Haetaan kaikki  kotityot
+     * @return tietorakenne jossa viiteet loydettyihin kotitoihin
+     * @throws SailoException jos kotitoiden hakeminen tietokannasta epaonnistuu
+     */
+    public ArrayList<Kotityo> annaKaikkiKotityot() throws SailoException {
+        ArrayList<Kotityo> loydetyt = new ArrayList<>();
+
+        try ( Connection con = kanta.annaKantayhteys();
+              PreparedStatement sql = con.prepareStatement("SELECT * FROM Kotityot WHERE vastuuHenkilonID = *")
+        ) {
             try ( ResultSet tulokset = sql.executeQuery() )  {
                 while ( tulokset.next() ) {
                     Kotityo kottyo = new Kotityo();

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -243,6 +244,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             String virhe = e.getMessage();
             if (virhe != null) Dialogs.showMessageDialog(virhe);
             return virhe;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }
