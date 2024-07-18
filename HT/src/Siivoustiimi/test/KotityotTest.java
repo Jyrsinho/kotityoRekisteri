@@ -1,10 +1,14 @@
 package Siivoustiimi.test;
-import static org.junit.Assert.*;
-import org.junit.*;
+
 import Siivoustiimi.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class KotityotTest {
@@ -15,7 +19,7 @@ public class KotityotTest {
     private File ftied;
 
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         siivoustiimi1 = new Siivoustiimi();
         tiedNimi = "testi";
@@ -25,7 +29,7 @@ public class KotityotTest {
         siivoustiimi1.lueTiedostosta(tiedNimi);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         ftied.delete();
     }

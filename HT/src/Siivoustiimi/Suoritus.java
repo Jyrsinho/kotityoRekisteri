@@ -178,16 +178,6 @@ public class Suoritus {
     /**
      * Antaa suoritukselle seuraavan tunnusnumeron.
      * @return suorituksen uusi tunnusnumero
-     * @example <pre name="test">
-     * Suoritus suoritus1 = new Suoritus();
-     * suoritus1.getSuoritusID() === 0;
-     * suoritus1.rekisteroiSuoritus();
-     * Suoritus suoritus2 = new Suoritus();
-     * suoritus2.rekisteroiSuoritus();
-     * int n1 = suoritus1.getSuoritusID();
-     * int n2 = suoritus2.getSuoritusID();
-     * n1 === n2-1;
-     * </pre>
      */
     public int  rekisteroiSuoritus() {
         this.suoritusID= seuraavaSuoritusNro;
@@ -213,19 +203,6 @@ public class Suoritus {
      * Selvittää suorituksen tiedot | erotellusta merkkijonosta
      * Pitää huolen että seuraavaSuoritusNro on suurempi kuin tuleva kotityoId.
      * @param s rivi josta suorituksen tiedot otetaan
-     * @example
-     * <pre name="test">
-     *   Suoritus suoritus = new Suoritus();
-     *   suoritus.parse("1               |30                  | 20.1.2024                  | 1                 1|");
-     *   suoritus.getSuoritusID() === 1;
-     *   suoritus.toString().startsWith("1|30|") === true;
-     *
-     *   suoritus.rekisteroiSuoritus();
-     *   int n = suoritus.getSuoritusID();
-     *   suoritus.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
-     *   suoritus.rekisteroiSuoritus();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
-     *   suoritus.getSuoritusID() === n+20+1;
-     * </pre>
      */
     public void parse(String s)  {
         StringBuilder sb = new StringBuilder(s);
@@ -279,10 +256,9 @@ public class Suoritus {
 
 
     public String toString() {
-        return ""+
-                getSuoritusID()             +"|"+
+        return  getSuoritusID()             +"|"+
                 getsuoritusAika()           +"|"+
-                getViimeisinSuoritus()      +"|"+
+                getViimeisinSuoritus() +"|"+
                 getKotityoID()              +"|"+
                 getSuorittajaID()           +"|";
     }

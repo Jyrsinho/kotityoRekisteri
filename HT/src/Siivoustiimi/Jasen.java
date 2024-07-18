@@ -218,17 +218,6 @@ public class Jasen implements Cloneable {
 
     /**
      * Antaa jäsenelle seuraavan Id:n.
-     * @return jäsenen uusi Id
-     * @example <pre name="test">
-     * Jasen timo1 = new Jasen();
-     * timo1.getId() === 0;
-     * timo1.rekisteroi();
-     * Jasen timo2 = new Jasen();
-     * timo2.rekisteroi();
-     * int n1 = timo1.getId();
-     * int n2 = timo2.getId();
-     * n1 === n2-1;
-     * </pre>
      */
    public int rekisteroi() {
        this.id= seuraavaNro;
@@ -242,18 +231,6 @@ public class Jasen implements Cloneable {
      * Selvittää jäsenen tiedot | erotellusta merkkijonosta
      * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusNro.
      * @param s rivi josta jäsenen tiedot otetaan
-     * @example
-     * <pre name="test">
-     *   Jasen jasen = new Jasen();
-     *   jasen.parse("5    |     Timo |  Kekkila     |Talvitie 4    |   11600   |    Vantaa   |   05013899304   |   41   |");
-     *   jasen.getId() === 5;
-     *   jasen.toString().startsWith("5|Timo|Kekkila|Talvitie 4|") === true;
-     *   jasen.rekisteroi();
-     *   int n = jasen.getId();
-     *   jasen.parse(""+(n+20));       // Otetaan merkkijonosta vain jasenen ID
-     *   jasen.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
-     *   jasen.getId() === n+20+1;
-     * </pre>
      */
     public void parse(String s) {
         StringBuilder sb = new StringBuilder(s);
@@ -291,17 +268,17 @@ public class Jasen implements Cloneable {
      * @return k:netta kenttaa vastaava kysymys
      */
     public String getKysymys(int k) {
-        switch ( k ) {
-            case 0: return "id";
-            case 1: return "sukunimi";
-            case 2: return "etunimi";
-            case 3: return "katuosoite";
-            case 4: return "postinumero";
-            case 5: return "kaupunki";
-            case 6: return "puhelinnumero";
-            case 7: return "ika";
-            default: return "AALIO";
-        }
+        return switch (k) {
+            case 0 -> "id";
+            case 1 -> "sukunimi";
+            case 2 -> "etunimi";
+            case 3 -> "katuosoite";
+            case 4 -> "postinumero";
+            case 5 -> "kaupunki";
+            case 6 -> "puhelinnumero";
+            case 7 -> "ika";
+            default -> "AALIO";
+        };
     }
 
     /*

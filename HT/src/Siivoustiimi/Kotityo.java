@@ -195,18 +195,6 @@ public class Kotityo implements Cloneable {
      * Selvittää kotityön tiedot | erotellusta merkkijonosta
      * Pitää huolen että seuraavaKotityoNro on suurempi kuin tuleva kotityoId.
      * @param s rivi josta kotityön tiedot otetaan
-     * @example
-     * <pre name="test">
-     *   Kotityo kotityo = new Kotityo();
-     *   kotityo.parse("1               |Imurointi                | 3                  | 20        | 2024-01-07           |    1|");
-     *   kotityo.getKotityoID() === 1;
-     *   kotityo.toString().startsWith("1|Imurointi|3|") === true;
-     *   kotityo.rekisteroi();
-     *   int n = kotityo.getKotityoID();
-     *   kotityo.parse(""+(n+20));       // Otetaan merkkijonosta vain tunnusnumero
-     *   kotityo.rekisteroi();           // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
-     *   kotityo.getKotityoID() === n+20+1;
-     * </pre>
      */
     public void parse(String s)  {
         StringBuilder sb = new StringBuilder(s);

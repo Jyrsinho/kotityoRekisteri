@@ -3,9 +3,12 @@ import java.sql.SQLException;
 import java.text.CollationElementIterator;
 import java.util.*;
 import java.io.*;
-import static org.junit.Assert.*;
-import org.junit.*;
 import Siivoustiimi.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class SuorituksetTest {
@@ -17,7 +20,7 @@ public class SuorituksetTest {
   Suoritus suoritus1;
   Suoritus suoritus2;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
   testiTiimi = new Siivoustiimi();
   tiedNimi = "testi";
@@ -30,7 +33,7 @@ public class SuorituksetTest {
   }
 
 
-  @After
+  @AfterEach
   public void siivoa() {
     ftied.delete();
   }

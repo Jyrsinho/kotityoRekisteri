@@ -1,11 +1,14 @@
 package Siivoustiimi.test;
 import Siivoustiimi.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
-import static org.junit.Assert.*;
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
 Pitää osata lisätä jäseniä tietokantaan
@@ -21,7 +24,7 @@ public class JasenetTest {
     private File ftied;
 
 
-    @Before
+    @BeforeEach
     public void alusta() throws SailoException, SQLException {
         siivoustiimi1 = new Siivoustiimi();
         tiedNimi = "testi";
@@ -32,7 +35,7 @@ public class JasenetTest {
     }
 
 
-    @After
+    @AfterEach
     public void siivoa() {
         ftied.delete();
     }
