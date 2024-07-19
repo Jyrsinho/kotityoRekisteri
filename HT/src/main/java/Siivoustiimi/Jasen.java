@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
+
 import static kanta.RandomNumero.arvoNumero;
 import static kanta.RandomIka.arvoIka;
 

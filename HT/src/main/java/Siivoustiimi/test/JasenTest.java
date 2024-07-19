@@ -4,23 +4,25 @@ package Siivoustiimi.test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+
+
 
 import Siivoustiimi.*;
-import org.mockito.Mockito;
 
-import java.sql.ResultSet;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class JasenTest {
 
   private Jasen timo1;
-  private ResultSet resultSet;
+  private Kanta kanta;
 
   @BeforeEach
   public void alustus() {
     timo1 = new Jasen();
-    resultSet = mock(ResultSet.class);
+    timo1.annaLuontilauseke();
 
   }
 
@@ -50,6 +52,16 @@ public class JasenTest {
     jasen.parse(""+(n+20));  // Otetaan merkkijonosta vain jasenen ID
     jasen.rekisteroi();  // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
     assertEquals(n+20+1, jasen.getId());
+  }
+
+  @Test
+  public void testinPitaisParsiaJasenResultsetista() throws SQLException {
+
+
+
+
+
+
   }
 
 

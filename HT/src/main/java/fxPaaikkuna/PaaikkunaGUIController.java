@@ -1,7 +1,11 @@
 package fxPaaikkuna;
 
+
 import Siivoustiimi.Siivoustiimi;
-import fi.jyu.mit.fxgui.*;
+import fi.jyu.mit.fxgui.Dialogs;
+import fi.jyu.mit.fxgui.ListChooser;
+import fi.jyu.mit.fxgui.ModalController;
+import fi.jyu.mit.fxgui.ModalControllerInterface;
 import fxAloitusnakyma.AloitusnakymaGUIController;
 import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxLisaaKotityo.LisaaKotityoGUIController;

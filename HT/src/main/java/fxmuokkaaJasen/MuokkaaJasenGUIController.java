@@ -35,7 +35,8 @@ import java.util.ResourceBundle;
     public TextField editSukunimi;
 
 
-    @FXML private Label labelVirhe;
+    @FXML
+    private Label labelVirhe;
 
     @FXML private Button buttonMuokkaaKotityö;
 
