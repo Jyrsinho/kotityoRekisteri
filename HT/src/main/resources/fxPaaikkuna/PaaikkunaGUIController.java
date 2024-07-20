@@ -8,7 +8,6 @@ import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import fxAloitusnakyma.AloitusnakymaGUIController;
 import fxLisaaKotityo.LisaaKotityoGUIController;
-import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
 //import fxlisaaSuoritus.lisaaSuoritusGUIController;
 // import fxmuokkaakotityo.muokkaakotityoGUIController;
@@ -33,7 +32,6 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 import Siivoustiimi.Jasen;
-import Siivoustiimi.Suoritus;
 import Siivoustiimi.SailoException;
 import Siivoustiimi.Kotityo;
 
