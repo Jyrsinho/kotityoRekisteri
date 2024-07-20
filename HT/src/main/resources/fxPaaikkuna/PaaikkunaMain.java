@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
+import java.util.Objects;
+
 
 /**
  * @author jyrihuhtala
@@ -19,10 +21,10 @@ public class PaaikkunaMain extends Application {
         try {
             FXMLLoader ldr = new FXMLLoader(getClass().getResource("PaaikkunaGUIView.fxml"));
             final Pane root = ldr.load();
-            final PaaikkunaGUIController paaikkunaCtrl = (PaaikkunaGUIController)ldr.getController();
+            final PaaikkunaGUIController paaikkunaCtrl = ldr.getController();
 
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("paaikkuna.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("paaikkuna.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("Paaikkuna");
 
