@@ -218,7 +218,7 @@ public class Kotityo implements Cloneable {
         kotityoNimi = tulokset.getString("kotityoNimi");
         vanhenemisaika = tulokset.getInt("vanhenemisaika");
         kesto = tulokset.getInt("kesto");
-        viimeisinSuoritus = tulokset.getDate("viimeisinSuoritus").toLocalDate();
+        viimeisinSuoritus = LocalDate.parse(tulokset.getString("viimeisinSuoritus"));
         vastuuhenkilonID = tulokset.getInt("vastuuhenkilonId");
     }
 

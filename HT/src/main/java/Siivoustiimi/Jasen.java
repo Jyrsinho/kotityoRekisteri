@@ -205,6 +205,8 @@ public class Jasen implements Cloneable {
      }
 
 
+
+     // TODO Mietittävä onko tarpeellinen tietokantaversiossa.
     /**
      * Kloonaa jäsenen
      * @return kloonin jäsenestä
