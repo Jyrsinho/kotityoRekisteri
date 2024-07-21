@@ -225,7 +225,8 @@ public class Suoritus {
     public void parse(ResultSet tulokset) throws SQLException {
         setSuoritusID(tulokset.getInt("suoritusID"));
         this.suoritusAika = tulokset.getInt("suoritusAika");
-        this.suoritusPvm = tulokset.getDate("suoritusPvm").toLocalDate();
+        String dateStr = tulokset.getString("suoritusPvm");
+        this.suoritusPvm = LocalDate.parse(dateStr);
         this.kotityoID = tulokset.getInt("kotityoID");
         this.suorittajaID = tulokset.getInt("suorittajaID");
     }

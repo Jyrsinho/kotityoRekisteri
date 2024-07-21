@@ -215,11 +215,11 @@ public class Kotityo implements Cloneable {
      */
     public void parse(ResultSet tulokset) throws SQLException {
         setKotityoID(tulokset.getInt("kotityoId"));
-        kotityoNimi = tulokset.getString("kotityoNimi");
-        vanhenemisaika = tulokset.getInt("vanhenemisaika");
-        kesto = tulokset.getInt("kesto");
-        viimeisinSuoritus = LocalDate.parse(tulokset.getString("viimeisinSuoritus"));
-        vastuuhenkilonID = tulokset.getInt("vastuuhenkilonId");
+        this.kotityoNimi = tulokset.getString("kotityoNimi");
+        this.vanhenemisaika = tulokset.getInt("vanhenemisaika");
+        this.kesto = tulokset.getInt("kesto");
+        this.viimeisinSuoritus = LocalDate.parse(tulokset.getString("viimeisinSuoritus"));
+        this.vastuuhenkilonID = tulokset.getInt("vastuuhenkilonId");
     }
 
 
