@@ -130,7 +130,7 @@ public class Suoritus {
         return "CREATE TABLE Suoritukset (" +
                 "suoritusID INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 "suoritusAika INTEGER, " +
-                "suoritusPvm DATE, " +
+                "suoritusPvm VARCHAR(100), " +
                 "kotityoID INTEGER, " +
                 "suorittajaID INTEGER, " +
                 "FOREIGN KEY (kotityoID) REFERENCES Kotityot(kotityoID), " +
@@ -198,6 +198,7 @@ public class Suoritus {
         kotityoID = kotityontunnusnumero;
         suorittajaID = tekijanId;
     }
+
 
     /**
      * Selvittää suorituksen tiedot | erotellusta merkkijonosta
