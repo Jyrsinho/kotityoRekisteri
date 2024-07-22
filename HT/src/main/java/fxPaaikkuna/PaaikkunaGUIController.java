@@ -191,7 +191,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML
-    public void valitseJasenTehtyListasta(MouseEvent mouseEvent) {
+    public void valitseKotityoTehtyListasta(MouseEvent mouseEvent) {
         kotityoKohdalla = listaTehty.getSelectedObject();
     }
 
@@ -202,7 +202,12 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
 
     public void initialize(URL url, ResourceBundle bundle) {
-        alusta();
+        try {
+            alusta();
+        } catch (SailoException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
@@ -217,7 +222,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Tekee alustukset. Tekee tekstikentät joihin voidaan
      * tulostaa jäsenten, kotitöiden ja suoritusten tiedot.
      */
-    protected void alusta() {
+    protected void alusta() throws SailoException {
 
         aikaNyt.setText(String.valueOf(LocalDate.now()));
         listaJasenet.clear();
@@ -328,7 +333,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
 
     /**
-     * Hakee kaikkien siivosutiimin jäsenten tiedot listaan
+     * Hakee kaikki siivosutiimin jasenoliot listaan
      */
     protected void hae() throws SailoException {
 

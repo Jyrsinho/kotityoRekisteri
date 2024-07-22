@@ -99,7 +99,7 @@ public class Kotityot {
         ArrayList<Kotityo> loydetyt = new ArrayList<>();
 
         try ( Connection con = kanta.annaKantayhteys();
-              PreparedStatement sql = con.prepareStatement("SELECT * FROM Kotityot WHERE vastuuHenkilonID = *")
+              PreparedStatement sql = con.prepareStatement("SELECT * FROM Kotityot WHERE vastuuHenkilonID = ?")
         ) {
             try ( ResultSet tulokset = sql.executeQuery() )  {
                 while ( tulokset.next() ) {
