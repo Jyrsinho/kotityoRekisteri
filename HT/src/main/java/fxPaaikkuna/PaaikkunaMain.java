@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -19,13 +20,18 @@ public class PaaikkunaMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader ldr = new FXMLLoader(getClass().getResource("PaaikkunaGUIView.fxml"));
+
+            URL fxmlLocation = getClass().getResource("/PaaikkunaGUIView.fxml");
+            System.out.println("FXML Location: " + fxmlLocation);
+            FXMLLoader ldr = new FXMLLoader(Objects.requireNonNull(fxmlLocation, "FXML file not found"));
             final Pane root = ldr.load();
             final PaaikkunaGUIController paaikkunaCtrl = ldr.getController();
 
+            var cssLocation = getClass().getResource("/css/paaikkuna.css");
+            System.out.println("CSS Location: " + cssLocation);
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("paaikkuna.css")).toExternalForm());
             primaryStage.setScene(scene);
+            scene.getStylesheets().add(Objects.requireNonNull(cssLocation, "CSS file not found").toExternalForm());
             primaryStage.setTitle("Paaikkuna");
 
             Siivoustiimi siivoustiimi = new Siivoustiimi();
@@ -36,8 +42,7 @@ public class PaaikkunaMain extends Application {
             Application.Parameters params = getParameters();
             if (!params.getRaw().isEmpty())
                 paaikkunaCtrl.lueTiedosto(params.getRaw().get(0));
-            else
-            if ( !paaikkunaCtrl.avaa() ) Platform.exit();
+            else if (!paaikkunaCtrl.avaa()) Platform.exit();
 
         } catch (Exception e) {
             e.printStackTrace();

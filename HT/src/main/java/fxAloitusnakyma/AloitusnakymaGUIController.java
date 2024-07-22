@@ -66,8 +66,9 @@ public class AloitusnakymaGUIController implements ModalControllerInterface<Stri
      */
 
     public static String kysyNimi(Stage modalityStage, String oletus){
+
         return ModalController.showModal(
-                AloitusnakymaGUIController.class.getResource("Aloitusnakyma.fxml"),
+                AloitusnakymaGUIController.class.getResource("/Aloitusnakyma.fxml"),
                 "Aloitusikkuna",
                 modalityStage, oletus);
 
