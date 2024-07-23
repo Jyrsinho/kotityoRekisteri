@@ -1,6 +1,7 @@
 package Siivoustiimi;
 
 import fi.jyu.mit.ohj2.Mjonot;
+import kanta.DateFormatterProvider;
 
 import java.io.PrintStream;
 import java.sql.*;
@@ -20,7 +21,7 @@ import static kanta.RandomNumero.rand;
  * @author jyrihuhtala
  * @version 1.0 20.02.2024
  */
-public class Suoritus {
+public class Suoritus implements DateFormatterProvider {
 
     private int suoritusID;
     private int suoritusAika;
@@ -119,6 +120,15 @@ public class Suoritus {
      */
     public void setKesto (int kesto) {
         this.suoritusAika = kesto;
+    }
+
+
+    public String getSuoritusPvmString() {
+        return formatDate(suoritusPvm);
+    }
+
+    public void setSuoritusPvmFromString(String dateString) {
+        this.suoritusPvm = parseDate(dateString);
     }
 
 

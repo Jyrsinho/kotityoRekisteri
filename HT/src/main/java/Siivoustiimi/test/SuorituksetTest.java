@@ -81,18 +81,17 @@ public class SuorituksetTest {
     assertEquals(3, loytyneet.size());
   }
 
-  /*
-  @Ignore
-  public void testPitaisiLisataSuorituksiaEriJasenille() throws SailoException {
+  @Test
+  public void testAnnaSuorituksetPitaisiPalauttaaKaikkiTietynKotityonSuoritukset() throws SailoException {
+
     suoritus1.taytaSuoritus(1,1);
-    suoritukset.lisaa(suoritus1);
-
     suoritus2.taytaSuoritus(2,2);
-    suoritukset.lisaa(suoritus2);
 
-    Collection<Suoritus> loytyneet = suoritukset.annaSuoritukset(1, 1);
+    Collection<Suoritus>loytyneet = suoritukset.annaSuoritukset(1);
+    assertEquals(1, loytyneet.size());
+
   }
 
-   */
+
 
 }

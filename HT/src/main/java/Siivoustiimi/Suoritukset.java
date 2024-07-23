@@ -67,7 +67,8 @@ public class Suoritukset  {
        ArrayList<Suoritus> loydetyt = new ArrayList<>();
 
        try (Connection con = kanta.annaKantayhteys();
-            PreparedStatement sql = con.prepareStatement("SELECT * FROM Suoritukset WHERE kotityoID = ?")
+            PreparedStatement sql = con.prepareStatement
+                    ("SELECT * FROM Suoritukset WHERE kotityoID = ?")
             ) {
            sql.setInt(1, kotityoID);
            try (ResultSet tulokset = sql.executeQuery() ) {
@@ -131,10 +132,9 @@ public class Suoritukset  {
             suoritukset.lisaa(testiSuoritus1);
             suoritukset.lisaa(testiSuoritus2);
             suoritukset.lisaa(testiSuoritus3);
-            suoritukset.lisaa(testiSuoritus2);
             suoritukset.lisaa(testiSuoritus4);
 
-            System.out.println("============= Harrastukset testi =================");
+            System.out.println("============= Suoritukset testi =================");
 
             ArrayList<Suoritus> suoritukset2;
 
