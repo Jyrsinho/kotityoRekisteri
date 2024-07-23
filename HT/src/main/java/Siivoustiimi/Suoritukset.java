@@ -121,13 +121,13 @@ public class Suoritukset  {
         try {
             Suoritukset suoritukset = new Suoritukset("kokeilu");
             Suoritus testiSuoritus1 = new Suoritus();
-            testiSuoritus1.taytaSuoritus(1,2);
+            testiSuoritus1.taytaSuoritus(1,3);
             Suoritus testiSuoritus2 = new Suoritus();
-            testiSuoritus2.taytaSuoritus(1,2);
+            testiSuoritus2.taytaSuoritus(1,3);
             Suoritus testiSuoritus3 = new Suoritus();
-            testiSuoritus3.taytaSuoritus(1,2);
+            testiSuoritus3.taytaSuoritus(1,3);
             Suoritus testiSuoritus4 = new Suoritus();
-            testiSuoritus4.taytaSuoritus(1,2);
+            testiSuoritus4.taytaSuoritus(1,3);
 
             suoritukset.lisaa(testiSuoritus1);
             suoritukset.lisaa(testiSuoritus2);
@@ -138,7 +138,7 @@ public class Suoritukset  {
 
             ArrayList<Suoritus> suoritukset2;
 
-            suoritukset2 = suoritukset.annaSuoritukset(2);
+            suoritukset2 = suoritukset.annaSuoritukset(3);
 
             for (Suoritus suoritus : suoritukset2) {
                 System.out.print(suoritus.getKotityoID() + " ");

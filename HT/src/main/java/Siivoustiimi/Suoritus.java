@@ -163,7 +163,8 @@ public class Suoritus implements DateFormatterProvider {
         if (suoritusID != 0) sql.setInt(1, suoritusID);
         else sql.setString(1, null);
         sql.setInt(2, suoritusAika);
-        sql.setDate(3, Date.valueOf(suoritusPvm));
+        String dateString = formatDate(suoritusPvm);
+        sql.setString(3, dateString);
         sql.setInt(4, kotityoID);
         sql.setInt(5, suorittajaID);
 
@@ -220,7 +221,7 @@ public class Suoritus implements DateFormatterProvider {
         setSuoritusID(Mjonot.erota(sb, '|', getKotityoID()));
         this.suoritusAika = Mjonot.erota(sb, '|', getsuoritusAika());
         String dateStr = Mjonot.erota(sb, '|',"");
-        this.suoritusPvm = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.suoritusPvm = parseDate(dateStr);
         this.kotityoID = Mjonot.erota(sb,'|', getKotityoID());
         this.suorittajaID = Mjonot.erota(sb, '|', getSuorittajaID());
 
@@ -236,7 +237,7 @@ public class Suoritus implements DateFormatterProvider {
         setSuoritusID(tulokset.getInt("suoritusID"));
         this.suoritusAika = tulokset.getInt("suoritusAika");
         String dateStr = tulokset.getString("suoritusPvm");
-        this.suoritusPvm = LocalDate.parse(dateStr);
+        this.suoritusPvm = parseDate(dateStr);
         this.kotityoID = tulokset.getInt("kotityoID");
         this.suorittajaID = tulokset.getInt("suorittajaID");
     }
