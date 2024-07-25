@@ -2,6 +2,7 @@ package fxPaaikkuna;
 
 
 import Siivoustiimi.Jasen;
+import Siivoustiimi.Suoritus;
 import Siivoustiimi.Kotityo;
 import Siivoustiimi.SailoException;
 import Siivoustiimi.Siivoustiimi;
@@ -11,6 +12,7 @@ import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import fxAloitusnakyma.AloitusnakymaGUIController;
 import fxLisaaKotityo.LisaaKotityoGUIController;
+import fxlisaaSuoritus.lisaaSuoritusGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -405,7 +407,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Luo uuden suorituksen
      */
     private void uusiSuoritus() throws SailoException {
-        /*
+
         Suoritus suoritus = new Suoritus();
         suoritus = lisaaSuoritusGUIController.kysySuoritus(null, suoritus, siivoustiimi);
         if (suoritus == null) return;
@@ -414,7 +416,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         haeJasenenKotityot(jasenKohdalla);
 
 
-         */
+
 
     }
 

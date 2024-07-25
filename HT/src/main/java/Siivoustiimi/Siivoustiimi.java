@@ -78,6 +78,15 @@ public class Siivoustiimi {
         return kotityot.annaKotityot(jasen.getId());
     }
 
+    /**
+     * Palauttaa siivoustiimin kaikki kotityot
+     * @return siivoustiimin kaikki kotityot
+     * @throws SailoException jos jotain menee pieleen
+     */
+    public ArrayList<Kotityo> annaKaikkiKotityot() throws SailoException {
+        return kotityot.annaKaikkiKotityot();
+    }
+
 
     /**
      * Palauttaa tiettyä kotityöIDtä vastaavan kotityön kaikki suoritukset.

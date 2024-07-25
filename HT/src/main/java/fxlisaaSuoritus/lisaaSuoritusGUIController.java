@@ -1,29 +1,22 @@
 package fxlisaaSuoritus;
 
 
-import Siivoustiimi.Kotityo;
-import Siivoustiimi.Siivoustiimi;
-import Siivoustiimi.Suoritus;
-import Siivoustiimi.Jasen;
-import Siivoustiimi.SailoException;
+import Siivoustiimi.*;
+import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
-import fxLisaaKotityo.LisaaKotityoGUIController;
-import fxPaaikkuna.PaaikkunaGUIController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -34,16 +27,16 @@ import java.util.ResourceBundle;
 public class lisaaSuoritusGUIController implements ModalControllerInterface<Suoritus>, Initializable {
 
     @FXML private Label labelVirhe;
-    @FXML private ChoiceBox kestoValinta;
+    @FXML private ComboBoxChooser<Integer> kestoValinta;
     @FXML private Button buttonCancel;
 
     @FXML private Button buttonOK;
 
-    @FXML private ChoiceBox<Kotityo> kotityoValinta;
+    @FXML private ComboBoxChooser<Kotityo> kotityoValinta;
 
     @FXML private DatePicker kalenteriValinta;
 
-    @FXML private ChoiceBox<Jasen> tekijaValinta;
+    @FXML private ComboBoxChooser<Jasen> tekijaValinta;
 
 
 
@@ -133,16 +126,13 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      * nimet.
      * @param oletustiimi siivoustiimi, jonka jäsenet näytetään choiceboxissa.
      */
-    private void naytaTiimi(Siivoustiimi oletustiimi) {
+    private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
-        ObservableList<Jasen> optionsList = FXCollections.observableArrayList();
-        Jasen[] jasenlista = oletustiimi.getJasenet();
+        Collection<Jasen> jasenlista = oletustiimi.etsi("?",1);
         for (Jasen jasen: jasenlista) {
-            optionsList.add(jasen);
+            tekijaValinta.add(jasen);
         }
 
-        // Create a ChoiceBox and set its items
-        tekijaValinta.setItems(optionsList);
 
     }
 
@@ -151,23 +141,21 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      * nimet.
      * @param oletustiimi siivoustiimi, jonka jäsenet näytetään choiceboxissa.
      */
-    private void naytaKotityot(Siivoustiimi oletustiimi) {
-        ObservableList<Kotityo> optionsList = FXCollections.observableArrayList();
-        Collection<Kotityo> kotityolista = oletustiimi.getKotityot();
+    private void naytaKotityot(Siivoustiimi oletustiimi) throws SailoException {
+
+        Collection<Kotityo> kotityolista = oletustiimi.annaKaikkiKotityot();
         for (Kotityo kotityo : kotityolista) {
-            optionsList.add(kotityo);
+            kotityoValinta.add(kotityo);
         }
-        kotityoValinta.setItems(optionsList);
+
 
     }
 
     private void naytaKestoVaihtoehdot() {
-        ObservableList<Integer> optionsList = FXCollections.observableArrayList();
         int[] kestoaikaTaulukko = {5,10,15,30,60};
         for (int alkio: kestoaikaTaulukko) {
-            optionsList.add(alkio);
+            kestoValinta.add(alkio);
         }
-        kestoValinta.setItems(optionsList);
     }
 
     /**
@@ -175,10 +163,10 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      * @param uusiSuoritus suoritus, jota muokataan
      */
     private void kasittelemuutoksetSuoritukseen(Suoritus uusiSuoritus) {
-        uusiSuoritus.setKotityoID(kotityoValinta.getValue().getKotityoID());
-        uusiSuoritus.setTekoaika(String.valueOf(kalenteriValinta.getValue()));
-        uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getId());
-        uusiSuoritus.setKesto((Integer) kestoValinta.getValue());
+        uusiSuoritus.setKotityoID(kotityoValinta.getValue().getObject().getKotityoID());
+        uusiSuoritus.setTekoaika(kalenteriValinta.getValue());
+        uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getObject().getId());
+        uusiSuoritus.setKesto(kestoValinta.getValue().getObject());
 
     }
 
@@ -189,10 +177,10 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      * suorituksesta tätä suoritusta koskevan kotityön viimeisin suoritus.
      */
     private void kasitteleMuutosKotityohon() {
-        int vertailu = kalenteriValinta.getValue().compareTo(kotityoValinta.getValue().getViimeisinSuoritus());
+        int vertailu = kalenteriValinta.getValue().compareTo(kotityoValinta.getValue().getObject().getViimeisinSuoritus());
 
         if (vertailu > 0) {
-            kotityoValinta.getValue().setViimeisinSuoritus(kalenteriValinta.getValue());
+            kotityoValinta.getValue().getObject().setViimeisinSuoritus(kalenteriValinta.getValue());
         }
     }
 
@@ -204,19 +192,31 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      * @return null jos painetaan Cancel, muuten täytetty tietue
      */
 
-    public static Suoritus kysySuoritus(Stage modalityStage, Suoritus oletus, Siivoustiimi oletusTiimi) {
+    public static Suoritus kysySuoritus(Stage modalityStage, Suoritus oletus, Siivoustiimi oletusTiimi) throws SailoException {
         return ModalController.<Suoritus, lisaaSuoritusGUIController>showModal(
-                lisaaSuoritusGUIController.class.getResource("lisaaSuoritusGUIView.fxml"),
+                lisaaSuoritusGUIController.class.getResource("/lisaaSuoritusGUIView.fxml"),
                 "Uusi Suoritus",
-                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
+                modalityStage, oletus, ctrl-> {
+                    try {
+                        ctrl.setSiivoustiimi(oletusTiimi);
+                    }catch (SailoException e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Virhe");
+                        alert.setHeaderText("Tietokantavirhe");
+                        alert.setContentText("Siivoustiimin asetuksessa tapahtui virhe: " + e.getMessage());
+                        alert.showAndWait();
+                    }
+                }
+
         );
     }
+
 
     /**
      * Asetetaan ikkunassa käytettäväksi siivoustiimiksi parametrina tuotu siivoustiimi.
      * @param oletusTiimi siivoustiimi, jota käytetään.
      */
-    private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
+    private void setSiivoustiimi(Siivoustiimi oletusTiimi) throws SailoException {
         this.siivoustiimi = oletusTiimi;
 
         naytaTiimi(oletusTiimi); //lataa Tekijä-valikkoon kaikki tiimin jäsenet.
