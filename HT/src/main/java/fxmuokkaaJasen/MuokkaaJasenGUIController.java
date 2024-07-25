@@ -219,7 +219,7 @@ import java.util.ResourceBundle;
 
     public static Jasen kysyJasen(Stage modalityStage, Jasen oletus, Siivoustiimi oletusTiimi) {
         return ModalController.<Jasen, MuokkaaJasenGUIController>showModal(
-                MuokkaaJasenGUIController.class.getResource("MuokkaaJasenGUIView.fxml"),
+                MuokkaaJasenGUIController.class.getResource("/fxml/MuokkaaJasenGUIView.fxml"),
                 oletus.getEtunimi()+" " +oletus.getSukunimi(),
                 modalityStage, oletus, ctrl-> {
                     try {

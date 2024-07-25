@@ -21,7 +21,7 @@ public class PaaikkunaMain extends Application {
     public void start(Stage primaryStage) {
         try {
 
-            URL fxmlLocation = getClass().getResource("/PaaikkunaGUIView.fxml");
+            URL fxmlLocation = getClass().getResource("/fxml/PaaikkunaGUIView.fxml");
             System.out.println("FXML Location: " + fxmlLocation);
             FXMLLoader ldr = new FXMLLoader(Objects.requireNonNull(fxmlLocation, "FXML file not found"));
             final Pane root = ldr.load();

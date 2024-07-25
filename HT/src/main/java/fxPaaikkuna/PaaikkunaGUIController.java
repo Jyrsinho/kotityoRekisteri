@@ -1,6 +1,9 @@
 package fxPaaikkuna;
 
 
+import Siivoustiimi.Jasen;
+import Siivoustiimi.Kotityo;
+import Siivoustiimi.SailoException;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
@@ -9,8 +12,6 @@ import fi.jyu.mit.fxgui.ModalControllerInterface;
 import fxAloitusnakyma.AloitusnakymaGUIController;
 import fxLisaaKotityo.LisaaKotityoGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
-//import fxlisaaSuoritus.lisaaSuoritusGUIController;
-// import fxmuokkaakotityo.muokkaakotityoGUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,10 +31,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
-
-import Siivoustiimi.Jasen;
-import Siivoustiimi.SailoException;
-import Siivoustiimi.Kotityo;
 
 /**
  * Luokka siivoustiimin käyttöliittymän tapahtumien hoitamiseksi
@@ -128,7 +125,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @FXML
     void menuKlikkaaAvaa(ActionEvent event) {
 
-        ModalController.showModal(AloitusnakymaGUIController.class.getResource("Aloitusnakyma.fxml"), "Aloita", null, "");
+        ModalController.showModal(AloitusnakymaGUIController.class.getResource("fxml/Aloitusnakyma.fxml"), "Aloita", null, "");
 
     }
 
@@ -408,7 +405,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * Luo uuden suorituksen
      */
     private void uusiSuoritus() throws SailoException {
-       /* todo suorituksen lisaaminen
+        /*
         Suoritus suoritus = new Suoritus();
         suoritus = lisaaSuoritusGUIController.kysySuoritus(null, suoritus, siivoustiimi);
         if (suoritus == null) return;
@@ -416,7 +413,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         siivoustiimi.lisaa(suoritus);
         haeJasenenKotityot(jasenKohdalla);
 
-        */
+
+         */
+
     }
 
     /**

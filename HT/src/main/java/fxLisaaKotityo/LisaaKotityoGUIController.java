@@ -218,7 +218,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
 
     public static Kotityo kysyKotityo(Stage modalityStage, Kotityo oletus, Siivoustiimi oletusTiimi) {
         return ModalController.<Kotityo, LisaaKotityoGUIController>showModal(
-                LisaaKotityoGUIController.class.getResource("LisaaKotityo.fxml"),
+                LisaaKotityoGUIController.class.getResource("fxml/LisaaKotityo.fxml"),
                 "Uusi Kotityö",
                 modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
         );
