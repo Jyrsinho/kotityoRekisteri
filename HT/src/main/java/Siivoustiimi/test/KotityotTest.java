@@ -30,7 +30,7 @@ public class KotityotTest {
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ftied.delete();
     }
 
@@ -67,6 +67,7 @@ public class KotityotTest {
 
         Kotityo imurointi3 = new Kotityo();
         imurointi3.taytaKotityo(2);
+        kotityot.lisaa(imurointi3);
 
         loytyneet = kotityot.annaKotityot(2);
         assertEquals(1, loytyneet.size());

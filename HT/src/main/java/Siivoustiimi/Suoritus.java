@@ -4,9 +4,11 @@ import fi.jyu.mit.ohj2.Mjonot;
 import kanta.DateFormatterProvider;
 
 import java.io.PrintStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static kanta.RandomNumero.rand;
 
@@ -122,11 +124,18 @@ public class Suoritus implements DateFormatterProvider {
         this.suoritusAika = kesto;
     }
 
-
+    /**
+     * formatoi Suorituspaivamaaran LocalDate esityksen merkkijonoksi
+     * @return suorituspaivamaara merkkijonona
+     */
     public String getSuoritusPvmString() {
         return formatDate(suoritusPvm);
     }
 
+    /**
+     * formatoi Suorituspaivamaaran merkkijono esityksen Local Date arvoksi
+     * @param dateString suorituspaivamaara merkkijonona
+     */
     public void setSuoritusPvmFromString(String dateString) {
         this.suoritusPvm = parseDate(dateString);
     }

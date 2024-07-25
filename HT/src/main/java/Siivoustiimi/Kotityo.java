@@ -1,6 +1,7 @@
 package Siivoustiimi;
 
 import fi.jyu.mit.ohj2.Mjonot;
+import kanta.DateFormatterProvider;
 import kanta.RandomIka;
 
 import java.io.OutputStream;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
  * @author jyrihuhtala
  * @version 1.0 20.02.2024
  */
-public class Kotityo implements Cloneable {
+public class Kotityo implements Cloneable, DateFormatterProvider {
 
     private int kotityoId;
     private String kotityoNimi;
@@ -128,6 +129,23 @@ public class Kotityo implements Cloneable {
 
 
     /**
+     * formatoi viimeisimman suorituksen LocalDate esityksen merkkijonoksi
+     * @return kotityon viimeisimman suorituksen pvm merkkijonona
+     */
+    public String getViimeisinSuoritusString() {
+        return formatDate(viimeisinSuoritus);
+    }
+
+    /**
+     * asettaa viimeisimman suorituksen arvoksi merkkijonona annetusta paivamaarasta LocalDate muuttujan
+     * @param dateString viimeisimman suorituksen paivamaara merkkijonona.
+     */
+    public void setViimeisinSuoritusFromString(String dateString) {
+        this.viimeisinSuoritus = parseDate(dateString);
+    }
+
+
+    /**
      * Antaa kotityolle seuraavan ID numeron.
      * @return kotityon uusi kotityoID
      */
@@ -203,8 +221,10 @@ public class Kotityo implements Cloneable {
         this.kotityoNimi = Mjonot.erota(sb, '|', getKotityoNimi());
         this.vanhenemisaika = Mjonot.erota(sb, '|', getVanhenemisaika());
         this.kesto = Mjonot.erota(sb,'|', getKesto());
-        this.viimeisinSuoritus = LocalDate.parse(Mjonot.erota(sb, '|', "2012-12-13"));
+        String dateStr = Mjonot.erota(sb, '|',getViimeisinSuoritusString());
+        this.viimeisinSuoritus = parseDate(dateStr);
         this.vastuuhenkilonID = Mjonot.erota(sb, '|', getVastuuhenkilonID());
+
     }
 
 
@@ -218,8 +238,10 @@ public class Kotityo implements Cloneable {
         this.kotityoNimi = tulokset.getString("kotityoNimi");
         this.vanhenemisaika = tulokset.getInt("vanhenemisaika");
         this.kesto = tulokset.getInt("kesto");
-        this.viimeisinSuoritus = LocalDate.parse(tulokset.getString("viimeisinSuoritus"));
+        String dateStr = tulokset.getString("viimeisinSuoritus");
+        this.viimeisinSuoritus = parseDate(dateStr);
         this.vastuuhenkilonID = tulokset.getInt("vastuuhenkilonId");
+
     }
 
 
@@ -268,7 +290,8 @@ public class Kotityo implements Cloneable {
                 sql.setString(2, kotityoNimi);
                 sql.setInt(3, vanhenemisaika);
                 sql.setInt(4, kesto);
-                sql.setDate(5, Date.valueOf((viimeisinSuoritus)));
+                String dateString = formatDate(viimeisinSuoritus);
+                sql.setString(5, dateString);
                 sql.setInt(6, vastuuhenkilonID);
 
                 return sql;
