@@ -1,12 +1,16 @@
 package Siivoustiimi.test;
-import java.sql.SQLException;
-import java.text.CollationElementIterator;
-import java.util.*;
-import java.io.*;
-import Siivoustiimi.*;
+
+import Siivoustiimi.SailoException;
+import Siivoustiimi.Siivoustiimi;
+import Siivoustiimi.Suoritukset;
+import Siivoustiimi.Suoritus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.sql.SQLException;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -85,7 +89,9 @@ public class SuorituksetTest {
   public void testAnnaSuorituksetPitaisiPalauttaaKaikkiTietynKotityonSuoritukset() throws SailoException {
 
     suoritus1.taytaSuoritus(1,1);
+    suoritukset.lisaa(suoritus1);
     suoritus2.taytaSuoritus(2,2);
+    suoritukset.lisaa(suoritus2);
 
     Collection<Suoritus>loytyneet = suoritukset.annaSuoritukset(1);
     assertEquals(1, loytyneet.size());
