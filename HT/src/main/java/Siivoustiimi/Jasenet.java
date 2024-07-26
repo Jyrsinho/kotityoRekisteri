@@ -71,6 +71,20 @@ public class Jasenet  {
 
 
     /**
+     * Poistaa jasenen tietorakenteesta.
+     * @param jasen Poistettava jasen
+     * @throws SailoException jos jotain menee pieleen.
+     */
+    public void poistaJasen(Jasen jasen) throws SailoException {
+        try (Connection con = kanta.annaKantayhteys(); PreparedStatement sql = jasen.annaPoistoLauseke(con) ) {
+            sql.executeUpdate();
+        } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa" + e.getMessage());
+        }
+    }
+
+
+    /**
      * Palauttaa jasenet listassa
      * @param hakuehto hakuehto
      * @param k etsittavan kentan indeksi
@@ -84,7 +98,7 @@ public class Jasenet  {
         // Avataan yhteys tietokantaan try .. with lohkossa.
         try ( Connection con = kanta.annaKantayhteys();
               PreparedStatement sql = con.prepareStatement("SELECT * FROM Jasenet WHERE " + kysymys + " LIKE ?") ) {
-            ArrayList<Jasen> loytyneet = new ArrayList<Jasen>();
+            ArrayList<Jasen> loytyneet = new ArrayList<>();
 
             sql.setString(1, "%" + ehto + "%");
             try ( ResultSet tulokset = sql.executeQuery() ) {
@@ -100,20 +114,12 @@ public class Jasenet  {
         }
     }
 
-    /*
-    public Collection<Jasen> etsiKaikkiJasenet() throws SailoException {
-        try (Connection con = kanta.annaKantayhteys();
-            PreparedStatement sql = con.prepareStatement("SELECT *")
-    }
-
-     */
-
 
     /**
      * Testiohjelma jasenistolle
      * @param args ei kaytossa
      */
-    public static void main(String args[])  {
+    public static void main(String[] args)  {
         try {
             new File("kokeilu.db").delete();
             Jasenet jasenet = new Jasenet("kokeilu");

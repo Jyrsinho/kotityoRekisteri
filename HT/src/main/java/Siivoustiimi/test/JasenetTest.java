@@ -22,7 +22,11 @@ public class JasenetTest {
     private Jasenet jasenet;
     private String tiedNimi;
     private File ftied;
-
+    Jasen timo1;
+    Jasen timo2;
+    Jasen timo3;
+    Jasen timo4;
+    Jasen timo5;
 
     @BeforeEach
     public void alusta() throws SailoException, SQLException {
@@ -32,6 +36,17 @@ public class JasenetTest {
         ftied.delete();
         jasenet = new Jasenet(tiedNimi);
         siivoustiimi1.lueTiedostosta(tiedNimi);
+
+        timo1 = new Jasen();
+        timo2 = new Jasen();
+        timo3 = new Jasen();
+        timo4 = new Jasen();
+        timo5 = new Jasen();
+        timo1.taytaJasen();
+        timo2.taytaJasen();
+        timo3.taytaJasen();
+        timo4.taytaJasen();
+        timo5.taytaJasen();
     }
 
 
@@ -47,28 +62,34 @@ public class JasenetTest {
         Collection<Jasen> loytyneet = jasenet.etsi("", 1);
         assertEquals(0, loytyneet.size());
 
-        Jasen timo1 = new Jasen(), timo2 = new Jasen();
-        timo1.taytaJasen();
-        timo2.taytaJasen();
         jasenet.lisaa(timo1);
         jasenet.lisaa(timo2);
 
         loytyneet = jasenet.etsi("", 1);
         assertEquals(2, loytyneet.size());
 
-        Jasen timo3 = new Jasen();
-        timo3.taytaJasen();
-        Jasen timo4 = new Jasen();
-        timo4.taytaJasen();
-        Jasen timo5 = new Jasen();
-        timo5.taytaJasen();
         jasenet.lisaa(timo3);
-
         jasenet.lisaa(timo4);
         jasenet.lisaa(timo5);
         loytyneet = jasenet.etsi("", 1);
 
         assertEquals(5, loytyneet.size());
+    }
+
+    @Test
+    public void testShouldRemoveMembersFromTable() throws SailoException {
+        Collection<Jasen> loytyneet = jasenet.etsi("", 1);
+        assertEquals(0, loytyneet.size());
+
+        jasenet.lisaa(timo1);
+        jasenet.lisaa(timo2);
+        loytyneet = jasenet.etsi("", 1);
+        assertEquals(2, loytyneet.size());
+
+        jasenet.poistaJasen(timo1);
+        loytyneet = jasenet.etsi("", 1);
+        assertEquals(1, loytyneet.size());
+
     }
 
 }

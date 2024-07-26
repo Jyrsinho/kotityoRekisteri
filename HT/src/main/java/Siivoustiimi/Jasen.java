@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 import static kanta.RandomNumero.arvoNumero;
@@ -189,6 +190,22 @@ public class Jasen implements Cloneable {
         sql.setInt(8, ika);
 
         return sql;
+    }
+
+    /**
+     * ANtaa jasenen poistolausekkeen
+     * @param con tietokantayhteys
+     * @return jasenen poistolauseke
+     */
+    public PreparedStatement annaPoistoLauseke(Connection con) throws SQLException {
+
+        PreparedStatement sql = con.prepareStatement("DELETE FROM Jasenet WHERE id LIKE ?");
+
+        // DELETE FROM table_name WHERE condition
+        sql.setInt(1, this.id);
+
+        return sql;
+
     }
 
 
