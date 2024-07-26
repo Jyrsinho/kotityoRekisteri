@@ -42,8 +42,6 @@ public class Kotityot {
         }
     }
 
-
-
     /**
      * Lisää uuden kotityon siivoustiimille
      * @param kotityo lisattava kotityo
@@ -57,6 +55,20 @@ public class Kotityot {
             }
         } catch (SQLException e) {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
+        }
+    }
+
+    /**
+     * Poistaa kotityon siivoustiimista
+     * @param kotityo poistettava kotityo
+     * @throws SailoException jos tietokantayhteyden kanssa ongelmia
+     */
+    public void poistaKotityo(Kotityo kotityo) throws SailoException {
+        try (Connection con = kanta.annaKantayhteys();
+             PreparedStatement sql = kotityo.annaPoistolauseke(con) ) {
+            sql.executeUpdate();
+        } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa" + e.getMessage());
         }
     }
 
@@ -90,6 +102,7 @@ public class Kotityot {
 
 
     //TODO TARVITAANKO TÄHÄN ERIKSEEN OMAA METODIA. VOISIKO YLEISEN ANNAKOTITYÖT METODIN MUOKATA TARVITTAESSA PALAUTTAMAAN KAIKKI TIIMIN KOTITYÖT.
+    //TODO REFAKTOROI!!!
     /**
      * Haetaan kaikki  kotityot
      * @return tietorakenne jossa viiteet loydettyihin kotitoihin
@@ -114,7 +127,6 @@ public class Kotityot {
         }
         return loydetyt;
     }
-
 
 
     /**

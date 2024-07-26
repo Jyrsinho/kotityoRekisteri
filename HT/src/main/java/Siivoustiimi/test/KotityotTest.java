@@ -18,6 +18,8 @@ public class KotityotTest {
     private String tiedNimi;
     private File ftied;
 
+    Kotityo imurointi1;
+
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -27,6 +29,7 @@ public class KotityotTest {
         ftied.delete();
         kotityot = new Kotityot(tiedNimi);
         siivoustiimi1.lueTiedostosta(tiedNimi);
+
     }
 
     @AfterEach
@@ -77,4 +80,18 @@ public class KotityotTest {
         assertEquals(3, loytyneet.size());
     }
 
+    @Test
+    public void testPitaisiPoistaaKotitoitaTietokannasta() throws SailoException {
+        Kotityo imurointi1 = new Kotityo();
+        imurointi1.taytaKotityo(1);
+        kotityot.lisaa(imurointi1);
+        Collection<Kotityo> loytyneet = kotityot.annaKotityot(1);
+        assertEquals(1, loytyneet.size());
+
+
+        kotityot.poistaKotityo(imurointi1);
+        loytyneet = kotityot.annaKotityot(1);
+        assertEquals(0, loytyneet.size());
+
+    }
 }

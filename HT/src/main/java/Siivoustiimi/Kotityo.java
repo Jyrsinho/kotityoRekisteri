@@ -277,8 +277,7 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
      * @return kotityon lisäyslauseke
      * @throws SQLException Jos lausekkeen luonnissa on ongelmia
      */
-    public PreparedStatement annaLisayslauseke(Connection con)
-             throws SQLException {
+    public PreparedStatement annaLisayslauseke(Connection con) throws SQLException {
                 PreparedStatement sql = con.prepareStatement(
                                  "INSERT INTO Kotityot (kotityoId, kotityoNimi, vanhenemisaika, " +
                                        "kesto, viimeisinSuoritus, vastuuhenkilonID) VALUES (?, ?, ?, ?, ?, ?)");
@@ -296,6 +295,20 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
 
                 return sql;
             }
+
+    /**
+     * Antaa kotityon poistolausekkeen
+      * @param con tietokantayhteys
+     * @return kotityon poistolauseke
+     * @throws SQLException jos lausekkeen luonnissa on ongelmia
+     */
+    public PreparedStatement annaPoistolauseke(Connection con) throws SQLException {
+        PreparedStatement sql = con.prepareStatement(
+                "DELETE FROM Kotityot WHERE kotityoId = ?");
+        sql.setInt(1, this.kotityoId);
+
+        return sql;
+    }
 
 
     /**
