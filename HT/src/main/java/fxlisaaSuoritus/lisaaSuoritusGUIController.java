@@ -194,7 +194,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
 
     public static Suoritus kysySuoritus(Stage modalityStage, Suoritus oletus, Siivoustiimi oletusTiimi) throws SailoException {
         return ModalController.<Suoritus, lisaaSuoritusGUIController>showModal(
-                lisaaSuoritusGUIController.class.getResource("/lisaaSuoritusGUIView.fxml"),
+                lisaaSuoritusGUIController.class.getResource("/fxml/lisaaSuoritusGUIView.fxml"),
                 "Uusi Suoritus",
                 modalityStage, oletus, ctrl-> {
                     try {

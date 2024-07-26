@@ -127,7 +127,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     @FXML
     void menuKlikkaaAvaa(ActionEvent event) {
 
-        ModalController.showModal(AloitusnakymaGUIController.class.getResource("fxml/Aloitusnakyma.fxml"), "Aloita", null, "");
+        ModalController.showModal(AloitusnakymaGUIController.class.getResource("/fxml/Aloitusnakyma.fxml"), "Aloita", null, "");
 
     }
 
