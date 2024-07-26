@@ -178,7 +178,20 @@ public class Suoritus implements DateFormatterProvider {
         sql.setInt(5, suorittajaID);
 
         return sql;
+    }
 
+    /**
+     * Antaa suorituksen poistolausekkeen
+     * @param con tietokantayhteys
+     * @return suorituksen poistolauseke
+     * @throws SQLException jos lausekkeen luomisessa on ongelmia
+     */
+    public PreparedStatement annapoistoLauseke (Connection con) throws SQLException {
+        PreparedStatement sql = con.prepareStatement(
+                "DELETE from Suoritukset WHERE suoritusID = ?");
+        sql.setInt(1, this.suoritusID);
+
+        return sql;
     }
 
 

@@ -56,6 +56,7 @@ public class SuorituksetTest {
     assertEquals(2, loytyneet.size());
   }
 
+
   @Test
   public void testPitaisiLisataSuorituksiaEriKotitoille() throws SailoException {
     suoritus1.taytaSuoritus(1,1);
@@ -68,6 +69,7 @@ public class SuorituksetTest {
     assertEquals(1, loytyneet.size());
 
   }
+
 
   @Test
   public void testPitaisiOsataPalauttaaKaikkiSuoritukset() throws SailoException, SQLException {
@@ -85,6 +87,7 @@ public class SuorituksetTest {
     assertEquals(3, loytyneet.size());
   }
 
+
   @Test
   public void testAnnaSuorituksetPitaisiPalauttaaKaikkiTietynKotityonSuoritukset() throws SailoException {
 
@@ -97,6 +100,19 @@ public class SuorituksetTest {
     assertEquals(1, loytyneet.size());
 
   }
+
+  @Test
+  public void testPitaisiPoistaaSuorituksiaTietokannasta() throws SailoException, SQLException {
+    suoritus1.taytaSuoritus(1,1);
+    suoritukset.lisaa(suoritus1);
+    Collection<Suoritus>loytyneet = suoritukset.annaSuoritukset(1);
+    assertEquals(1, loytyneet.size());
+
+    suoritukset.poistaSuoritus(suoritus1);
+    loytyneet = suoritukset.annaSuoritukset(1);
+    assertEquals(0, loytyneet.size());
+  }
+
 
 
 

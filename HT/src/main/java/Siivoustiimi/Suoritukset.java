@@ -58,6 +58,16 @@ public class Suoritukset  {
     }
 
 
+    public void poistaSuoritus(Suoritus suoritus) throws SailoException, SQLException {
+        try (Connection con = kanta.annaKantayhteys();
+            PreparedStatement sql = suoritus.annapoistoLauseke(con)) {
+            sql.executeUpdate();
+        }catch (SQLException e) {
+    throw new SailoException(("Ongelmia tietokannan kanssa" + e.getMessage()));
+        }
+    }
+
+
     /**
      * Haetaan kaikki kotityon suoritukset
      * @return Arraylist tietorakenne, jossa viitteet löydettyihin suorituksiin
