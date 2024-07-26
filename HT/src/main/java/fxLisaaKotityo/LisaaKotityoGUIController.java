@@ -148,11 +148,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      */
     private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
-        // TODO Korjataan tämä databaseversioon
-        // Kysytään siivoustiimiltä paljonko sulla on jäseniä
-        // Lisätään siivoustiimin jokainen jäsen comboboxiin selectVastuuhenkilo
 
-        Collection<Jasen> kaikkiJasenet = oletustiimi.etsi("",1);
+        Collection<Jasen> kaikkiJasenet = oletustiimi.etsi("%",1);
 
         for (Jasen jasen : kaikkiJasenet) {
             selectVastuuhenkilo.add(jasen.getNimi(), jasen);

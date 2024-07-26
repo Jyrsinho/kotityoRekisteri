@@ -100,6 +100,14 @@ public class Jasenet  {
         }
     }
 
+    /*
+    public Collection<Jasen> etsiKaikkiJasenet() throws SailoException {
+        try (Connection con = kanta.annaKantayhteys();
+            PreparedStatement sql = con.prepareStatement("SELECT *")
+    }
+
+     */
+
 
     /**
      * Testiohjelma jasenistolle
