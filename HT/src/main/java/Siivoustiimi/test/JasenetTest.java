@@ -10,10 +10,6 @@ import java.sql.SQLException;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/*
-Pitää osata lisätä jäseniä tietokantaan
-TODO Pitää osata poistaa jäseniä tietokannasta.
- */
 
 
 public class JasenetTest {
