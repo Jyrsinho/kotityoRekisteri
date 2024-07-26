@@ -27,6 +27,15 @@ public class Siivoustiimi {
      */
     public int poista (Jasen jasen) throws SailoException {
         jasenet.poistaJasen(jasen);
+
+        annaKotityot()
+        //TODO Tässä pitää poistaa myös kaikki jäsenen kotityöt
+        //TODO Myöhemmin voidaan muokata joku järkevämpi tapa käsitellä poistettavan jäsenen kotityöt
+
+        //Haetaan jonkinlaiseen tietorakenteeseen kaikki poistettavan jasenen kotityot
+        //Iteroidaan sen läpi ja poistetaaan kaikki tietokannasta
+
+       // kotityot.poistaKotityo();
         return 0;
     }
 

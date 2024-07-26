@@ -414,11 +414,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         suoritus.rekisteroiSuoritus();
         siivoustiimi.lisaa(suoritus);
         haeJasenenKotityot(jasenKohdalla);
-
-
-
-
     }
+
 
     /**
      * poistaa Kotityön tietorakenteesta.
@@ -448,9 +445,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (!Dialogs.showQuestionDialog("Poisto", "Poistetaanko: " + jasen.getNimi() + " ja kaikki jäsenen kotityöt", "Kyllä", "Ei"))
             return;
         siivoustiimi.poista(jasen);
-        int index = listaJasenet.getSelectedIndex();
+        alusta();
         hae();
-        listaJasenet.setSelectedIndex(index);
     }
 
 }
