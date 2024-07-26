@@ -22,10 +22,11 @@ public class Siivoustiimi {
 
     /**
      * Poistaa jasenistosta ja kotitoista ne joilla on nro. Kesken.
-     * @param nro viitenumero, jonka mukaan poistetaan
+     * @param jasen joka mukaan poistetaan
      * @return montako j�sent� poistettiin
      */
-    public int poista(@SuppressWarnings("unused") int nro) {
+    public int poista (Jasen jasen) throws SailoException {
+        jasenet.poistaJasen(jasen);
         return 0;
     }
 

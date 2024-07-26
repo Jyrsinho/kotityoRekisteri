@@ -424,8 +424,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * poistaa Kotityön tietorakenteesta.
      */
     private void poistaKotityo() {
-
-        /* todo poistamisen tekeminen
+/*
         if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
         if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
         Kotityo kotityo = kotityoKohdalla;
@@ -435,7 +434,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         siivoustiimi.poistaKotityo(kotityo);
         haeJasenenKotityot(jasenKohdalla.getId());
 
-         */
+ */
+
+
     }
 
     /**
@@ -446,7 +447,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (jasen == null) return;
         if (!Dialogs.showQuestionDialog("Poisto", "Poistetaanko: " + jasen.getNimi() + " ja kaikki jäsenen kotityöt", "Kyllä", "Ei"))
             return;
-        siivoustiimi.poista(jasen.getId());
+        siivoustiimi.poista(jasen);
         int index = listaJasenet.getSelectedIndex();
         hae();
         listaJasenet.setSelectedIndex(index);
