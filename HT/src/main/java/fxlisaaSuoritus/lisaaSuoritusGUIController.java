@@ -128,6 +128,8 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      */
     private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
+        // ToDo tätä tietokantahakua on muokattava niin, että se hakee kaikki jäsenet
+        //
         Collection<Jasen> jasenlista = oletustiimi.etsi("?",1);
         for (Jasen jasen: jasenlista) {
             tekijaValinta.add(jasen);
@@ -145,7 +147,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
 
         Collection<Kotityo> kotityolista = oletustiimi.annaKaikkiKotityot();
         for (Kotityo kotityo : kotityolista) {
-            kotityoValinta.add(kotityo);
+            kotityoValinta.add(kotityo.getKotityoNimi(), kotityo);
         }
 
 
