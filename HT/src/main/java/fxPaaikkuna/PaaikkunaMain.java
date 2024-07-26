@@ -41,7 +41,7 @@ public class PaaikkunaMain extends Application {
 
             Application.Parameters params = getParameters();
             if (!params.getRaw().isEmpty())
-                paaikkunaCtrl.lueTiedosto(params.getRaw().get(0));
+                paaikkunaCtrl.lueTiedosto(params.getRaw().getFirst());
             else if (!paaikkunaCtrl.avaa()) Platform.exit();
 
         } catch (Exception e) {
