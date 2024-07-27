@@ -130,7 +130,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
 
         // ToDo tätä tietokantahakua on muokattava niin, että se hakee kaikki jäsenet
         //
-        Collection<Jasen> jasenlista = oletustiimi.etsi("%",1);
+        Collection<Jasen> jasenlista = oletustiimi.etsiJasenet("%",1);
         for (Jasen jasen: jasenlista) {
             tekijaValinta.add(jasen.getNimi(), jasen);
         }

@@ -149,7 +149,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
 
-        Collection<Jasen> kaikkiJasenet = oletustiimi.etsi("%",1);
+        Collection<Jasen> kaikkiJasenet = oletustiimi.etsiJasenet("%",1);
 
         for (Jasen jasen : kaikkiJasenet) {
             selectVastuuhenkilo.add(jasen.getNimi(), jasen);

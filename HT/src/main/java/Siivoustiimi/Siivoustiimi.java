@@ -27,16 +27,14 @@ public class Siivoustiimi {
      */
     public int poista (Jasen jasen) throws SailoException {
         jasenet.poistaJasen(jasen);
+        int poistettavienMaara = 0;
+        ArrayList<Kotityo> poistettavanJasenenKotityot = annaKotityot(jasen);
 
-        annaKotityot()
-        //TODO Tässä pitää poistaa myös kaikki jäsenen kotityöt
-        //TODO Myöhemmin voidaan muokata joku järkevämpi tapa käsitellä poistettavan jäsenen kotityöt
-
-        //Haetaan jonkinlaiseen tietorakenteeseen kaikki poistettavan jasenen kotityot
-        //Iteroidaan sen läpi ja poistetaaan kaikki tietokannasta
-
-       // kotityot.poistaKotityo();
-        return 0;
+        for (Kotityo kotityo: poistettavanJasenenKotityot) {
+            kotityot.poistaKotityo(kotityo);
+            poistettavienMaara++;
+        }
+            return poistettavienMaara;
     }
 
 
@@ -73,7 +71,7 @@ public class Siivoustiimi {
      * @throws SailoException jos tietokannan kanssa ongelmia
      * @example
     */
-    public Collection<Jasen> etsi(String hakuehto, int k) throws SailoException {
+    public Collection<Jasen> etsiJasenet(String hakuehto, int k) throws SailoException {
         return jasenet.etsi(hakuehto,k);
     }
 
@@ -163,7 +161,7 @@ public class Siivoustiimi {
 
             System.out.println("============= Kerhon testi =================");
 
-            Collection<Jasen> jasenet = siivoustiimi.etsi("", -1);
+            Collection<Jasen> jasenet = siivoustiimi.etsiJasenet("", -1);
             int i = 0;
             for (Jasen jasen : jasenet) {
                 System.out.println("Jasen paikassa: " + i);

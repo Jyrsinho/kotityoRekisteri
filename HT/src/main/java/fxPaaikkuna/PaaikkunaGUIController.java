@@ -343,7 +343,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         // Luodaan  Collection johon haetaan tietokannasta
         // kaikki jasentaulukon oliot.
 
-        Collection<Jasen> kaikkiJasenet = siivoustiimi.etsi("", 1);
+        Collection<Jasen> kaikkiJasenet = siivoustiimi.etsiJasenet("", 1);
 
         for (Jasen jasen : kaikkiJasenet) {
             listaJasenet.add(jasen.getNimi(), jasen);
