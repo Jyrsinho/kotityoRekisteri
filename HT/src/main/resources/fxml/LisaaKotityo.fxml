@@ -52,12 +52,17 @@
             </rowConstraints>
             <children>
                 <!-- Labels and Inputs -->
-                <Label text="Vanhenemisaika (pv): " GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                <Label text="Nimi:" GridPane.halignment="RIGHT">
                     <GridPane.margin>
                         <Insets right="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Kesto (min):" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                <TextField fx:id="editNimi" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </GridPane.margin>
+                </TextField>
+                <Label text="Vanhenemisaika (pv): " GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="20.0" />
                     </GridPane.margin>
@@ -67,17 +72,12 @@
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
                 </TextField>
-                <TextField fx:id="editKesto" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <GridPane.margin>
-                        <Insets left="20.0" right="20.0" />
-                    </GridPane.margin>
-                </TextField>
-                <Label text="Nimi:" GridPane.halignment="RIGHT">
+                <Label text="Kesto (min):" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets right="20.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="editNimi" GridPane.columnIndex="1">
+                <TextField fx:id="editKesto" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
@@ -92,7 +92,6 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </ComboBoxChooser>
-                <Label fx:id="labelVirhe" text="Label" />
                 <Label text="Tehty viimeksi:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                     <GridPane.margin>
                         <Insets right="20.0" />
@@ -103,6 +102,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </DatePicker>
+                <Label fx:id="labelVirhe" text="Label" />
             </children>
         </GridPane>
     </center>
