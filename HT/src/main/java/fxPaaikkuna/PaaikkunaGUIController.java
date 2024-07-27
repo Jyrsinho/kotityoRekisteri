@@ -272,7 +272,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      */
     public boolean avaa() {
 
-        String uusinimi = AloitusnakymaGUIController.kysyNimi(null, "siivousperhe");
+        String uusinimi = AloitusnakymaGUIController.kysyNimi(null, "testitiimi");
         if (uusinimi == null) return false;
         lueTiedosto(uusinimi);
         return true;
