@@ -10,110 +10,159 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmuokkaaJasen.MuokkaaJasenGUIController">
-  <columnConstraints>
-    <ColumnConstraints />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="324.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.5" minWidth="10.0" prefWidth="275.5" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints maxHeight="130.39037322998047" minHeight="10.0" prefHeight="46.01301193237305" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="228.4313669204712" minHeight="0.0" prefHeight="81.31782531738281" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="255.89036560058594" minHeight="10.0" prefHeight="239.6821746826172" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label text="17:35 20.1.2024" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <GridPane.margin>
+<GridPane xmlns="http://javafx.com/javafx/21"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="fxmuokkaaJasen.MuokkaaJasenGUIController"
+          maxHeight="-Infinity"
+          maxWidth="-Infinity"
+          minHeight="-Infinity"
+          minWidth="-Infinity"
+          prefHeight="400.0"
+          prefWidth="600.0">
+
+    <!-- Column Constraints -->
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="10.0" prefWidth="324.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.5" minWidth="10.0" prefWidth="275.5" />
+    </columnConstraints>
+
+    <!-- Row Constraints -->
+    <rowConstraints>
+        <RowConstraints maxHeight="130.39" minHeight="10.0" prefHeight="46.01" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="228.43" minHeight="0.0" prefHeight="81.32" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="255.89" minHeight="10.0" prefHeight="239.68" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+
+    <!-- Labels -->
+    <Label text="17:35 20.1.2024"
+           GridPane.columnIndex="2"
+           GridPane.halignment="CENTER"
+           GridPane.valignment="CENTER">
+        <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Label text="JÄSENEN TIEDOT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-         <font>
+        </GridPane.margin>
+    </Label>
+
+    <Label text="JÄSENEN TIEDOT"
+           GridPane.columnIndex="1"
+           GridPane.halignment="CENTER"
+           GridPane.rowIndex="1"
+           GridPane.valignment="BOTTOM">
+        <font>
             <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Label text="JÄSENEN KOTITYÖT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-         <font>
+        </font>
+    </Label>
+
+    <Label text="JÄSENEN KOTITYÖT"
+           GridPane.columnIndex="2"
+           GridPane.halignment="CENTER"
+           GridPane.rowIndex="1"
+           GridPane.valignment="BOTTOM">
+        <font>
             <Font name="Arial Black" size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="buttonOK" mnemonicParsing="false" onMouseClicked="#klikkaaOK" text="OK" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-         <GridPane.margin>
+        </font>
+    </Label>
+
+    <!-- Buttons -->
+    <Button fx:id="buttonOK"
+            mnemonicParsing="false"
+            onMouseClicked="#klikkaaOK"
+            text="OK"
+            GridPane.columnIndex="1"
+            GridPane.halignment="CENTER"
+            GridPane.rowIndex="3">
+        <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </Button>
-      <GridPane prefHeight="237.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        </GridPane.margin>
+    </Button>
+
+    <Button fx:id="buttonMuokkaaKotityö"
+            mnemonicParsing="false"
+            onMouseClicked="#klikkaaMuokkaaKotityo"
+            text="Muokkaa kotityö"
+            GridPane.columnIndex="2"
+            GridPane.halignment="CENTER"
+            GridPane.rowIndex="3">
+        <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </GridPane.margin>
+    </Button>
+
+    <Button fx:id="buttonCancel"
+            mnemonicParsing="false"
+            onMouseClicked="#klikkaaCancel"
+            text="Cancel"
+            GridPane.columnIndex="1"
+            GridPane.halignment="RIGHT"
+            GridPane.rowIndex="3">
+        <GridPane.margin>
+            <Insets right="20.0" />
+        </GridPane.margin>
+    </Button>
+
+    <!-- Text Fields -->
+    <GridPane prefHeight="237.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.94796752929688" minWidth="10.0" prefWidth="88.42941284179688" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.1951904296875" minWidth="10.0" prefWidth="104.07058715820312" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.95" minWidth="10.0" prefWidth="88.43" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.20" minWidth="10.0" prefWidth="104.07" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
-            <TextField fx:id="editPuhelin" text="0405876634" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Puhelin:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Kaupunki:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="editIka" text="40" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Ikä:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Postinumero:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Osoite:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="editKaupunki" text="Vantaa" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="editPostinumero" text="11600" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="editOsoite" text="Talvitie 4" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Etunimi" GridPane.halignment="RIGHT">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="editEtunimi" text="Timo Kekkilä" GridPane.columnIndex="1">
-               <opaqueInsets>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </opaqueInsets>
-            </TextField>
-            <Label text="Sukunimi" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField fx:id="editSukunimi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <Button fx:id="buttonMuokkaaKotityö" mnemonicParsing="false" onMouseClicked="#klikkaaMuokkaaKotityo" text="Muokkaa kotityö" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-      </Button>
-      <ListChooser fx:id="listaKotityo"  GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Button fx:id="buttonCancel" mnemonicParsing="false" onMouseClicked="#klikkaaCancel" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets right="20.0" />
-         </GridPane.margin>
-      </Button>
-      <Label fx:id="labelVirhe" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   </children>
+        <TextField fx:id="editEtunimi" GridPane.columnIndex="1" />
+        <TextField fx:id="editSukunimi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="editOsoite" text="Talvitie 4" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="editPostinumero" text="11600" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="editKaupunki" text="Vantaa" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="editIka" text="40" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="editPuhelin" text="0405876634" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+        <!-- Labels in the GridPane -->
+        <Label text="Puhelin:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Kaupunki:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Ikä:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Postinumero:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Osoite:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Etunimi" GridPane.halignment="RIGHT">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Sukunimi" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+    </GridPane>
+
+    <!-- ListChooser -->
+    <ListChooser fx:id="listaKotityo" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+    <!-- Error Label -->
+    <Label fx:id="labelVirhe" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 </GridPane>
