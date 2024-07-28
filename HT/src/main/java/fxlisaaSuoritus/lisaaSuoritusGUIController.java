@@ -46,7 +46,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      */
     @FXML
     void clickedCancel(MouseEvent event) {
-        // Dialogs.showMessageDialog("Vielä ei osata peruuttaa.");
+
         ModalController.closeStage(buttonCancel);
 
     }
@@ -59,17 +59,13 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
     @FXML
     void clickedOK(MouseEvent event) {
 
-        kasitteleMuutosKotityohon();
         if (uusiSuoritus != null && tekijaValinta.getValue() == null || kotityoValinta.getValue() == null) {
             naytaVirhe("Kaikkiin kenttiin on valittava arvo");
             return;
         }
-            kasittelemuutoksetSuoritukseen(uusiSuoritus);
-        try {
-            siivoustiimi.tallenna();
-        } catch (SailoException ex) {
-            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-        }
+
+        kasittelemuutoksetSuoritukseen(uusiSuoritus);
+
         ModalController.closeStage(labelVirhe);
 
     }
@@ -121,6 +117,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         labelVirhe.getStyleClass().add("virhe");
     }
 
+
     /**
      * Luodaan lista näytettäväksi Choiceboxissa. Lisätään choiceboxiin siivousttiimin jäsenten
      * nimet.
@@ -128,15 +125,12 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      */
     private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
-        // ToDo tätä tietokantahakua on muokattava niin, että se hakee kaikki jäsenet
-        //
         Collection<Jasen> jasenlista = oletustiimi.etsiJasenet("%",1);
         for (Jasen jasen: jasenlista) {
             tekijaValinta.add(jasen.getNimi(), jasen);
         }
-
-
     }
+
 
     /**
      * Luodaan lista kotitöistä näytettäväksi Choiceboxissa. Lisätään choiceboxiin siivousttiimin kotitöiden
@@ -149,9 +143,8 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         for (Kotityo kotityo : kotityolista) {
             kotityoValinta.add(kotityo.getKotityoNimi(), kotityo);
         }
-
-
     }
+
 
     private void naytaKestoVaihtoehdot() {
         int[] kestoaikaTaulukko = {5,10,15,30,60};
@@ -159,6 +152,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
             kestoValinta.add(alkio);
         }
     }
+
 
     /**
      * Asettaa lisättävälle suoritukselle käyttäjän valitsemat arvot.
@@ -169,6 +163,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         uusiSuoritus.setTekoaika(kalenteriValinta.getValue());
         uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getObject().getId());
         uusiSuoritus.setKesto(kestoValinta.getValue().getObject());
+        tarkistaOnkoViimeisinSuoritus();
 
     }
 
@@ -178,13 +173,14 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
      * kuin suoritusta koskevan kotityön viimeisin suoritus, tulee tässä ikkunassa asetettavasta viimeisimmästä
      * suorituksesta tätä suoritusta koskevan kotityön viimeisin suoritus.
      */
-    private void kasitteleMuutosKotityohon() {
+    private void tarkistaOnkoViimeisinSuoritus() {
         int vertailu = kalenteriValinta.getValue().compareTo(kotityoValinta.getValue().getObject().getViimeisinSuoritus());
 
         if (vertailu > 0) {
             kotityoValinta.getValue().getObject().setViimeisinSuoritus(kalenteriValinta.getValue());
         }
     }
+
 
     /**
      * Luodaan Suorituksen kysymisdialogi ja palautetaan sama tietue muutettuna tai null

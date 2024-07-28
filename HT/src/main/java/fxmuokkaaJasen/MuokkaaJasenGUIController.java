@@ -69,11 +69,6 @@ import java.util.ResourceBundle;
             naytaVirhe("Nimi ei saa olla tyhjä");
             return;
         }
-        try {
-            siivoustiimi.tallenna();
-        } catch (SailoException ex) {
-            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-        }
         ModalController.closeStage(labelVirhe);
     }
 
