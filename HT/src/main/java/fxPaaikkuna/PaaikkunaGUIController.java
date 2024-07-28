@@ -362,7 +362,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         ArrayList<Kotityo> kotityolista = siivoustiimi.annaKotityot(jasen);
 
         for (Kotityo alkio : kotityolista) {
-            if (alkio.onVanhentunut()) {
+            if (alkio.suoritusOnVanhentunut()) {
                 listaTekematta.add(alkio.getKotityoNimi(), alkio);
             } else {
                 listaTehty.add(alkio.getKotityoNimi(), alkio);

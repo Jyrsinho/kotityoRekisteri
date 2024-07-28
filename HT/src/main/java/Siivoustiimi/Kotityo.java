@@ -157,7 +157,7 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
      * @return true jos suoritus on vanhentunut, false jos ei ole vanhentunut.
      * TODO TESTIT: selvitettävä miten testataan metodia, joka on riippuvainen nykyisestä päivämäärästä. Tällä hetkellä testataan pääohjelmassa.
      */
-    public boolean onVanhentunut() {
+    public boolean suoritusOnVanhentunut() {
 
         int vertailu = (viimeisinSuoritus.plusDays(vanhenemisaika-1).compareTo(LocalDate.now()));
 
@@ -367,8 +367,8 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
 
         System.out.println();
 
-        System.out.println(imurointi.onVanhentunut());
-        System.out.println(imurointi2.onVanhentunut());
+        System.out.println(imurointi.suoritusOnVanhentunut());
+        System.out.println(imurointi2.suoritusOnVanhentunut());
 
         System.out.println(LocalDate.now());
 
