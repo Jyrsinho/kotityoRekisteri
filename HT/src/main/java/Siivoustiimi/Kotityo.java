@@ -25,7 +25,7 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     private String kotityoNimi;
     private int vanhenemisaika;
     private int kesto;
-    private LocalDate viimeisinSuoritus;
+    private LocalDate viimeisinSuoritus = LocalDate.now();
     private int vastuuhenkilonID;
 
     private static int seuraavaKotityoNro    = 1;
@@ -94,11 +94,8 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     }
 
 
-    public String setVanhenemisaika(String uusiVanhenemisAika) {
-        if (uusiVanhenemisAika.isEmpty()) return "Vanhenemisaika ei voi olla tyhjä";
-        if (!uusiVanhenemisAika.matches(("[0-9]*"))) return "Vanhenemisajan on oltava numero";
-        this.vanhenemisaika = Integer.parseInt(uusiVanhenemisAika);
-        return null;
+    public void setVanhenemisaika(int uusiVanhenemisAika) {
+       this.vanhenemisaika = uusiVanhenemisAika;
     }
 
 
@@ -168,12 +165,12 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot kotityolle.
      * kesto ja vanhenemisaika arvotaan, jotta kahdella jäsenellä ei olisi samoja tietoja.
-     * @param id Kotityön vastuuhenkilön ID
+     * @param vastuuHenkilonID Kotityön vastuuhenkilön ID
      */
-    public void taytaKotityo(int id) {
+    public void taytaKotityo(int vastuuHenkilonID) {
 
         this.kotityoNimi = "Imurointi";
-        this.vastuuhenkilonID = id;
+        this.vastuuhenkilonID = vastuuHenkilonID;
         this.viimeisinSuoritus = LocalDate.of(2024, 4, 1);
         this.kesto = RandomIka.arvoIka( 0, 60);
         this.vanhenemisaika = RandomIka.arvoIka(1,30);

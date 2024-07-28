@@ -2,6 +2,7 @@ package Siivoustiimi.test;
 
 
 import Siivoustiimi.*;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 
@@ -74,6 +76,18 @@ public class KotityoTest {
 
   }
 
+  @Test
+  public void testinPitaisiArvioidaKotityonSuoritusVanhentuneeksi() {
+    Kotityo kotityo = new Kotityo();
+    kotityo.taytaKotityo(1);
+    kotityo.setVanhenemisaika(5);
+
+    kotityo.setViimeisinSuoritus(LocalDate.now().minusDays(7));
+
+    assertTrue(kotityo.suoritusOnVanhentunut());
+
+
+  }
 
 
 }
