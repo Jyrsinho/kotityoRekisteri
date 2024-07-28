@@ -63,12 +63,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     @FXML
     void klikkaaOK(MouseEvent event) {
 
-        Jasen valittuVastuuHenkilo = selectVastuuhenkilo.getValue().getObject();
         asetaKotityolleUudetArvot();
-
-        // Siirretään nämä aliohjelmat tapahtumaan asetaKotityolleUudetArvot aliohjelmassa.
-        // lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
-        // lisaaKotityolleAlustavaEdellinenSuoritus();
 
         if (uusikotityo != null && uusikotityo.getKotityoNimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
@@ -95,6 +90,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     private Siivoustiimi siivoustiimi;
     private TextField edits[];
     private Kotityo uusikotityo;
+    private final int[] kestovaihtoehdot = {5,10,15,30,60};
+    private final int[] vanhenemisaikaVaihtoehdot = {1,2,3,5,7,15,30,60,180};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,12 +105,17 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      */
     public void alusta() {
 
+        lisaaArvotKestoVaihtoehdotComboBoxiin();
+        lisaaArvotVanhenemisAikaComboboxiin();
+
         edits = new TextField[]{editNimi};
         int i = 0;
+
         for (TextField edit : edits) {
             final int k = ++i;
             edit.setOnKeyReleased(e -> kasitteleMuutosKotityohon(k, (TextField) (e.getSource())));
         }
+
         selectVastuuhenkilo.setOnAction(event -> {
         });
     }
@@ -154,7 +156,27 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         labelVirhe.getStyleClass().add("virhe");
     }
 
+
     /**
+     * Hakee mahdolliset valittavat arvot kestoajanvalitsemiscomboboxiin.
+     */
+    private void lisaaArvotKestoVaihtoehdotComboBoxiin() {
+        for (Integer kesto : kestovaihtoehdot) {
+            selectKesto.add(kesto);
+        }
+    }
+
+    /**
+     *  Hakee mahdolliset valittavat arvot vanhenemisajanvalitsemiscomboboxiin.
+    */
+        private void lisaaArvotVanhenemisAikaComboboxiin() {
+            for (Integer vanhenemisaika : vanhenemisaikaVaihtoehdot) {
+                selectVanhenemisaika.add(vanhenemisaika);
+            }
+        }
+
+
+     /**
      * Luodaan lista näytettäväksi Comboboxissa. Lisätään comboboxiin siivoustiimin jäsenet
      * @param oletustiimi siivoustiimi, jonka jäsenet näytetään choiceboxissa.
      */
@@ -168,9 +190,11 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
 
     }
 
-    /**F
-     * Asettaa käyttäjän ikkunassa valitsemat arvot uudelle kotityölle.
+
+    /**
+     * Asettaa käyttäjän tekstikkunassa valitsemat arvot uudelle kotityölle.
      */
+
     private void kasitteleMuutosKotityohon(int k, TextField edit) {
         if (uusikotityo == null) return;
 
