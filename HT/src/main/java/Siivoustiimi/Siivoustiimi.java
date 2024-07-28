@@ -21,7 +21,7 @@ public class Siivoustiimi {
 
 
     /**
-     * Poistaa jasenistosta ja kotitoista ne joilla on nro. Kesken.
+     * Poistaa jasenistosta ja kotitoista valitun jasenen ja hanen kotityonsa.
      * @param jasen joka mukaan poistetaan
      * @return montako j�sent� poistettiin
      */
@@ -35,6 +35,15 @@ public class Siivoustiimi {
             poistettavienMaara++;
         }
             return poistettavienMaara;
+    }
+
+    /**
+     * Antaa Kotityot-luokalle tehtavaksi poistaa kotityo tietokannasta.
+     * @param kotityo, joka poistetaan
+     * @throws SailoException jos jotain menee pieleen
+     */
+    public void poistaKotityo(Kotityo kotityo) throws SailoException {
+        kotityot.poistaKotityo(kotityo);
     }
 
 

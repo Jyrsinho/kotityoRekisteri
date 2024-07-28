@@ -160,7 +160,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML
-    void menuKlikkaaPoistaKotityo(ActionEvent event) {
+    void menuKlikkaaPoistaKotityo(ActionEvent event) throws SailoException {
         poistaKotityo();
     }
 
@@ -418,25 +418,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
 
     /**
-     * poistaa Kotityön tietorakenteesta.
-     */
-    private void poistaKotityo() {
-/*
-        if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
-        if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
-        Kotityo kotityo = kotityoKohdalla;
-        if (kotityo == null) return;
-        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + kotityo.getKotityoNimi(), "Kyllä", "Ei") )
-            return;
-        siivoustiimi.poistaKotityo(kotityo);
-        haeJasenenKotityot(jasenKohdalla.getId());
-
- */
-
-
-    }
-
-    /**
      * poistaa jasenen tietorakenteesta.
      */
     private void poistaJasen() throws SailoException {
@@ -449,6 +430,22 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         hae();
     }
 
+    /**
+     * poistaa Kotityön tietorakenteesta.
+     */
+    private void poistaKotityo() throws SailoException {
+
+        if (listaTekematta.getSelectedObject() != null)kotityoKohdalla = listaTekematta.getSelectedObject();
+        if (listaTehty.getSelectedObject() !=  null) kotityoKohdalla = listaTehty.getSelectedObject();
+        Kotityo kotityo = kotityoKohdalla;
+        if (kotityo == null) return;
+        if ( !Dialogs.showQuestionDialog("Poisto", "Poistetaanko kotityö: " + kotityo.getKotityoNimi(), "Kyllä", "Ei") )
+            return;
+        siivoustiimi.poistaKotityo(kotityo);
+        haeJasenenKotityot(jasenKohdalla);
+
+
+    }
 }
 
 

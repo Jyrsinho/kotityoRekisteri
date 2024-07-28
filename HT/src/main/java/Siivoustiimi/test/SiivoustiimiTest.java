@@ -68,4 +68,17 @@ public class SiivoustiimiTest {
 
     }
 
+    @Test
+    public void testinPitaisiPoistaaYksiKotityoTietokannasta() throws SailoException {
+        testitiimi.lisaa(imurointi1);
+        testitiimi.lisaa(imurointi2);
+
+        Collection<Kotityo> loytyneetKotityot = testitiimi.annaKaikkiKotityot();
+        assertEquals(2,loytyneetKotityot.size());
+
+        testitiimi.poistaKotityo(imurointi1);
+        loytyneetKotityot = testitiimi.annaKaikkiKotityot();
+        assertEquals(1,loytyneetKotityot.size());
+    }
+
 }
