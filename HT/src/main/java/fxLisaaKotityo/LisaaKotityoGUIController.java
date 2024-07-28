@@ -14,6 +14,7 @@ import Siivoustiimi.SailoException;
 import Siivoustiimi.Jasen;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -25,8 +26,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
 
     public TextField editNimi;
     public Label labelVirhe;
-    public TextField editVanhenemisaika;
-    public TextField editKesto;
     public DatePicker tehtyViimeksiKalenteri;
 
     @FXML
@@ -38,6 +37,13 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     @FXML
     private ComboBoxChooser<Jasen> selectVastuuhenkilo;
 
+    @FXML
+    private ComboBoxChooser<Integer> selectVanhenemisaika;
+
+    @FXML
+    private ComboBoxChooser<Integer> selectKesto;
+
+
     /**
      * Peruuttaa kotityön lisäämisen ja ohjelma palaa päävalikkoon.
      * @param event
@@ -46,9 +52,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     void klikkaaCancel(MouseEvent event) {
         uusikotityo = null;
         ModalController.closeStage(buttonCancel);
-
-
     }
+
 
     /**
      * Lisää uuden kotityön tietorakenteeseen.
@@ -59,8 +64,11 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     void klikkaaOK(MouseEvent event) {
 
         Jasen valittuVastuuHenkilo = selectVastuuhenkilo.getValue().getObject();
-        lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
-        lisaaKotityolleAlustavaEdellinenSuoritus();
+        asetaKotityolleUudetArvot();
+
+        // Siirretään nämä aliohjelmat tapahtumaan asetaKotityolleUudetArvot aliohjelmassa.
+        // lisaaKotityolleVastuuhenkilo(valittuVastuuHenkilo);
+        // lisaaKotityolleAlustavaEdellinenSuoritus();
 
         if (uusikotityo != null && uusikotityo.getKotityoNimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
@@ -100,7 +108,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      */
     public void alusta() {
 
-        edits = new TextField[]{editNimi, editVanhenemisaika, editKesto};
+        edits = new TextField[]{editNimi};
         int i = 0;
         for (TextField edit : edits) {
             final int k = ++i;
@@ -122,9 +130,13 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
     }
 
 
+    /**
+     * Asettaa valintakursorin editNimikohtaan ja hakee suorituksenajoituskalenteriin oletusarvoksi taman paivan.
+     */
     @Override
     public void handleShown() {
         editNimi.requestFocus();
+        tehtyViimeksiKalenteri.setValue(LocalDate.now());
     }
 
 
@@ -148,7 +160,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      */
     private void naytaTiimi(Siivoustiimi oletustiimi) throws SailoException {
 
-
         Collection<Jasen> kaikkiJasenet = oletustiimi.etsiJasenet("%",1);
 
         for (Jasen jasen : kaikkiJasenet) {
@@ -165,17 +176,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
 
         String s = edit.getText();
         String virhe = null;
-        switch (k) {
-            case 1:
-                virhe = uusikotityo.setKotityonNimi(s);
-                break;
-            case 2:
-                virhe = uusikotityo.setVanhenemisaika(s);
-                break;
-            case 3:
-                virhe = uusikotityo.setKesto(s);
-                break;
-            default:
+        if (k == 1) {
+            virhe = uusikotityo.setKotityonNimi(s);
         }
                 if (virhe == null) {
                     Dialogs.setToolTipText(edit,"");
@@ -188,20 +190,14 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
                 }
         }
 
-    /**
-     * asetetaan lisättävälle kotityölle vastuuhenkilö kysymällä siivoustiimiltä vastuuhenkilön nimeä
-     * vastaava ID.
-     * @param vastuuhenkilo
-     */
-    public void lisaaKotityolleVastuuhenkilo(Jasen vastuuhenkilo) {
-            uusikotityo.setVastuuhenkilonID(vastuuhenkilo.getId());
-        }
 
     /**
-     * asetetaan lisättävälle kotityölle arvoksi käyttäjän kalenterista valitsema päivämäärä.
-     */
-    public void lisaaKotityolleAlustavaEdellinenSuoritus() {
+     * Asetetaan kotityolle uudet arvot, jotka haetaan comboboxeista.
+      */
+    public void asetaKotityolleUudetArvot() {
         uusikotityo.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
+        uusikotityo.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
+        uusikotityo.setKesto(selectKesto.getValue().getObject());
     }
 
 

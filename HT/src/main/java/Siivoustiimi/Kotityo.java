@@ -102,17 +102,13 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     }
 
 
-    public String setKesto (String uusiKesto) {
-        if (uusiKesto.isEmpty()) return "Kesto ei voi olla tyhjä";
-        if (!uusiKesto.matches(("[0-9]*"))) return "Keston on oltava numero";
-        this.kesto = Integer.parseInt(uusiKesto);
-        return null;
+    public void setKesto (int uusiKesto) {
+        this.kesto = uusiKesto;
     }
 
 
-    public String setVastuuhenkilonID(int uusiID) {
+    public void setVastuuhenkilonID(int uusiID) {
         this.vastuuhenkilonID = uusiID;
-        return null;
     }
 
 
