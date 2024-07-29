@@ -78,7 +78,8 @@ public class Suoritukset  {
 
        try (Connection con = kanta.annaKantayhteys();
             PreparedStatement sql = con.prepareStatement
-                    ("SELECT * FROM Suoritukset WHERE kotityoID = ?")
+                    ("SELECT * FROM Suoritukset WHERE kotityoID = ?" +
+                            "ORDER BY suoritusPvm DESC")
             ) {
            sql.setInt(1, kotityoID);
            try (ResultSet tulokset = sql.executeQuery() ) {

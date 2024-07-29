@@ -1,6 +1,5 @@
 package Siivoustiimi.test;
 import Siivoustiimi.*;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -34,7 +33,7 @@ public class SuoritusTest {
     assertEquals(true, suoritus1.toString().startsWith("1|30|"));
     assertEquals(30, suoritus1.getsuoritusAika());
     LocalDate expected = LocalDate.of(2024,1,22);
-    assertEquals(expected,suoritus1.getViimeisinSuoritus());
+    assertEquals(expected,suoritus1.getSuoritusPvm());
     assertEquals(1, suoritus1.getKotityoID());
     assertEquals(1, suoritus1.getSuorittajaID());
 
@@ -61,7 +60,7 @@ public class SuoritusTest {
     assertEquals(20, suoritus1.getsuoritusAika());
 
     LocalDate expected = LocalDate.of(2024,1,22);
-    assertEquals(expected, suoritus1.getViimeisinSuoritus());
+    assertEquals(expected, suoritus1.getSuoritusPvm());
     assertEquals(2, suoritus1.getKotityoID());
     assertEquals(3, suoritus1.getSuorittajaID());
 

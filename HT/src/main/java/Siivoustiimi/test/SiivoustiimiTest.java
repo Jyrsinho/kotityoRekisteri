@@ -4,6 +4,7 @@ package Siivoustiimi.test;
 import Siivoustiimi.Jasen;
 import Siivoustiimi.Kotityo;
 import Siivoustiimi.Siivoustiimi;
+import Siivoustiimi.Suoritus;
 import Siivoustiimi.SailoException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SiivoustiimiTest {
 
@@ -79,6 +81,21 @@ public class SiivoustiimiTest {
         testitiimi.poistaKotityo(imurointi1);
         loytyneetKotityot = testitiimi.annaKaikkiKotityot();
         assertEquals(1,loytyneetKotityot.size());
+    }
+
+    @Test
+    public void testinPitaisiPaivittaaKotityonViimeisinSuoritus() throws SailoException, SQLException {
+        testitiimi.lisaa(imurointi1);
+        imurointi1.setVanhenemisaika(7);
+        imurointi1.setViimeisinSuoritus(LocalDate.now().minusDays(8));
+        assertTrue(imurointi1.suoritusOnVanhentunut());
+
+        Suoritus suoritus = new Suoritus();
+        suoritus.setTekoaika(LocalDate.now());
+
+        testitiimi.paivitaKotityonViimeisinSuoritus(imurointi1.getKotityoID());
+        assertFalse(imurointi1.suoritusOnVanhentunut());
+
     }
 
 }

@@ -9,8 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -130,7 +131,22 @@ public class SuorituksetTest {
     assertEquals(0, loytyneet.size());
   }
 
+  @Test
+  public void testPitaisiPalauttaaSuorituksetKronologisessaJarjestyksessa() throws SailoException {
+    suoritus1.taytaSuoritus(1,1);
+    LocalDate suoritus1Aika= LocalDate.of(2020,1,1);
+    suoritus1.setTekoaika(suoritus1Aika);
+    suoritukset.lisaa(suoritus1);
 
+
+    suoritus2.taytaSuoritus(2,1);
+    LocalDate suoritus2Aika= LocalDate.of(2024,2,2);
+    suoritus2.setTekoaika(suoritus2Aika);
+    suoritukset.lisaa(suoritus2);
+
+    ArrayList<Suoritus> loytyneet = suoritukset.annaSuoritukset(1);
+    assertEquals(suoritus2Aika, loytyneet.getFirst().getSuoritusPvm());
+  }
 
 
 }

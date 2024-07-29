@@ -128,6 +128,21 @@ public class Siivoustiimi {
         suoritukset = new Suoritukset(nimi);
     }
 
+    /**
+     * Paivittaa annetun kotityon viimeisimmaksi suoritukseksi tietokannasta loydetun
+     * suorituksen, joka on kronologisesti uusin.
+     */
+    public void paivitaKotityonViimeisinSuoritus(int muutettavanKotityonID) throws SailoException, SQLException {
+        // Hae kaikki paivitettavan kotityon suoritukset
+        annaSuoritukset(muutettavanKotityonID);
+
+        // Tarkista mikä niistä on ajallisesti uusin.
+
+        // Aseta se paivitettavan kotityon viimeisimmaksi suoritukseksi.
+
+        // Kotityo-luokkaan pitaa tehda SQL lauseen antava annaPaivitysLause() metodi.
+    }
+
 
 
     /**

@@ -163,22 +163,7 @@ public class lisaaSuoritusGUIController implements ModalControllerInterface<Suor
         uusiSuoritus.setTekoaika(kalenteriValinta.getValue());
         uusiSuoritus.setSuorittajaID(tekijaValinta.getValue().getObject().getId());
         uusiSuoritus.setKesto(kestoValinta.getValue().getObject());
-        tarkistaOnkoViimeisinSuoritus();
 
-    }
-
-    /**
-     * vertaillaan suoritusta koskevan kotityön nykyistä viimeisintä suoritusta tässä ikkunassa
-     * asetettavan suorituksen suorituspäivämäärään. Jos tässä ikkunassa asetettava arvo on myöhemmin
-     * kuin suoritusta koskevan kotityön viimeisin suoritus, tulee tässä ikkunassa asetettavasta viimeisimmästä
-     * suorituksesta tätä suoritusta koskevan kotityön viimeisin suoritus.
-     */
-    private void tarkistaOnkoViimeisinSuoritus() {
-        int vertailu = kalenteriValinta.getValue().compareTo(kotityoValinta.getValue().getObject().getViimeisinSuoritus());
-
-        if (vertailu > 0) {
-            kotityoValinta.getValue().getObject().setViimeisinSuoritus(kalenteriValinta.getValue());
-        }
     }
 
 

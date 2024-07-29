@@ -119,7 +119,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
      * @param event tapahtuma suorituksen lisays nappulan painamiselle.
      */
     @FXML
-    void lisaaSuoritusKlikkaus(MouseEvent event) throws SailoException {
+    void lisaaSuoritusKlikkaus(MouseEvent event) throws SailoException, SQLException {
         uusiSuoritus();
     }
 
@@ -396,13 +396,15 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     /**
      * Luo uuden suorituksen
      */
-    private void uusiSuoritus() throws SailoException {
+    private void uusiSuoritus() throws SailoException, SQLException {
 
         Suoritus suoritus = new Suoritus();
         suoritus = lisaaSuoritusGUIController.kysySuoritus(null, suoritus, siivoustiimi);
         if (suoritus == null) return;
-        //suoritus.rekisteroiSuoritus();
         siivoustiimi.lisaa(suoritus);
+
+        int muutettavanKotityonID = suoritus.getKotityoID();
+        siivoustiimi.paivitaKotityonViimeisinSuoritus(muutettavanKotityonID);
     }
 
 

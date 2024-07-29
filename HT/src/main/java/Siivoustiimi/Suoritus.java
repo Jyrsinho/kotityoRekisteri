@@ -84,7 +84,7 @@ public class Suoritus implements DateFormatterProvider {
      *
      * @return Palauttaa viimeisimmän suorituksen päivämäärän merkkijonona.
      */
-    public LocalDate getViimeisinSuoritus() {
+    public LocalDate getSuoritusPvm() {
         return suoritusPvm;
     }
 
@@ -281,7 +281,7 @@ public class Suoritus implements DateFormatterProvider {
     public String toString() {
         return  getSuoritusID()             +"|"+
                 getsuoritusAika()           +"|"+
-                getViimeisinSuoritus() +"|"+
+                getSuoritusPvm() +"|"+
                 getKotityoID()              +"|"+
                 getSuorittajaID()           +"|";
     }
