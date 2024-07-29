@@ -411,7 +411,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         Suoritus suoritus = new Suoritus();
         suoritus = lisaaSuoritusGUIController.kysySuoritus(null, suoritus, siivoustiimi);
         if (suoritus == null) return;
-        suoritus.rekisteroiSuoritus();
+        //suoritus.rekisteroiSuoritus();
         siivoustiimi.lisaa(suoritus);
         haeJasenenKotityot(jasenKohdalla);
     }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -41,6 +42,22 @@ public class SuorituksetTest {
   public void siivoa() {
     ftied.delete();
   }
+
+
+  @Test
+  public void testinPitaisiRekisteroidaUudetSuoritukset() throws SailoException {
+
+    suoritus1.taytaSuoritus(1,1);
+    suoritukset.lisaa(suoritus1);
+    assertEquals(1,suoritus1.getSuoritusID());
+
+    suoritus2.taytaSuoritus(1,1);
+    suoritukset.lisaa(suoritus2);
+    assertEquals(2,suoritus2.getSuoritusID());
+
+
+  }
+
 
   @Test
   public void testPitaisiLisataSuorituksia() throws SailoException {

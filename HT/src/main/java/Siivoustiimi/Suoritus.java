@@ -31,7 +31,7 @@ public class Suoritus implements DateFormatterProvider {
     private int kotityoID;
     private int suorittajaID;
 
-    private static int seuraavaSuoritusNro = 1;
+
 
     /**
      * Alustetaan suoritus oletusarvoille.
@@ -117,12 +117,13 @@ public class Suoritus implements DateFormatterProvider {
 
 
     /**
-     *
-     * @param kesto
+     * Asettaa suoritukselle kestoajann
+     * @param kesto kauanko suoritus kesti ajallisesti
      */
     public void setKesto (int kesto) {
         this.suoritusAika = kesto;
     }
+
 
     /**
      * formatoi Suorituspaivamaaran LocalDate esityksen merkkijonoksi
@@ -131,6 +132,7 @@ public class Suoritus implements DateFormatterProvider {
     public String getSuoritusPvmString() {
         return formatDate(suoritusPvm);
     }
+
 
     /**
      * formatoi Suorituspaivamaaran merkkijono esityksen Local Date arvoksi
@@ -142,12 +144,21 @@ public class Suoritus implements DateFormatterProvider {
 
 
     /**
+     * Asettaa suoritusId:n
+     * @param nro asetettava suoritusID
+     */
+    private void setSuoritusID(int nro) {
+        this.suoritusID = nro;
+    }
+
+
+    /**
      * Antaa tietokannan luontilausekkeen suoritustaululle
      * @return suoritustaulun luontilauseke
      */
     public String annaLuontiLauseke() {
         return "CREATE TABLE Suoritukset (" +
-                "suoritusID INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                "suoritusID INTEGER NOT NULL PRIMARY KEY , " +
                 "suoritusAika INTEGER, " +
                 "suoritusPvm VARCHAR(100), " +
                 "kotityoID INTEGER, " +
@@ -166,16 +177,15 @@ public class Suoritus implements DateFormatterProvider {
     */
     public PreparedStatement annaLisayslauseke (Connection con) throws SQLException {
         PreparedStatement sql = con.prepareStatement(
-                "INSERT INTO Suoritukset (suoritusID, suoritusAika, suoritusPvm," +
-                    "kotityoID, suorittajaID) VALUES (?,?,?,?,?)");
+                "INSERT INTO Suoritukset (suoritusAika, suoritusPvm," +
+                    "kotityoID, suorittajaID) VALUES (?,?,?,?)");
 
-        if (suoritusID != 0) sql.setInt(1, suoritusID);
-        else sql.setString(1, null);
-        sql.setInt(2, suoritusAika);
+
+        sql.setInt(1, suoritusAika);
         String dateString = formatDate(suoritusPvm);
-        sql.setString(3, dateString);
-        sql.setInt(4, kotityoID);
-        sql.setInt(5, suorittajaID);
+        sql.setString(2, dateString);
+        sql.setInt(3, kotityoID);
+        sql.setInt(4, suorittajaID);
 
         return sql;
     }
@@ -205,17 +215,6 @@ public class Suoritus implements DateFormatterProvider {
         int id = rs.getInt(1);
         if (id == suoritusID) return;
         setSuoritusID(id);
-    }
-
-
-    /**
-     * Antaa suoritukselle seuraavan tunnusnumeron.
-     * @return suorituksen uusi tunnusnumero
-     */
-    public int  rekisteroiSuoritus() {
-        this.suoritusID= seuraavaSuoritusNro;
-        seuraavaSuoritusNro ++;
-        return this.suoritusID;
     }
 
 
@@ -266,17 +265,6 @@ public class Suoritus implements DateFormatterProvider {
 
 
     /**
-     * Asettaa suoritusId:n ja samalla varmistaa että
-     * seuraava Suoritusnumero on aina suurempi kuin tähän mennessä suurin.
-     * @param nro asetettava suoritusID
-     */
-    private void setSuoritusID(int nro) {
-        this.suoritusID = nro;
-        if (suoritusID >= seuraavaSuoritusNro) seuraavaSuoritusNro = suoritusID +1;
-    }
-
-
-    /**
      * Tulostetaan suorituksen tiedot
      * @param out tietovirta johon tulostetaan
      */
@@ -315,25 +303,6 @@ public class Suoritus implements DateFormatterProvider {
      * @param args ei käytössä.
      */
     public static void main (String args[]) {
-
-
-        Suoritus suoritus1 = new Suoritus();
-        Suoritus suoritus2 = new Suoritus();
-        suoritus1.rekisteroiSuoritus();
-        suoritus2.rekisteroiSuoritus();
-
-        suoritus1.tulosta(System.out);
-        System.out.println();
-
-        suoritus2.tulosta(System.out);
-        System.out.println();
-
-        suoritus1.taytaSuoritus(1,2);
-        suoritus1.tulosta(System.out);
-        System.out.println();
-
-        suoritus2.taytaSuoritus(2,1);
-        suoritus2.tulosta(System.out);
 
 
     }
