@@ -181,7 +181,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
     @FXML
     void menuklikkaaTAllenna(ActionEvent event) {
-        tallenna();
+
     }
 
     @FXML
@@ -254,16 +254,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             throw new RuntimeException(e);
         }
 
-    }
-
-
-    private void tallenna() {
-        try {
-            siivoustiimi.tallenna();
-        } catch (SailoException ex) {
-            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-            ex.getMessage();
-        }
     }
 
 
@@ -413,7 +403,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (suoritus == null) return;
         //suoritus.rekisteroiSuoritus();
         siivoustiimi.lisaa(suoritus);
-        haeJasenenKotityot(jasenKohdalla);
     }
 
 

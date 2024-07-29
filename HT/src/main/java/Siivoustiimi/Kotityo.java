@@ -152,7 +152,6 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     /**
      * Tarkistaa onko kotityön edellinen suoritus vanhentunut
      * @return true jos suoritus on vanhentunut, false jos ei ole vanhentunut.
-     * TODO TESTIT: selvitettävä miten testataan metodia, joka on riippuvainen nykyisestä päivämäärästä. Tällä hetkellä testataan pääohjelmassa.
      */
     public boolean suoritusOnVanhentunut() {
 

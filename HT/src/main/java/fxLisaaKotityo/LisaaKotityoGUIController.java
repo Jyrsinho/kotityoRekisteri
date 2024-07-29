@@ -74,11 +74,6 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
             return;
         }
 
-        try {
-            siivoustiimi.tallenna();
-        } catch (SailoException ex) {
-            Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
-        }
         ModalController.closeStage(labelVirhe);
 
     }
@@ -222,6 +217,7 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
         uusikotityo.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
         uusikotityo.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
         uusikotityo.setKesto(selectKesto.getValue().getObject());
+        uusikotityo.setVanhenemisaika(selectVanhenemisaika.getValue().getObject());
     }
 
 

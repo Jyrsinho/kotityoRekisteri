@@ -129,15 +129,6 @@ public class Siivoustiimi {
     }
 
 
-    /**
-     * Tallentaa kerhon tiedot tiedostoon.
-     * Tassa tietokantaversiossa ei tarvitse tehda mitaan
-     * @throws SailoException jos tallettamisessa ongelmia, nyt ei siis kaytannossa heita koskaan
-     */
-    public void tallenna() throws SailoException {
-        return;
-    }
-
 
     /**
      * testiohjelma

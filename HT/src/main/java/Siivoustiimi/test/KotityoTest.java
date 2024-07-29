@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
@@ -82,11 +81,21 @@ public class KotityoTest {
     kotityo.taytaKotityo(1);
     kotityo.setVanhenemisaika(5);
 
-    kotityo.setViimeisinSuoritus(LocalDate.now().minusDays(7));
+    kotityo.setViimeisinSuoritus(LocalDate.now().minusDays(5));
 
     assertTrue(kotityo.suoritusOnVanhentunut());
 
+  }
 
+  @Test
+  public void testinPitaisiArvioidaKotityonSuoritusEiVanhentuneeksi() {
+    Kotityo kotityo = new Kotityo();
+    kotityo.taytaKotityo(1);
+    kotityo.setVanhenemisaika(5);
+
+    kotityo.setViimeisinSuoritus(LocalDate.now().minusDays(4));
+
+    assertFalse(kotityo.suoritusOnVanhentunut());
   }
 
 
