@@ -370,7 +370,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             Jasen uusi = new Jasen();
             uusi = MuokkaaJasenGUIController.kysyJasen(null, uusi, siivoustiimi);
             if (uusi == null) return;
-            uusi.rekisteroi();
             siivoustiimi.lisaa(uusi);
             hae();
         } catch (SailoException e) {

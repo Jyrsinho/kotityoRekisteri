@@ -53,7 +53,19 @@ public class JasenetTest {
 
 
     @Test
-    public void shouldAddMembersToTable() throws SailoException {
+    public void testinPitaisiRekisteroidaUudetJasenet() throws SailoException {
+        jasenet.lisaa(timo1);
+        assertEquals(1, timo1.getId());
+
+        jasenet.lisaa(timo2);
+        assertEquals(2, timo2.getId());
+
+    }
+
+
+
+    @Test
+    public void testinPitaisiLisataJaseniaLuokkaan() throws SailoException {
 
         Collection<Jasen> loytyneet = jasenet.etsi("", 1);
         assertEquals(0, loytyneet.size());

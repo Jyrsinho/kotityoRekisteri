@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 
 import static kanta.RandomNumero.arvoNumero;
@@ -35,8 +34,6 @@ public class Jasen implements Cloneable {
    private String kaupunki;
    private String puhelinNumero;
    private int ika;
-
-   private static int seuraavaNro    = 1;
 
     /**
      * @return jasenen etunimi
@@ -97,7 +94,6 @@ public class Jasen implements Cloneable {
 
     public void setId(int numero) {
         this.id = numero;
-        if (id >= seuraavaNro) seuraavaNro = id+1;
     }
 
 
@@ -237,17 +233,6 @@ public class Jasen implements Cloneable {
 
 
     /**
-     * Antaa jäsenelle seuraavan Id:n.
-     */
-   public int rekisteroi() {
-       this.id= seuraavaNro;
-       seuraavaNro ++;
-       return this.id;
-   }
-
-
-
-    /**
      * Selvittää jäsenen tiedot | erotellusta merkkijonosta
      * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusNro.
      * @param s rivi josta jäsenen tiedot otetaan
@@ -380,23 +365,6 @@ public class Jasen implements Cloneable {
      */
     public static void main (String[] args) {
 
-    Jasen timo = new Jasen();
-    Jasen timo2 = new Jasen();
-    timo.rekisteroi();
-    timo2.rekisteroi();
-
-    timo.tulosta(System.out);
-    System.out.println();
-
-    timo2.tulosta(System.out);
-    System.out.println();
-
-    timo.taytaJasen();
-    timo.tulosta(System.out);
-    System.out.println();
-
-    timo2.taytaJasen();
-    timo2.tulosta(System.out);
 
 
 }
