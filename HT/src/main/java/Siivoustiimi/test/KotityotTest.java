@@ -119,7 +119,6 @@ public class KotityotTest {
 
         Kotityo imurointi1 = new Kotityo();
         imurointi1.taytaKotityo(1);
-        imurointi1.rekisteroi();
         kotityot.lisaa(imurointi1);
 
         imurointi1.setVanhenemisaika(7);

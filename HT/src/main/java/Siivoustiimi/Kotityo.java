@@ -28,8 +28,6 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     private LocalDate viimeisinSuoritus = LocalDate.now();
     private int vastuuhenkilonID;
 
-    private static int seuraavaKotityoNro    = 1;
-
 
     /**
      * Alustetaan kotityo oletusarvoille
@@ -114,6 +112,15 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     }
 
 
+    /**
+     * Asettaa kotityöId:n
+     * @param nr asetettava kotityöId
+     */
+    private void setKotityoID(int nr) {
+        this.kotityoId = nr;
+    }
+
+
     public Kotityo clone() throws CloneNotSupportedException {
         Kotityo uusi;
         uusi = (Kotityo) super.clone();
@@ -137,16 +144,6 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
         this.viimeisinSuoritus = parseDate(dateString);
     }
 
-
-    /**
-     * Antaa kotityolle seuraavan ID numeron.
-     * @return kotityon uusi kotityoID
-     */
-    public int  rekisteroi() {
-        this.kotityoId= seuraavaKotityoNro;
-        seuraavaKotityoNro ++;
-        return this.kotityoId;
-    }
 
 
     /**
@@ -190,15 +187,6 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     }
 
 
-     /**
-      * Asettaa kotityöId:n ja samalla varmistaa että
-      * seuraava numero on aina suurempi kuin tähän mennessä suurin.
-      * @param nr asetettava kotityöId
-      */
-    private void setKotityoID(int nr) {
-        this.kotityoId = nr;
-        if ( kotityoId >= seuraavaKotityoNro ) seuraavaKotityoNro = kotityoId + 1;
-    }
 
 
     /**
@@ -363,8 +351,6 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
 
         Kotityo imurointi = new Kotityo();
         Kotityo imurointi2 = new Kotityo();
-        imurointi.rekisteroi();
-        imurointi2.rekisteroi();
 
         imurointi.tulosta(System.out);
         System.out.println();

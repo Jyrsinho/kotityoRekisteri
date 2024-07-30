@@ -26,11 +26,6 @@ public class KotityoTest {
     kotityo.parse("1               |Imurointi                | 3                  | 20        | 2024-01-07           |    1|");
     assertEquals(1, kotityo.getKotityoID());
     assertEquals(true, kotityo.toString().startsWith("1|Imurointi|3|"));
-    kotityo.rekisteroi();
-    int n = kotityo.getKotityoID();
-    kotityo.parse("" + (n + 20));  // Otetaan merkkijonosta vain tunnusnumero
-    kotityo.rekisteroi();  // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
-    assertEquals(n + 20 + 1, kotityo.getKotityoID());
 
   }
 

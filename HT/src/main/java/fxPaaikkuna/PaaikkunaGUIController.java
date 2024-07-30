@@ -386,7 +386,6 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         Kotityo kottyo = new Kotityo();
         kottyo = LisaaKotityoGUIController.kysyKotityo(null, kottyo, siivoustiimi);
         if (kottyo == null) return;
-        kottyo.rekisteroi();
         siivoustiimi.lisaa(kottyo);
 
     }

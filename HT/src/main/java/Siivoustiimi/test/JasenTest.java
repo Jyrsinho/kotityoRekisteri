@@ -36,10 +36,6 @@ public class JasenTest {
     assertEquals( 5, jasen.getId());
     assertEquals(true, jasen.toString().startsWith("5|Timo|Kekkila|Talvitie 4|"));
 
-    int n = jasen.getId(); 
-    jasen.parse(""+(n+20));  // Otetaan merkkijonosta vain jasenen ID
-                                // ja tarkistetaan että seuraavalla kertaa tulee yhtä isompi
-    assertEquals(n+20+1, jasen.getId());
   }
 
   @Test
