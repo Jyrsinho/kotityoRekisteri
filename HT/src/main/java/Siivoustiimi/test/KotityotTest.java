@@ -40,6 +40,22 @@ public class KotityotTest {
         ftied.delete();
     }
 
+
+    @Test
+    public void testinPitaisiRekisteroidaUudetKotityot() throws SailoException {
+
+        Kotityo imuroiminen1 = new Kotityo();
+        imuroiminen1.taytaKotityo(1);
+        kotityot.lisaa(imuroiminen1);
+        assertEquals(1, imuroiminen1.getKotityoID());
+
+        Kotityo imuroiminen2 = new Kotityo();
+        imuroiminen2.taytaKotityo(1);
+        kotityot.lisaa(imuroiminen2);
+        assertEquals(2, imuroiminen2.getKotityoID());
+    }
+
+
     @Test
     public void testPitaisiLisataKotitoitaEriHenkiloille() throws SailoException {
         Collection<Kotityo> loytyneet = kotityot.annaKotityot(1);

@@ -21,18 +21,6 @@ public class KotityoTest {
 
 
   @Test
-  public void testinPitaisiLuodaTunnusNumerotUusilleKotitoille() {
-    Kotityo imurointi = new Kotityo();
-    assertEquals(0, imurointi.getKotityoID());
-    imurointi.rekisteroi();
-    Kotityo tiskaaminen = new Kotityo();
-    tiskaaminen.rekisteroi();
-    int n1 = imurointi.getKotityoID();
-    int n2 = tiskaaminen.getKotityoID();
-    assertEquals(n2 - 1, n1);
-  }
-
-  @Test
   public void testinPitaisParsiaUusiKotityoPystyviivoinErotellustaMerkkijonosta() {
     Kotityo kotityo = new Kotityo();
     kotityo.parse("1               |Imurointi                | 3                  | 20        | 2024-01-07           |    1|");
