@@ -297,8 +297,7 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     public PreparedStatement annaPaivitysLauseke(Connection con, int paivitettavanKotityonID, LocalDate uusiViimeisinSuoritus) throws SQLException {
 
         PreparedStatement sql = con.prepareStatement(
-                "UPDATE Kotityot SET viimeisinSuoritus = ? WHERE kotityoID = ? "
-        );
+                "UPDATE Kotityot SET viimeisinSuoritus = ? WHERE kotityoID = ? ");
         sql.setString(1, uusiViimeisinSuoritus.toString());
         sql.setInt(2, paivitettavanKotityonID);
 

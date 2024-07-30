@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,6 +100,12 @@ public class KotityotTest {
 
     @Test
     public void testinPitaisiPaivittaaKotityonViimeisinSuoritus() throws SailoException, SQLException {
+
+        Kotityo imurointi1 = new Kotityo();
+        imurointi1.taytaKotityo(1);
+        imurointi1.rekisteroi();
+        kotityot.lisaa(imurointi1);
+
         imurointi1.setVanhenemisaika(7);
         imurointi1.setViimeisinSuoritus(LocalDate.now().minusDays(8));
         assertTrue(imurointi1.suoritusOnVanhentunut());
@@ -108,7 +115,11 @@ public class KotityotTest {
         suoritus.setTekoaika(LocalDate.now());
 
         kotityot.paivita(imurointi1.getKotityoID(), suoritus.getSuoritusPvm());
-        assertFalse(imurointi1.suoritusOnVanhentunut());
+
+        imurointi1 = kotityot.annaKotityo(imurointi1.getKotityoID());
+
+        assertEquals(LocalDate.now(), imurointi1.getViimeisinSuoritus());
+
 
     }
 }

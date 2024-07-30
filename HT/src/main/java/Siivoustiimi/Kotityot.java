@@ -65,7 +65,7 @@ public class Kotityot {
      * @param paivitettavanKotityonID paivitettavan kotityon ID
      * @param viimeisinSuoritus pvm, joka asetetaan paivitettavan kotityon viimeisimmaksi suoritukseksi.
      */
-    public void paivita(int paivitettavanKotityonID, LocalDate viimeisinSuoritus) throws SailoException, SQLException {
+    public void paivita(int paivitettavanKotityonID, LocalDate viimeisinSuoritus) throws SailoException {
         // Luodaan apuKotityo DAO
         Kotityo DAOKotityo = new Kotityo();
 
@@ -121,6 +121,32 @@ public class Kotityot {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
         }
         return loydetyt;
+    }
+
+
+    /**
+     * Palauttaa tietokannasta annettua kotityoIDtä vastaavan olion
+     * @param kotityonID kotityoID
+     * @return kotityoIDtä vastaava olio tietokannasta
+     * @throws SailoException jos jotain menee pieleen
+     * @throws SQLException jos jotain menee pieleen
+     */
+    public Kotityo annaKotityo(int kotityonID) throws SailoException, SQLException {
+        Kotityo kotityo = new Kotityo();
+
+        try (Connection con = kanta.annaKantayhteys();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM Kotityot WHERE kotityoId = ?")
+        ){
+            sql.setInt(1, kotityonID);
+            try ( ResultSet tulokset = sql.executeQuery() )  {
+                while ( tulokset.next() ) {
+                    kotityo.parse(tulokset);
+                }
+            }
+        }catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan " + e.getMessage());
+        }
+        return kotityo;
     }
 
 
