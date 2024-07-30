@@ -148,10 +148,9 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML
-    void menuKlikkaaMuokkaaJasen(ActionEvent event) {
+    void menuKlikkaaMuokkaaJasen(ActionEvent event) throws SailoException {
 
-        //muokkaaJasen();
-        Dialogs.showMessageDialog("Vielä ei osata muokata jäsentä");
+        muokkaaJasen();
     }
 
     @FXML
@@ -376,6 +375,21 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
 
         }
+    }
+
+    /**
+     * Muokkaa jasenen tietoja
+     * @throws SailoException
+     */
+    private void muokkaaJasen () throws SailoException {
+
+        Jasen muokattava = listaJasenet.getSelectedObject();
+        muokattava = MuokkaaJasenGUIController.kysyJasen(null, muokattava, siivoustiimi);
+        if (muokattava == null) { return; }
+
+        siivoustiimi.paivitaJasen(muokattava);
+
+
     }
 
     /**

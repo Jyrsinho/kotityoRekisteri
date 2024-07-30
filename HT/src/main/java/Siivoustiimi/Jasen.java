@@ -188,6 +188,29 @@ public class Jasen implements Cloneable {
         return sql;
     }
 
+
+    /**
+     * Antaa jasenen paivityslauseen
+     * @param con tietokantayhteys
+     * @return jaesnen paivityslause
+     * @throws SQLException Jos lausekkeen luonnissa on ongelmia
+     */
+    public PreparedStatement annaPaivitysLauseke(Connection con) throws SQLException {
+        PreparedStatement sql = con.prepareStatement(
+                "UPDATE Jasenet SET sukunimi = ?, etunimi = ?, katuosoite = ?, postinumero = ?," +
+                        "kaupunki= ?, puhelinNumero =?, ika=? WHERE id = ?");
+        sql.setString(1, this.sukunimi);
+        sql.setString(2, this.etunimi);
+        sql.setString(3, this.katuosoite);
+        sql.setString(4, this.postinumero);
+        sql.setString(5, this.kaupunki);
+        sql.setInt(6, this.ika);
+        sql.setInt(7, this.id);
+
+        return sql;
+    }
+
+
     /**
      * ANtaa jasenen poistolausekkeen
      * @param con tietokantayhteys

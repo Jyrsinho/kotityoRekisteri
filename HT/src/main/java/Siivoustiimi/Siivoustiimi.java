@@ -73,6 +73,16 @@ public class Siivoustiimi {
 
 
     /**
+     * Kaskee jasenet luokan paivittaa jasenelle uudet arvot.
+     * @param muokattava
+     * @throws SailoException
+     */
+    public void paivitaJasen(Jasen muokattava) throws SailoException {
+        jasenet.paivita(muokattava);
+    }
+
+
+    /**
      * Palauttaa jasenet listassa
      * @param hakuehto hakuehto
      * @param k etsittavan kentan indeksi

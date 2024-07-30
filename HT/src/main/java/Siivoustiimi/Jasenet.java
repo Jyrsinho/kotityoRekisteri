@@ -5,6 +5,7 @@ import static Siivoustiimi.Kanta.alustaKanta;
 
 import java.io.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -64,6 +65,20 @@ public class Jasenet  {
                 jasen.tarkistaId(rs);
             }
 
+        } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
+        }
+    }
+
+    /**
+     * Paivittaa jsenen tiedot
+     * @param jasen, jonka tiedot paivitettaan
+     * @throws SailoException
+     */
+    public void paivita(Jasen jasen) throws SailoException {
+        try (Connection con = kanta.annaKantayhteys();
+        PreparedStatement sql = jasen.annaPaivitysLauseke(con) ) {
+            sql.executeUpdate();
         } catch (SQLException e) {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
         }
