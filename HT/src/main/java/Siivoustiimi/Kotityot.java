@@ -2,6 +2,7 @@ package Siivoustiimi;
 
 import java.io.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 import static Siivoustiimi.Kanta.alustaKanta;
@@ -57,6 +58,27 @@ public class Kotityot {
             throw new SailoException("Ongelmia tietokannan kanssa:" + e.getMessage());
         }
     }
+
+
+    /**
+     * Paivittaa kotityo taulukon arvoja
+     * @param paivitettavanKotityonID paivitettavan kotityon ID
+     * @param viimeisinSuoritus pvm, joka asetetaan paivitettavan kotityon viimeisimmaksi suoritukseksi.
+     */
+    public void paivita(int paivitettavanKotityonID, LocalDate viimeisinSuoritus) throws SailoException, SQLException {
+        // Luodaan apuKotityo DAO
+        Kotityo DAOKotityo = new Kotityo();
+
+        // Käsketään sitä yrittää luoda päivityslause, joka päivittää Kotityot taulukkoon paivitettavalle kotityolle
+        // parametrina annetun päivämäärän viimeisimmäksi SUoritukseksi.
+        try (Connection con = kanta.annaKantayhteys();
+            PreparedStatement sql = DAOKotityo.annaPaivitysLauseke(con, paivitettavanKotityonID, viimeisinSuoritus) ) {
+            sql.executeUpdate();
+        } catch (SQLException e) {
+            throw new SailoException("Ongelmia tietokannan kanssa" + e.getMessage());
+        }
+    }
+
 
     /**
      * Poistaa kotityon siivoustiimista

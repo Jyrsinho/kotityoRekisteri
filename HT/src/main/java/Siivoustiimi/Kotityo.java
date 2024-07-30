@@ -270,23 +270,42 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
      * @throws SQLException Jos lausekkeen luonnissa on ongelmia
      */
     public PreparedStatement annaLisayslauseke(Connection con) throws SQLException {
-                PreparedStatement sql = con.prepareStatement(
-                                 "INSERT INTO Kotityot (kotityoId, kotityoNimi, vanhenemisaika, " +
-                                       "kesto, viimeisinSuoritus, vastuuhenkilonID) VALUES (?, ?, ?, ?, ?, ?)");
 
-                // Syötetään kentät näin välttääksemme SQL injektiot.
-                // Käyttäjän syötteitä ei ikinä vain kirjoiteta kysely
-                // merkkijonoon tarkistamatta niitä SQL injektioiden varalta!
-                if ( kotityoId != 0 ) sql.setInt(1, kotityoId); else sql.setString(1, null);
-                sql.setString(2, kotityoNimi);
-                sql.setInt(3, vanhenemisaika);
-                sql.setInt(4, kesto);
-                String dateString = formatDate(viimeisinSuoritus);
-                sql.setString(5, dateString);
-                sql.setInt(6, vastuuhenkilonID);
+        PreparedStatement sql = con.prepareStatement(
+                "INSERT INTO Kotityot (kotityoId, kotityoNimi, vanhenemisaika, " +
+                        "kesto, viimeisinSuoritus, vastuuhenkilonID) VALUES (?, ?, ?, ?, ?, ?)");
+        // Syötetään kentät näin välttääksemme SQL injektiot.
+        // Käyttäjän syötteitä ei ikinä vain kirjoiteta kysely
+        // merkkijonoon tarkistamatta niitä SQL injektioiden varalta!
+        if ( kotityoId != 0 ) sql.setInt(1, kotityoId); else sql.setString(1, null);
+        sql.setString(2, kotityoNimi);
+        sql.setInt(3, vanhenemisaika);
+        sql.setInt(4, kesto);
+        String dateString = formatDate(viimeisinSuoritus);
+        sql.setString(5, dateString);
+        sql.setInt(6, vastuuhenkilonID);
+        return sql;
+    }
 
-                return sql;
-            }
+
+    /**
+     * Antaa kotityon paivityslausekkeen
+      * @param con tietokantayhteys
+     * @return kotityon paivityslauseke
+     * @throws SQLException jos lausekkeen luonnissa on ongelmia
+     */
+    public PreparedStatement annaPaivitysLauseke(Connection con, int paivitettavanKotityonID, LocalDate uusiViimeisinSuoritus) throws SQLException {
+
+        PreparedStatement sql = con.prepareStatement(
+                "UPDATE Kotityot SET viimeisinSuoritus = ? WHERE kotityoID = ? "
+        );
+        sql.setString(1, uusiViimeisinSuoritus.toString());
+        sql.setInt(2, paivitettavanKotityonID);
+
+        return sql;
+
+    }
+
 
     /**
      * Antaa kotityon poistolausekkeen

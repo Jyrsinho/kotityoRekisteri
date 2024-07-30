@@ -6,9 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class KotityotTest {
@@ -92,6 +94,21 @@ public class KotityotTest {
         kotityot.poistaKotityo(imurointi1);
         loytyneet = kotityot.annaKotityot(1);
         assertEquals(0, loytyneet.size());
+
+    }
+
+    @Test
+    public void testinPitaisiPaivittaaKotityonViimeisinSuoritus() throws SailoException, SQLException {
+        imurointi1.setVanhenemisaika(7);
+        imurointi1.setViimeisinSuoritus(LocalDate.now().minusDays(8));
+        assertTrue(imurointi1.suoritusOnVanhentunut());
+
+        Suoritus suoritus = new Suoritus();
+        suoritus.taytaSuoritus(1, imurointi1.getKotityoID());
+        suoritus.setTekoaika(LocalDate.now());
+
+        kotityot.paivita(imurointi1.getKotityoID(), suoritus.getSuoritusPvm());
+        assertFalse(imurointi1.suoritusOnVanhentunut());
 
     }
 }

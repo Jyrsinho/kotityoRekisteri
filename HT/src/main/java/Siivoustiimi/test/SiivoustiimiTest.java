@@ -83,20 +83,4 @@ public class SiivoustiimiTest {
         assertEquals(1,loytyneetKotityot.size());
     }
 
-    @Test
-    public void testinPitaisiPaivittaaKotityonViimeisinSuoritus() throws SailoException, SQLException {
-        testitiimi.lisaa(imurointi1);
-        imurointi1.setVanhenemisaika(7);
-        imurointi1.setViimeisinSuoritus(LocalDate.now().minusDays(8));
-        assertTrue(imurointi1.suoritusOnVanhentunut());
-
-        Suoritus suoritus = new Suoritus();
-        suoritus.taytaSuoritus(1, imurointi1.getKotityoID());
-        suoritus.setTekoaika(LocalDate.now());
-
-        testitiimi.paivitaKotityonViimeisinSuoritus(imurointi1.getKotityoID());
-        assertFalse(imurointi1.suoritusOnVanhentunut());
-
-    }
-
 }

@@ -129,7 +129,7 @@ public class Siivoustiimi {
 
         // Käsketään kotityöt- luokkaa päivittämään kotityo, jolla on annettu ID, viimeisimman Suorituksen
         // suorituksen ajalla.
-        kotityot.paivita(paivitettevanKotityonID, viimeisinSuoritus.getsuoritusAika());
+        kotityot.paivita(paivitettevanKotityonID, viimeisinSuoritus.getSuoritusPvm());
 
     }
 
