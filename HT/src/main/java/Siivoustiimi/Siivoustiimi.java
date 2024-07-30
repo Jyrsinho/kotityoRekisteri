@@ -117,6 +117,24 @@ public class Siivoustiimi {
 
 
     /**
+     * Paivittaa annetun kotityon viimeisimmaksi suoritukseksi tietokannasta loydetun
+     * suorituksen, joka on kronologisesti uusin.
+     */
+    public void paivitaKotityonViimeisinSuoritus(int paivitettevanKotityonID) throws SailoException, SQLException {
+        // Hae kaikki paivitettavan kotityon suoritukset. annaSuoritukset metodi palauttaa
+        // Suoritukset kronologisessa jarjestyksessä, joten uusin Suoritus on ArrayListin
+        // indeksissä 0.
+        ArrayList<Suoritus> muutettavanKotityonSuoritukset = annaSuoritukset(paivitettevanKotityonID);
+        Suoritus viimeisinSuoritus = muutettavanKotityonSuoritukset.getFirst();
+
+        // Käsketään kotityöt- luokkaa päivittämään kotityo, jolla on annettu ID, viimeisimman Suorituksen
+        // suorituksen ajalla.
+        kotityot.paivita(paivitettevanKotityonID, viimeisinSuoritus.getsuoritusAika());
+
+    }
+
+
+    /**
      * Luo tietokannan. Jos annettu tiedosto on jo olemassa ja
      * sisaltaa tarvitut taulut, ei luoda mitaan
      * @param nimi tietokannan nimi
@@ -127,22 +145,6 @@ public class Siivoustiimi {
         kotityot = new Kotityot(nimi);
         suoritukset = new Suoritukset(nimi);
     }
-
-    /**
-     * Paivittaa annetun kotityon viimeisimmaksi suoritukseksi tietokannasta loydetun
-     * suorituksen, joka on kronologisesti uusin.
-     */
-    public void paivitaKotityonViimeisinSuoritus(int muutettavanKotityonID) throws SailoException, SQLException {
-        // Hae kaikki paivitettavan kotityon suoritukset
-        annaSuoritukset(muutettavanKotityonID);
-
-        // Tarkista mikä niistä on ajallisesti uusin.
-
-        // Aseta se paivitettavan kotityon viimeisimmaksi suoritukseksi.
-
-        // Kotityo-luokkaan pitaa tehda SQL lauseen antava annaPaivitysLause() metodi.
-    }
-
 
 
     /**

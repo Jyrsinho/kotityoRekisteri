@@ -73,6 +73,7 @@ public class Kotityot {
     }
 
 
+
     /**
      * Haetaan kaikki jasenen kotityot
      * @param vastuuhenkilonID jasenen tunnusnumero jonka perusteella kotitoita haetaan

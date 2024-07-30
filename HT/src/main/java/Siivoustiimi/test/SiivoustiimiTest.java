@@ -91,6 +91,7 @@ public class SiivoustiimiTest {
         assertTrue(imurointi1.suoritusOnVanhentunut());
 
         Suoritus suoritus = new Suoritus();
+        suoritus.taytaSuoritus(1, imurointi1.getKotityoID());
         suoritus.setTekoaika(LocalDate.now());
 
         testitiimi.paivitaKotityonViimeisinSuoritus(imurointi1.getKotityoID());
