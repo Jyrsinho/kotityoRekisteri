@@ -389,6 +389,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         siivoustiimi.paivitaJasen(muokattava);
 
+        hae();
 
     }
 
@@ -447,8 +448,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         siivoustiimi.poistaKotityo(kotityo);
         haeJasenenKotityot(jasenKohdalla);
 
-
     }
+
 }
 
 
