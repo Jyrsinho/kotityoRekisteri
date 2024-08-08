@@ -50,7 +50,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
      */
     @FXML
     void klikkaaCancel(MouseEvent event) {
-        uusikotityo = null;
+        kotityoKohdalla = null;
         ModalController.closeStage(buttonCancel);
     }
 
@@ -65,11 +65,11 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
         asetaKotityolleUudetArvot();
 
-        if (uusikotityo != null && uusikotityo.getKotityoNimi().trim().equals("")) {
+        if (kotityoKohdalla != null && kotityoKohdalla.getKotityoNimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
             return;
         }
-        else if (uusikotityo != null && uusikotityo.getViimeisinSuoritus() == null) {
+        else if (kotityoKohdalla != null && kotityoKohdalla.getViimeisinSuoritus() == null) {
             naytaVirhe("Kalenterista on valittava arvo");
             return;
         }
@@ -84,7 +84,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
     private Siivoustiimi siivoustiimi;
     private TextField edits[];
-    private Kotityo uusikotityo;
+    private Kotityo kotityoKohdalla;
     private final int[] kestovaihtoehdot = {5,10,15,30,60};
     private final int[] vanhenemisaikaVaihtoehdot = {1,2,3,5,7,15,30,60,180};
 
@@ -117,13 +117,14 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
     @Override
     public Kotityo getResult() {
-        return uusikotityo;
+        return kotityoKohdalla;
     }
 
 
     @Override
     public void setDefault(Kotityo oletus) {
-        uusikotityo = oletus;
+        kotityoKohdalla = oletus;
+        naytaKotityo(oletus);
     }
 
 
@@ -135,6 +136,34 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
         editNimi.requestFocus();
         tehtyViimeksiKalenteri.setValue(LocalDate.now());
     }
+
+    public void naytaKotityo(Kotityo kotityo) {
+        if (kotityo == null) return;
+
+        editNimi.setText(kotityo.getKotityoNimi());
+        tehtyViimeksiKalenteri.setValue(kotityo.getViimeisinSuoritus());
+
+    }
+  /*
+    public void naytaJasen(Jasen jasen) {
+
+        if (jasen == null) return;
+
+        editEtunimi.setText(jasen.getEtunimi());
+        editSukunimi.setText(jasen.getSukunimi());
+        editKaupunki.setText(jasen.getKaupunki());
+        editPostinumero.setText(jasen.getPostinumero());
+        editOsoite.setText(jasen.getKatuosoite());
+        if (jasen.getIka()==0) {
+            editIka.setText("");
+        }
+        else {
+            editIka.setText(String.valueOf(jasen.getIka()));
+        }
+        editPuhelin.setText(jasen.getPuhelin());
+    }
+
+   */
 
 
     /**
@@ -191,12 +220,12 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
      */
 
     private void kasitteleMuutosKotityohon(int k, TextField edit) {
-        if (uusikotityo == null) return;
+        if (kotityoKohdalla == null) return;
 
         String s = edit.getText();
         String virhe = null;
         if (k == 1) {
-            virhe = uusikotityo.setKotityonNimi(s);
+            virhe = kotityoKohdalla.setKotityonNimi(s);
         }
                 if (virhe == null) {
                     Dialogs.setToolTipText(edit,"");
@@ -214,10 +243,10 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
      * Asetetaan kotityolle uudet arvot, jotka haetaan comboboxeista.
       */
     public void asetaKotityolleUudetArvot() {
-        uusikotityo.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
-        uusikotityo.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
-        uusikotityo.setKesto(selectKesto.getValue().getObject());
-        uusikotityo.setVanhenemisaika(selectVanhenemisaika.getValue().getObject());
+        kotityoKohdalla.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
+        kotityoKohdalla.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
+        kotityoKohdalla.setKesto(selectKesto.getValue().getObject());
+        kotityoKohdalla.setVanhenemisaika(selectVanhenemisaika.getValue().getObject());
     }
 
 
@@ -228,7 +257,6 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
      * @param oletusTiimi mihin siivoustiimiin muutoksia tehdään
      * @return null jos painetaan Cancel, muuten täytetty tietue
      */
-
     public static Kotityo kysyKotityo(Stage modalityStage, Kotityo oletus, Siivoustiimi oletusTiimi) {
         return ModalController.<Kotityo, MuokkaaKotityoGUIController>showModal(
                 MuokkaaKotityoGUIController.class.getResource("/fxml/MuokkaaKotityo.fxml"),
