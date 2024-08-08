@@ -11,7 +11,7 @@ import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import fxAloitusnakyma.AloitusnakymaGUIController;
-import fxLisaaKotityo.LisaaKotityoGUIController;
+import fxMuokkaaKotityo.MuokkaaKotityoGUIController;
 import fxlisaaSuoritus.lisaaSuoritusGUIController;
 import fxmuokkaaJasen.MuokkaaJasenGUIController;
 import javafx.application.Platform;
@@ -164,8 +164,8 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML
-    void menuKlikkaaMuokkaaKotityo(ActionEvent event) {
-        Dialogs.showMessageDialog("Vielä ei muokata kotityota");
+    void menuKlikkaaMuokkaaKotityo(ActionEvent event) throws SailoException {
+        muokkaaKotityo();
     }
 
     @FXML
@@ -388,8 +388,21 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (muokattava == null) { return; }
 
         siivoustiimi.paivitaJasen(muokattava);
-
         hae();
+    }
+
+    /**
+     * Muokkaa kotityon tietoja
+     */
+    private void muokkaaKotityo() throws SailoException {
+        Kotityo muokattava = listaTekematta.getSelectedObject();
+        if (muokattava == null) {
+            muokattava = listaTehty.getSelectedObject();
+        }
+        muokattava = MuokkaaKotityoGUIController.kysyKotityo(null, muokattava, siivoustiimi);
+        if (muokattava == null) { return; }
+
+        siivoustiimi.paivitaKotityo(muokattava);
 
     }
 
@@ -399,7 +412,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     private void uusiKotityo() throws SailoException {
 
         Kotityo kottyo = new Kotityo();
-        kottyo = LisaaKotityoGUIController.kysyKotityo(null, kottyo, siivoustiimi);
+        kottyo = MuokkaaKotityoGUIController.kysyKotityo(null, kottyo, siivoustiimi);
         if (kottyo == null) return;
         siivoustiimi.lisaa(kottyo);
 

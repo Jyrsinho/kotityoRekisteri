@@ -74,11 +74,20 @@ public class Siivoustiimi {
 
     /**
      * Kaskee jasenet luokan paivittaa jasenelle uudet arvot.
-     * @param muokattava
-     * @throws SailoException
+     * @param muokattava Jasen, jota muokataan
+     * @throws SailoException jos jotain menee pieleen
      */
     public void paivitaJasen(Jasen muokattava) throws SailoException {
         jasenet.paivita(muokattava);
+    }
+
+    /**
+     * Kaskee Kotityot luokan paivittaa kotityolle uudet arvot
+     * @param muokattava, Kotityo, jota muokataan
+     * @throws SailoException jos jotain menee pieleen.
+     */
+    public void paivitaKotityo(Kotityo muokattava) throws SailoException {
+        kotityot.paivita(muokattava);
     }
 
 
@@ -126,6 +135,7 @@ public class Siivoustiimi {
     }
 
 
+    // TODO Tämä saadaan varmasti yhdistettyä yleisempään Kotityon paivittamismetodiin
     /**
      * Paivittaa annetun kotityon viimeisimmaksi suoritukseksi tietokannasta loydetun
      * suorituksen, joka on kronologisesti uusin.

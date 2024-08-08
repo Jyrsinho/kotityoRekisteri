@@ -59,6 +59,21 @@ public class Kotityot {
         }
     }
 
+    /**
+     * Paivittaa annetulle kotityolle uudet arvot
+     * @param muokattava
+     * @throws SailoException
+     */
+    public void paivita(Kotityo muokattava) throws SailoException {
+        try (Connection con = kanta.annaKantayhteys();
+            PreparedStatement sql = muokattava.annaPaivitysLauseke(con) )
+        {
+            sql.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * Paivittaa kotityo taulukon arvoja

@@ -277,7 +277,7 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
 
 
     /**
-     * Antaa kotityon paivityslausekkeen
+     * Antaa kotityon paivityslausekkeen tapauksissa, joissa kotityolle on asetettu uusi viimeisin suoritus
       * @param con tietokantayhteys
      * @return kotityon paivityslauseke
      * @throws SQLException jos lausekkeen luonnissa on ongelmia
@@ -290,9 +290,36 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
         sql.setInt(2, paivitettavanKotityonID);
 
         return sql;
-
     }
 
+
+    public PreparedStatement annaPaivitysLauseke(Connection con) throws SQLException {
+        PreparedStatement sql = con.prepareStatement(
+                "UPDATE Kotityot " +
+                        "SET kotityoNimi = ?," +
+                        "vanhenemisaika = ?," +
+                        "kesto = ?," +
+                        "viimeisinSuoritus = ?," +
+                        "vastuuHenkilonId = ?"+
+                "WHERE kotityoID = ?"
+        );
+        sql.setString(1, this.kotityoNimi);
+        sql.setInt(2, this.vanhenemisaika);
+        sql.setInt(3, this.kesto);
+        sql.setString(4, String.valueOf(this.viimeisinSuoritus));
+        sql.setInt(5, this.vastuuhenkilonID);
+        sql.setInt(6, this.kotityoId);
+        return sql;
+    }
+
+    /*
+      private int kotityoId;
+    private String kotityoNimi;
+    private int vanhenemisaika;
+    private int kesto;
+    private LocalDate viimeisinSuoritus = LocalDate.now();
+    private int vastuuhenkilonID;
+     */
 
     /**
      * Antaa kotityon poistolausekkeen

@@ -1,4 +1,4 @@
-package fxLisaaKotityo;
+package fxMuokkaaKotityo;
 import Siivoustiimi.Kotityo;
 import Siivoustiimi.Siivoustiimi;
 import fi.jyu.mit.fxgui.ComboBoxChooser;
@@ -21,7 +21,7 @@ import java.util.*;
  * @author jyrihuhtala
  * @version 28.1.2024
  */
-public class LisaaKotityoGUIController implements ModalControllerInterface<Kotityo>, Initializable {
+public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kotityo>, Initializable {
 
 
     public TextField editNimi;
@@ -230,8 +230,8 @@ public class LisaaKotityoGUIController implements ModalControllerInterface<Kotit
      */
 
     public static Kotityo kysyKotityo(Stage modalityStage, Kotityo oletus, Siivoustiimi oletusTiimi) {
-        return ModalController.<Kotityo, LisaaKotityoGUIController>showModal(
-                LisaaKotityoGUIController.class.getResource("/fxml/LisaaKotityo.fxml"),
+        return ModalController.<Kotityo, MuokkaaKotityoGUIController>showModal(
+                MuokkaaKotityoGUIController.class.getResource("/fxml/LisaaKotityo.fxml"),
                 "Uusi Kotityö",
                 modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
         );
