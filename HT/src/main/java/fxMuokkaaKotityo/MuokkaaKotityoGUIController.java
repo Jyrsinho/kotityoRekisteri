@@ -231,8 +231,8 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
     public static Kotityo kysyKotityo(Stage modalityStage, Kotityo oletus, Siivoustiimi oletusTiimi) {
         return ModalController.<Kotityo, MuokkaaKotityoGUIController>showModal(
-                MuokkaaKotityoGUIController.class.getResource("/fxml/LisaaKotityo.fxml"),
-                "Uusi Kotityö",
+                MuokkaaKotityoGUIController.class.getResource("/fxml/MuokkaaKotityo.fxml"),
+                oletus.getKotityoNimi(),
                 modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
         );
     }

@@ -26,7 +26,7 @@
 
     <!-- Top Section -->
     <top>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lisää Kotityö" BorderPane.alignment="CENTER">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kotityö" BorderPane.alignment="CENTER">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
