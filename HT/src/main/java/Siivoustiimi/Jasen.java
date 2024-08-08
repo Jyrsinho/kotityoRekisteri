@@ -197,15 +197,24 @@ public class Jasen implements Cloneable {
      */
     public PreparedStatement annaPaivitysLauseke(Connection con) throws SQLException {
         PreparedStatement sql = con.prepareStatement(
-                "UPDATE Jasenet SET sukunimi = ?, etunimi = ?, katuosoite = ?, postinumero = ?," +
-                        "kaupunki= ?, puhelinNumero =?, ika=? WHERE id = ?");
+                "UPDATE Jasenet " +
+                        "SET sukunimi = ?," +
+                        " etunimi = ?," +
+                        " katuosoite = ?," +
+                        " postinumero = ?," +
+                        "kaupunki= ?," +
+                        "puhelinNumero =?," +
+                        " ika=? " +
+                        "WHERE id = ?");
+
         sql.setString(1, this.sukunimi);
         sql.setString(2, this.etunimi);
         sql.setString(3, this.katuosoite);
         sql.setString(4, this.postinumero);
         sql.setString(5, this.kaupunki);
-        sql.setInt(6, this.ika);
-        sql.setInt(7, this.id);
+        sql.setString(6, this.puhelinNumero);
+        sql.setInt(7, this.ika);
+        sql.setInt(8, this.id);
 
         return sql;
     }
