@@ -135,7 +135,6 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     @Override
     public void handleShown() {
         editNimi.requestFocus();
-        tehtyViimeksiKalenteri.setValue(LocalDate.now());
     }
 
 
