@@ -125,6 +125,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     public void setDefault(Kotityo oletus) {
         kotityoKohdalla = oletus;
         naytaKotityo(oletus);
+
     }
 
 
@@ -137,6 +138,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
         tehtyViimeksiKalenteri.setValue(LocalDate.now());
     }
 
+
     public void naytaKotityo(Kotityo kotityo) {
         if (kotityo == null) return;
 
@@ -145,8 +147,8 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
         selectVanhenemisaika.setSelectedIndex(etsioikeaindeksi(vanhenemisaikaVaihtoehdot, kotityoKohdalla.getVanhenemisaika()));
         selectKesto.setSelectedIndex(etsioikeaindeksi(kestovaihtoehdot, kotityoKohdalla.getKesto()));
-
     }
+
 
     /**
      * Asettaa comboboxeihin kotityon nykyisen arvon, jos sillä sellainen on
@@ -161,7 +163,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
                 break;
             }
         }
-        return 0;
+        return indeksi;
     }
 
 
