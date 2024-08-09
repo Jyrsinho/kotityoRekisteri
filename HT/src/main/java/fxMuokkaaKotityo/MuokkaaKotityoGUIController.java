@@ -143,27 +143,26 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
         editNimi.setText(kotityo.getKotityoNimi());
         tehtyViimeksiKalenteri.setValue(kotityo.getViimeisinSuoritus());
 
-    }
-  /*
-    public void naytaJasen(Jasen jasen) {
+        selectVanhenemisaika.setSelectedIndex(etsioikeaindeksi(vanhenemisaikaVaihtoehdot, kotityoKohdalla.getVanhenemisaika()));
+        selectKesto.setSelectedIndex(etsioikeaindeksi(kestovaihtoehdot, kotityoKohdalla.getKesto()));
 
-        if (jasen == null) return;
-
-        editEtunimi.setText(jasen.getEtunimi());
-        editSukunimi.setText(jasen.getSukunimi());
-        editKaupunki.setText(jasen.getKaupunki());
-        editPostinumero.setText(jasen.getPostinumero());
-        editOsoite.setText(jasen.getKatuosoite());
-        if (jasen.getIka()==0) {
-            editIka.setText("");
-        }
-        else {
-            editIka.setText(String.valueOf(jasen.getIka()));
-        }
-        editPuhelin.setText(jasen.getPuhelin());
     }
 
-   */
+    /**
+     * Asettaa comboboxeihin kotityon nykyisen arvon, jos sillä sellainen on
+     * @param vaihtoehdot taulukko, joka sisältää mahdolliset arvot
+     * @return vaihtoehdot taulukon indeksi, jossa kotityon nykyinen arvo on.
+     */
+    public int etsioikeaindeksi(int[] vaihtoehdot, int etsittavaArvo) {
+        int indeksi = 0;
+        for (int i = 0; i < vaihtoehdot.length; i++) {
+            if (vaihtoehdot[i] == etsittavaArvo) {
+                indeksi = i;
+                break;
+            }
+        }
+        return 0;
+    }
 
 
     /**
