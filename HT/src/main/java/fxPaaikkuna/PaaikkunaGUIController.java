@@ -185,8 +185,15 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     }
 
     @FXML
-    public void valitseKotityoTekemattaListasta(MouseEvent mouseEvent) {
-        kotityoKohdalla = listaTehty.getSelectedObject();
+    public void valitseKotityoTekemattaListasta(MouseEvent mouseEvent) throws SailoException {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 1) {
+                kotityoKohdalla = listaTehty.getSelectedObject();
+            }else if (mouseEvent.getClickCount() == 2) {
+                muokkaaKotityo();
+            }
+        }
+
     }
 
     @FXML
