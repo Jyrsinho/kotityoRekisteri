@@ -130,6 +130,7 @@ public class Jasenet  {
     }
 
 
+
     /**
      * Testiohjelma jasenistolle
      * @param args ei kaytossa

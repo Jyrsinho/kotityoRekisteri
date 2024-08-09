@@ -65,6 +65,10 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
         asetaKotityolleUudetArvot();
 
+        if (kotityoKohdalla != null && kotityoKohdalla.getVastuuhenkilonID() == 0) {
+            naytaVirhe("Kotityölle on valittava vastuuhenkilö!");
+        }
+
         if (kotityoKohdalla != null && kotityoKohdalla.getKotityoNimi().trim().equals("")) {
             naytaVirhe("Nimi ei saa olla tyhjä");
             return;
@@ -124,7 +128,11 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     @Override
     public void setDefault(Kotityo oletus) {
         kotityoKohdalla = oletus;
-        naytaKotityo(oletus);
+        try {
+            naytaKotityo(oletus);
+        } catch (SailoException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -138,7 +146,11 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     }
 
 
-    public void naytaKotityo(Kotityo kotityo) {
+    /**
+     * Asettaa Comboboxchoosereihin kotityon voimassa olevat arvot.
+     * @param kotityo
+     */
+    public void naytaKotityo(Kotityo kotityo) throws SailoException {
         if (kotityo == null) return;
 
         editNimi.setText(kotityo.getKotityoNimi());
@@ -146,6 +158,36 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
         selectVanhenemisaika.setSelectedIndex(etsioikeaindeksi(vanhenemisaikaVaihtoehdot, kotityoKohdalla.getVanhenemisaika()));
         selectKesto.setSelectedIndex(etsioikeaindeksi(kestovaihtoehdot, kotityoKohdalla.getKesto()));
+        selectVastuuhenkilo.setSelectedIndex(etsiOikeanVastuuHenkilonIndeksi(kotityoKohdalla.getVastuuhenkilonID()));
+    }
+
+    /**
+     * Apumetodi, joka etsii vastuuhenkilonvalintacomboboxin oikean indeksin, josta loytyy kotityon
+     * nykyinen vastuuhenkilo
+     * @return comboboxin indeksi, joka vastaa muokattavan kotityon nykyista vastuuhenkiloa
+     */
+    public int etsiOikeanVastuuHenkilonIndeksi(int vastuuHenkilonID) throws SailoException {
+
+        Collection<Jasen> kaikkiJasenet = siivoustiimi.etsiJasenet("",1);
+        List<Jasen> lajiteltavalista = new ArrayList<>();
+
+        for (Jasen jasen : kaikkiJasenet) {
+            lajiteltavalista.add(jasen);
+        }
+
+       Collections.sort(lajiteltavalista, new Comparator<Jasen>() {
+           @Override
+           public int compare(Jasen jasen1, Jasen jasen2) {
+               return Integer.compare(jasen1.getId(),  jasen2.getId());
+           }
+       });
+
+        for (int i = 0; i < lajiteltavalista.size(); i++) {
+            if (lajiteltavalista.get(i).getId() == vastuuHenkilonID){
+                return i;
+            }
+        }
+        return -1;
     }
 
 

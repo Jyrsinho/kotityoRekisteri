@@ -104,7 +104,6 @@ public class Siivoustiimi {
     }
 
 
-
     /**
      * Palauttaa tiettyä jäsenIdtä vastaavan jäsenen kaikki kotityöt.
      * @param jasen jjäsen, jonka kotitöitä haetaan.
@@ -113,6 +112,7 @@ public class Siivoustiimi {
     public ArrayList<Kotityo> annaKotityot(Jasen jasen) throws SailoException {
         return kotityot.annaKotityot(jasen.getId());
     }
+
 
     /**
      * Palauttaa siivoustiimin kaikki kotityot
