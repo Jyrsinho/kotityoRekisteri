@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
@@ -193,9 +194,16 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         kotityoKohdalla = listaTehty.getSelectedObject();
     }
 
+
     @FXML
-    void klikkaaValitseJasen(MouseEvent event) {
-        jasenKohdalla = listaJasenet.getSelectedObject();
+    void klikkaaValitseJasen(MouseEvent event) throws SailoException {
+        if (event.getButton().equals(MouseButton.PRIMARY)){
+            if (event.getClickCount() == 1) {
+                jasenKohdalla = listaJasenet.getSelectedObject();
+            } else if (event.getClickCount() == 2) {
+                muokkaaJasen();
+            }
+        }
     }
 
 
