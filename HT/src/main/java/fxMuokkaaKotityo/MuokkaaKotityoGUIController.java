@@ -64,24 +64,6 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     void klikkaaOK(MouseEvent event) {
 
         asetaKotityolleUudetArvot();
-
-
-        if (kotityoKohdalla != null && kotityoKohdalla.getVastuuhenkilonID() == 0) {
-            naytaVirhe("Kotityölle on valittava vastuuhenkilö!");
-            return;
-        }
-
-        if (kotityoKohdalla != null && kotityoKohdalla.getKotityoNimi().trim().equals("")) {
-            naytaVirhe("Nimi ei saa olla tyhjä");
-            return;
-        }
-        else if (kotityoKohdalla != null && kotityoKohdalla.getViimeisinSuoritus() == null) {
-            naytaVirhe("Kalenterista on valittava arvo");
-            return;
-        }
-
-
-
         ModalController.closeStage(labelVirhe);
 
     }
