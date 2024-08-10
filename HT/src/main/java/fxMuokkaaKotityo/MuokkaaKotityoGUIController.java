@@ -128,11 +128,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     @Override
     public void setDefault(Kotityo oletus) {
         kotityoKohdalla = oletus;
-        try {
-            naytaKotityo(oletus);
-        } catch (SailoException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 
@@ -175,12 +171,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
             lajiteltavalista.add(jasen);
         }
 
-       Collections.sort(lajiteltavalista, new Comparator<Jasen>() {
-           @Override
-           public int compare(Jasen jasen1, Jasen jasen2) {
-               return Integer.compare(jasen1.getId(),  jasen2.getId());
-           }
-       });
+       Collections.sort(lajiteltavalista, (jasen1, jasen2) -> Integer.compare(jasen1.getId(),  jasen2.getId()));
 
         for (int i = 0; i < lajiteltavalista.size(); i++) {
             if (lajiteltavalista.get(i).getId() == vastuuHenkilonID){
@@ -303,7 +294,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
         return ModalController.<Kotityo, MuokkaaKotityoGUIController>showModal(
                 MuokkaaKotityoGUIController.class.getResource("/fxml/MuokkaaKotityo.fxml"),
                 oletus.getKotityoNimi(),
-                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi)
+                modalityStage, oletus, ctrl->ctrl.setSiivoustiimi(oletusTiimi, oletus)
         );
     }
 
@@ -311,10 +302,11 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
      * Asetetaan ikkunassa käytettäväksi siivoustiimiksi parametrina tuotu siivoustiimi.
      * @param oletusTiimi siivoustiimi, jota käytetään.
      */
-    private void setSiivoustiimi(Siivoustiimi oletusTiimi) {
+    private void setSiivoustiimi(Siivoustiimi oletusTiimi, Kotityo oletus) {
         this.siivoustiimi = oletusTiimi;
         try {
             naytaTiimi(oletusTiimi);
+            naytaKotityo(oletus);
         } catch (SailoException e) {
             throw new RuntimeException(e);
         }
