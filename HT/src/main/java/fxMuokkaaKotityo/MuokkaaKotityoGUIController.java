@@ -211,47 +211,56 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
       */
     public boolean asetaKotityolleUudetArvot() {
 
-
         String nimi = editNimi.getText();
         if (nimi == null || nimi.trim().isEmpty()) {
-            Dialogs.setToolTipText(labelVirhe, "Kotityöllä on oltava nimi");
+            String virhe = "Kotityolla pitaa olla nimi!";
+            naytaVirhe(virhe);
             return false;
         }
         kotityoKohdalla.setKotityonNimi(nimi);
 
-        if (selectVanhenemisaika.getValue() != null) {
-            kotityoKohdalla.setVanhenemisaika(selectVanhenemisaika.getValue().getObject());
-        } else {
-            Dialogs.setToolTipText(labelVirhe, "Kotityolle on valittava vanhenemisaika");
+        if (selectVanhenemisaika.getValue() == null){
+            String virhe = "Kotityolla pitaa olla vanhenemisaika!";
+            naytaVirhe(virhe);
+            return false;
+        }
+        kotityoKohdalla.setVanhenemisaika(selectVanhenemisaika.getValue().getObject());
+
+        if (selectKesto.getValue() == null) {
+            String virhe = "Kotityölle on valittava kesto";
+            naytaVirhe(virhe);
+            return false;
+        }
+        kotityoKohdalla.setKesto(selectKesto.getValue().getObject());
+
+        if (selectVastuuhenkilo.getValue() == null) {
+            String virhe = "Kotityolle on valittava vastuuhenkilo";
+            naytaVirhe(virhe);
             return false;
         }
 
-        if (selectKesto.getValue() != null) {
-            kotityoKohdalla.setKesto(selectKesto.getValue().getObject());
-        } else {
-            Dialogs.setToolTipText(labelVirhe, "Kotityölle on valittava kesto");
-            return false;
-        }
-
-        if (selectVastuuhenkilo.getValue() != null) {
-            kotityoKohdalla.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
-        } else {
-            Dialogs.setToolTipText(labelVirhe, "Kotityölle on valittava vastuuhenkilo");
-            return false;
-        }
-
-        if (tehtyViimeksiKalenteri.getValue() != null) {
-            kotityoKohdalla.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
-        } else {
-            Dialogs.setToolTipText(labelVirhe, "Kalenteriin on valittava arvo");
+        if (tehtyViimeksiKalenteri.getValue() == null) {
+            String virhe = "Kotityolle on valittava viimeisin suoritusaika";
+            naytaVirhe(virhe);
             return false;
         }
 
         return true;
-
     }
 
-
+    /**
+     * Näyttää mahdollisen virheen
+     * @param virhe, joka näytetään
+     */
+    private void naytaVirhe(String virhe) {
+        if ( virhe == null || virhe.isEmpty() ) {
+            labelVirhe.setText("");
+            labelVirhe.getStyleClass().removeAll("virhe");
+            return;
+        }
+        labelVirhe.setText(virhe);
+        labelVirhe.getStyleClass().add("virhe");
+    }
 
 
 
