@@ -92,8 +92,10 @@ public class Kotityo implements Cloneable, DateFormatterProvider {
     }
 
 
-    public void setVanhenemisaika(int uusiVanhenemisAika) {
-       this.vanhenemisaika = uusiVanhenemisAika;
+    public String setVanhenemisaika(int uusiVanhenemisAika) {
+        if (uusiVanhenemisAika <= 0) return "Vanhenemisaika ei voi olla tyhjä";
+        this.vanhenemisaika = uusiVanhenemisAika;
+        return null;
     }
 
 

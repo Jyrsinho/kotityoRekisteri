@@ -65,8 +65,10 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
         asetaKotityolleUudetArvot();
 
+
         if (kotityoKohdalla != null && kotityoKohdalla.getVastuuhenkilonID() == 0) {
             naytaVirhe("Kotityölle on valittava vastuuhenkilö!");
+            return;
         }
 
         if (kotityoKohdalla != null && kotityoKohdalla.getKotityoNimi().trim().equals("")) {
@@ -78,6 +80,8 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
             return;
         }
 
+
+
         ModalController.closeStage(labelVirhe);
 
     }
@@ -88,6 +92,7 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
 
     private Siivoustiimi siivoustiimi;
     private TextField edits[];
+    private ComboBoxChooser editCombos[];
     private Kotityo kotityoKohdalla;
     private final int[] kestovaihtoehdot = {5,10,15,30,60};
     private final int[] vanhenemisaikaVaihtoehdot = {1,2,3,5,7,15,30,60,180};
@@ -165,13 +170,10 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
     public int etsiOikeanVastuuHenkilonIndeksi(int vastuuHenkilonID) throws SailoException {
 
         Collection<Jasen> kaikkiJasenet = siivoustiimi.etsiJasenet("",1);
-        List<Jasen> lajiteltavalista = new ArrayList<>();
 
-        for (Jasen jasen : kaikkiJasenet) {
-            lajiteltavalista.add(jasen);
-        }
+        List<Jasen> lajiteltavalista = new ArrayList<>(kaikkiJasenet);
 
-       Collections.sort(lajiteltavalista, (jasen1, jasen2) -> Integer.compare(jasen1.getId(),  jasen2.getId()));
+       lajiteltavalista.sort((jasen1, jasen2) -> Integer.compare(jasen1.getId(), jasen2.getId()));
 
         for (int i = 0; i < lajiteltavalista.size(); i++) {
             if (lajiteltavalista.get(i).getId() == vastuuHenkilonID){
@@ -272,14 +274,28 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
         }
 
 
+
     /**
      * Asetetaan kotityolle uudet arvot, jotka haetaan comboboxeista.
       */
     public void asetaKotityolleUudetArvot() {
-        kotityoKohdalla.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
-        kotityoKohdalla.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
+        try {
+            kotityoKohdalla.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
+        } catch (NullPointerException e) {
+            Dialogs.setToolTipText(labelVirhe,"Kalenteriin on valittava arvo");
+        }
+
+        try {
+            kotityoKohdalla.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
+        } catch (NullPointerException e) {
+            Dialogs.setToolTipText(labelVirhe, "Kotityölle on valittava vastuuhenkilo");
+        }
+
+        if (selectVastuuhenkilo.getValue().getObject() == null) return;
         kotityoKohdalla.setKesto(selectKesto.getValue().getObject());
+        if (selectKesto.getValue().getObject() == null) return;
         kotityoKohdalla.setVanhenemisaika(selectVanhenemisaika.getValue().getObject());
+        if (selectVanhenemisaika.getValue().getObject() == null) return;
     }
 
 

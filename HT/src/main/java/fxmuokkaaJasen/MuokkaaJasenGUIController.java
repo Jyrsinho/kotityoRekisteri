@@ -72,6 +72,7 @@ import java.util.ResourceBundle;
         ModalController.closeStage(labelVirhe);
     }
 
+
     @FXML void klikkaaCancel(MouseEvent event) {
         jasenKohdalla = null;
         ModalController.closeStage(labelVirhe);
