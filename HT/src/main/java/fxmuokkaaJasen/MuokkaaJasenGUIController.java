@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -49,19 +50,15 @@ import java.util.ResourceBundle;
 
 
     /**
-        * Avaa muokkaa kotityö ikkunan valitun kotityön kohdalta.
-        * @param event
-        */
-        @FXML void klikkaaMuokkaaKotityo(MouseEvent event) throws SailoException {
-
-            Kotityo muokattava = listaKotityo.getSelectedObject();
-            muokattava = MuokkaaKotityoGUIController.kysyKotityo(null, muokattava, siivoustiimi);
-            if (muokattava == null) { return; }
-
-            siivoustiimi.paivitaKotityo(muokattava);
-            // Dialogs.showMessageDialog("Vielä ei osata avata muokkaa kotityö ikkunaa");
-
-        }
+     * Avaa muokkaa kotityö ikkunan valitun kotityön kohdalta.
+     * @param event
+     */
+    @FXML void klikkaaMuokkaaKotityo(MouseEvent event) throws SailoException {
+        Kotityo muokattava = listaKotityo.getSelectedObject();
+        muokattava = MuokkaaKotityoGUIController.kysyKotityo(null, muokattava, siivoustiimi);
+        if (muokattava == null) { return; }
+        siivoustiimi.paivitaKotityo(muokattava);
+    }
 
 
     /**
@@ -82,12 +79,30 @@ import java.util.ResourceBundle;
     @FXML void klikkaaCancel(MouseEvent event) {
         jasenKohdalla = null;
         ModalController.closeStage(labelVirhe);
-
     }
+
+
+    @FXML void valitseKotityoListasta(MouseEvent event) throws SailoException {
+        Kotityo muokattava = listaKotityo.getSelectedObject();
+
+        if (event.getButton().equals(MouseButton.PRIMARY)){
+            if (event.getClickCount() == 1) {
+                muokattava = listaKotityo.getSelectedObject();
+            } else if (event.getClickCount() == 2) {
+                muokattava = listaKotityo.getSelectedObject();
+                muokattava = MuokkaaKotityoGUIController.kysyKotityo(null, muokattava, siivoustiimi);
+                siivoustiimi.paivitaKotityo(muokattava);
+            }
+
+        }
+    }
+
+
 
 
 //------------------------------------------------------
 
+    private Kotityo kotityoKohdalla;
     private Jasen jasenKohdalla;
     private TextField edits[];
     private Siivoustiimi siivoustiimi;
@@ -237,7 +252,6 @@ import java.util.ResourceBundle;
         this.siivoustiimi = oletusTiimi;
         naytaKotityot(jasenKohdalla);
     }
-
 
 }
 
