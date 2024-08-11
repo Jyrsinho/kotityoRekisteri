@@ -255,6 +255,10 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         });
     }
 
+    public void paivitaIkkuna() {
+
+    }
+
 
     /**
      * Alustaa siivoustiimin lukemalla sen valitun nimisestä tiedostosta
@@ -265,7 +269,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         try {
             siivoustiimi.lueTiedostosta(nimi);
-            hae();
+            paivita();
             return null;
         } catch (SailoException e) {
             String virhe = e.getMessage();
@@ -345,7 +349,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
     /**
      * Hakee kaikki siivosutiimin jasenoliot listaan
      */
-    protected void hae() throws SailoException {
+    protected void paivita() throws SailoException {
 
         listaJasenet.clear();
         listaTekematta.clear();
@@ -353,11 +357,14 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
 
         // Luodaan  Collection johon haetaan tietokannasta
         // kaikki jasentaulukon oliot.
-
         Collection<Jasen> kaikkiJasenet = siivoustiimi.etsiJasenet("", 1);
 
         for (Jasen jasen : kaikkiJasenet) {
             listaJasenet.add(jasen.getNimi(), jasen);
+        }
+
+        if (jasenKohdalla != null) {
+            haeJasenenKotityot(jasenKohdalla);
         }
     }
 
@@ -392,7 +399,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             uusi = MuokkaaJasenGUIController.kysyJasen(null, uusi, siivoustiimi);
             if (uusi == null) return;
             siivoustiimi.lisaa(uusi);
-            hae();
+            paivita();
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
 
@@ -410,7 +417,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (muokattava == null) { return; }
 
         siivoustiimi.paivitaJasen(muokattava);
-        hae();
+        paivita();
     }
 
     /**
@@ -425,6 +432,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
         if (muokattava == null) { return; }
 
         siivoustiimi.paivitaKotityo(muokattava);
+        paivita();
 
     }
 
@@ -466,7 +474,7 @@ public class PaaikkunaGUIController implements ModalControllerInterface<String>,
             return;
         siivoustiimi.poista(jasen);
         alusta();
-        hae();
+        paivita();
     }
 
     /**
