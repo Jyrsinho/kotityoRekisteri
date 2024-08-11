@@ -238,12 +238,14 @@ public class MuokkaaKotityoGUIController implements ModalControllerInterface<Kot
             naytaVirhe(virhe);
             return false;
         }
+        kotityoKohdalla.setVastuuhenkilonID(selectVastuuhenkilo.getValue().getObject().getId());
 
         if (tehtyViimeksiKalenteri.getValue() == null) {
             String virhe = "Kotityolle on valittava viimeisin suoritusaika";
             naytaVirhe(virhe);
             return false;
         }
+        kotityoKohdalla.setViimeisinSuoritus(tehtyViimeksiKalenteri.getValue());
 
         return true;
     }

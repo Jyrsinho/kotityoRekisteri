@@ -93,8 +93,8 @@ import java.util.ResourceBundle;
                 muokattava = MuokkaaKotityoGUIController.kysyKotityo(null, muokattava, siivoustiimi);
                 siivoustiimi.paivitaKotityo(muokattava);
             }
-
         }
+        naytaKotityot(jasenKohdalla);
     }
 
 
