@@ -8,6 +8,7 @@ import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
+import fxMuokkaaKotityo.MuokkaaKotityoGUIController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -51,9 +52,14 @@ import java.util.ResourceBundle;
         * Avaa muokkaa kotityö ikkunan valitun kotityön kohdalta.
         * @param event
         */
-        @FXML void klikkaaMuokkaaKotityo(MouseEvent event) {
+        @FXML void klikkaaMuokkaaKotityo(MouseEvent event) throws SailoException {
 
-            Dialogs.showMessageDialog("Vielä ei osata avata muokkaa kotityö ikkunaa");
+            Kotityo muokattava = listaKotityo.getSelectedObject();
+            muokattava = MuokkaaKotityoGUIController.kysyKotityo(null, muokattava, siivoustiimi);
+            if (muokattava == null) { return; }
+
+            siivoustiimi.paivitaKotityo(muokattava);
+            // Dialogs.showMessageDialog("Vielä ei osata avata muokkaa kotityö ikkunaa");
 
         }
 
@@ -62,7 +68,7 @@ import java.util.ResourceBundle;
      * tallentaa muokattavaksi valitun jäsenen tiedot tiedostoon.
      * @param event ookoon klikkaaminen
      */
-    @FXML void klikkaaOK(MouseEvent event) throws SailoException, FileNotFoundException {
+    @FXML void klikkaaOK(MouseEvent event) {
 
 
         if (jasenKohdalla != null && jasenKohdalla.getEtunimi().trim().equals("") || jasenKohdalla.getSukunimi().trim().equals("")) {
